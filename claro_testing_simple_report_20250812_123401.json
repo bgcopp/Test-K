@@ -1,0 +1,9 @@
+{
+  "start_time": "2025-08-12T12:34:01.164331",
+  "tests": {},
+  "critical_issues": [
+    "Error configurando entorno: table users has no column named username"
+  ],
+  "major_issues": [],
+  "minor_issues": []
+}

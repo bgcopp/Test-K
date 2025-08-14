@@ -1,0 +1,627 @@
+OperatorLogger inicializado correctamente
+Test log message
+OperatorLogger inicializado correctamente
+Test log message
+DataNormalizerService inicializado
+Registro CLARO normalizado: 573205487611 @ 2024-04-19 08:00:00+00:00 en celda 175462
+DataNormalizerService inicializado
+FileProcessorService inicializado
+Encoding auto-detectado: ascii (confianza: 1.00)
+Encoding auto-detectado: ascii (confianza: 1.00)
+CSV leído exitosamente: 1 filas, 5 columnas
+DataNormalizerService inicializado
+FileProcessorService inicializado
+Encoding auto-detectado: ascii (confianza: 1.00)
+Encoding auto-detectado: ascii (confianza: 1.00)
+CSV leído exitosamente: 962 filas, 5 columnas
+DataNormalizerService inicializado
+FileProcessorService inicializado
+Encoding auto-detectado: ascii (confianza: 1.00)
+CSV leído exitosamente: 2 filas, 5 columnas
+DataNormalizerService inicializado
+Registro CLARO normalizado: 573205487611 @ 2024-04-19 08:00:00+00:00 en celda 175462
+Registro CLARO normalizado: 573133934909 @ 2024-04-19 08:00:01+00:00 en celda 175463
+OperatorLogger inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo DATOS_POR_CELDA CLARO.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo LLAMADAS_SALIENTES_POR_CELDA CLARO.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+OperatorLogger inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo DATOS_POR_CELDA CLARO_FIXED.csv
+Registro de archivo creado: 06b27b7d-db3d-4803-ba8f-484a1512aa84
+Iniciando procesamiento CLARO datos por celda: DATOS_POR_CELDA CLARO_FIXED.csv
+Encoding auto-detectado: ascii (confianza: 1.00)
+CSV leído exitosamente: 1 filas, 1 columnas
+Archivo leído: 1 registros, 1 columnas
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv
+Registro de archivo creado: 2ceb59b6-bf9b-4441-a526-49b8f9dcf1b1
+Iniciando procesamiento CLARO llamadas entrantes: LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv
+Encoding auto-detectado: ascii (confianza: 1.00)
+CSV leído exitosamente: 973 filas, 7 columnas
+Archivo leído: 973 registros, 7 columnas
+Datos de llamadas limpiados: 4 filas válidas (solo CDR_ENTRANTE)
+Se descartaron 969 registros durante la limpieza (solo CDR_ENTRANTE procesados)
+Procesando chunk 1: registros 1 a 4
+Registro CLARO llamada entrante normalizado: 573213639847 -> 573132825038 @ 2021-05-20 10:02:26+00:00
+Registro CLARO llamada entrante normalizado: 573205148564 -> 573206001800 @ 2021-05-20 10:02:43+00:00
+Registro CLARO llamada entrante normalizado: 573203024898 -> 573208990550 @ 2021-05-20 10:10:56+00:00
+Registro CLARO llamada entrante normalizado: 573234183277 -> 573206001801 @ 2021-05-20 10:12:33+00:00
+Chunk 1 procesado: 4 exitosos, 0 fallidos
+Procesamiento CLARO llamadas entrantes completado: 4 exitosos, 0 fallidos (100.0% éxito)
+Archivo procesado exitosamente: LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo LLAMADAS_SALIENTES_POR_CELDA CLARO.csv
+Registro de archivo creado: d5faf95d-be8c-4829-a421-ecb0966ff607
+Iniciando procesamiento CLARO llamadas salientes: LLAMADAS_SALIENTES_POR_CELDA CLARO.csv
+Encoding auto-detectado: ascii (confianza: 1.00)
+CSV leído exitosamente: 961 filas, 7 columnas
+Archivo leído: 961 registros, 7 columnas
+Datos de llamadas limpiados: 6 filas válidas (solo CDR_SALIENTE)
+Se descartaron 955 registros durante la limpieza (solo CDR_SALIENTE procesados)
+Procesando chunk 1: registros 1 a 6
+Registro CLARO llamada saliente normalizado: 573143563084 -> 573136493179 @ 2021-05-20 10:00:39+00:00
+Registro CLARO llamada saliente normalizado: 573125043460 -> 573142223343 @ 2021-05-20 10:02:07+00:00
+Registro CLARO llamada saliente normalizado: 573112126788 -> 573128728333 @ 2021-05-20 10:04:06+00:00
+Registro CLARO llamada saliente normalizado: 573208990550 -> 573203024898 @ 2021-05-20 10:06:08+00:00
+Registro CLARO llamada saliente normalizado: 573203023700 -> 573124196982 @ 2021-05-20 10:06:59+00:00
+Registro CLARO llamada saliente normalizado: 573125043460 -> 573105635797 @ 2021-05-20 10:08:33+00:00
+Chunk 1 procesado: 6 exitosos, 0 fallidos
+Procesamiento CLARO llamadas salientes completado: 6 exitosos, 0 fallidos (100.0% éxito)
+Archivo procesado exitosamente: LLAMADAS_SALIENTES_POR_CELDA CLARO.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+OperatorLogger inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo DATOS_POR_CELDA CLARO.xlsx
+Registro de archivo creado: ebd56965-96fc-4e20-8653-09262d9c0c31
+Iniciando procesamiento CLARO datos por celda: DATOS_POR_CELDA CLARO.xlsx
+Excel leído exitosamente: 128 filas, 5 columnas
+Archivo leído: 128 registros, 5 columnas
+Datos limpiados: 128 filas válidas
+Procesando chunk 1: registros 1 a 128
+Registro CLARO normalizado: 573205487611 @ 2024-04-19 08:00:00+00:00 en celda 175462
+Error procesando registro 1 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573205487611 @ 2024-04-19 08:00:00+00:00 en celda 175462
+Error procesando registro 2 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573205487611 @ 2024-04-19 08:00:00+00:00 en celda 175462
+Error procesando registro 3 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573133934909 @ 2024-04-19 08:00:01+00:00 en celda 175462
+Error procesando registro 4 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573183051466 @ 2024-04-19 08:00:02+00:00 en celda 175462
+Error procesando registro 5 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573004705744 @ 2024-04-19 08:00:02+00:00 en celda 175462
+Error procesando registro 6 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573053961794 @ 2024-04-19 08:00:02+00:00 en celda 175462
+Error procesando registro 7 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573125349915 @ 2024-04-19 08:00:02+00:00 en celda 175462
+Error procesando registro 8 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573125349915 @ 2024-04-19 08:00:02+00:00 en celda 175462
+Error procesando registro 9 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573142512369 @ 2024-04-19 08:00:03+00:00 en celda 175462
+Error procesando registro 10 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573134168105 @ 2024-04-19 08:00:04+00:00 en celda 175462
+Error procesando registro 11 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573124713592 @ 2024-04-19 08:00:05+00:00 en celda 175462
+Error procesando registro 12 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573124713592 @ 2024-04-19 08:00:05+00:00 en celda 175462
+Error procesando registro 13 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573124713592 @ 2024-04-19 08:00:05+00:00 en celda 175462
+Error procesando registro 14 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573124713592 @ 2024-04-19 08:00:05+00:00 en celda 175462
+Error procesando registro 15 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573124713592 @ 2024-04-19 08:00:05+00:00 en celda 175462
+Error procesando registro 16 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573124713592 @ 2024-04-19 08:00:05+00:00 en celda 175462
+Error procesando registro 17 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573203337022 @ 2024-04-19 08:00:05+00:00 en celda 175462
+Error procesando registro 18 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573203337022 @ 2024-04-19 08:00:05+00:00 en celda 175462
+Error procesando registro 19 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573227357206 @ 2024-04-19 08:00:07+00:00 en celda 175462
+Error procesando registro 20 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573214283181 @ 2024-04-19 08:00:07+00:00 en celda 175462
+Error procesando registro 21 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573104865333 @ 2024-04-19 08:00:11+00:00 en celda 175462
+Error procesando registro 22 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573152909585 @ 2024-04-19 08:00:14+00:00 en celda 175462
+Error procesando registro 23 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573152909585 @ 2024-04-19 08:00:14+00:00 en celda 175462
+Error procesando registro 24 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573152909585 @ 2024-04-19 08:00:14+00:00 en celda 175462
+Error procesando registro 25 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573152909585 @ 2024-04-19 08:00:14+00:00 en celda 175462
+Error procesando registro 26 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573152909585 @ 2024-04-19 08:00:14+00:00 en celda 175462
+Error procesando registro 27 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573152909585 @ 2024-04-19 08:00:14+00:00 en celda 175462
+Error procesando registro 28 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573152909585 @ 2024-04-19 08:00:14+00:00 en celda 175462
+Error procesando registro 29 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573209843004 @ 2024-04-19 08:00:14+00:00 en celda 175462
+Error procesando registro 30 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573102880827 @ 2024-04-19 08:00:14+00:00 en celda 175462
+Error procesando registro 31 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573102880827 @ 2024-04-19 08:00:14+00:00 en celda 175462
+Error procesando registro 32 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573124762839 @ 2024-04-19 08:00:15+00:00 en celda 175462
+Error procesando registro 33 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573213263415 @ 2024-04-19 08:00:16+00:00 en celda 175462
+Error procesando registro 34 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573208942422 @ 2024-04-19 08:00:16+00:00 en celda 175462
+Error procesando registro 35 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573107856162 @ 2024-04-19 08:00:17+00:00 en celda 175462
+Error procesando registro 36 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573107856162 @ 2024-04-19 08:00:17+00:00 en celda 175462
+Error procesando registro 37 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573107856162 @ 2024-04-19 08:00:17+00:00 en celda 175462
+Error procesando registro 38 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573104144572 @ 2024-04-19 08:00:17+00:00 en celda 175462
+Error procesando registro 39 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573104144572 @ 2024-04-19 08:00:17+00:00 en celda 175462
+Error procesando registro 40 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573104144572 @ 2024-04-19 08:00:17+00:00 en celda 175462
+Error procesando registro 41 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573106964655 @ 2024-04-19 08:00:18+00:00 en celda 175462
+Error procesando registro 42 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573106964655 @ 2024-04-19 08:00:18+00:00 en celda 175462
+Error procesando registro 43 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573204042236 @ 2024-04-19 08:00:18+00:00 en celda 175462
+Error procesando registro 44 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573204042236 @ 2024-04-19 08:00:18+00:00 en celda 175462
+Error procesando registro 45 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573204042236 @ 2024-04-19 08:00:18+00:00 en celda 175462
+Error procesando registro 46 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573204042236 @ 2024-04-19 08:00:18+00:00 en celda 175462
+Error procesando registro 47 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573204042236 @ 2024-04-19 08:00:18+00:00 en celda 175462
+Error procesando registro 48 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573124002559 @ 2024-04-19 08:00:22+00:00 en celda 175462
+Error procesando registro 49 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573112845736 @ 2024-04-19 08:00:23+00:00 en celda 175462
+Error procesando registro 50 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573112845736 @ 2024-04-19 08:00:23+00:00 en celda 175462
+Error procesando registro 51 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573193932560 @ 2024-04-19 08:00:26+00:00 en celda 175462
+Error procesando registro 52 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573138139076 @ 2024-04-19 08:00:30+00:00 en celda 175462
+Error procesando registro 53 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573138139076 @ 2024-04-19 08:00:30+00:00 en celda 175462
+Error procesando registro 54 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573138139076 @ 2024-04-19 08:00:30+00:00 en celda 175462
+Error procesando registro 55 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573232425798 @ 2024-04-19 08:00:32+00:00 en celda 175462
+Error procesando registro 56 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573108176018 @ 2024-04-19 08:00:32+00:00 en celda 175462
+Error procesando registro 57 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573108176018 @ 2024-04-19 08:00:32+00:00 en celda 175462
+Error procesando registro 58 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573116650698 @ 2024-04-19 08:00:32+00:00 en celda 175462
+Error procesando registro 59 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573132511371 @ 2024-04-19 08:00:36+00:00 en celda 175462
+Error procesando registro 60 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573118532380 @ 2024-04-19 08:00:37+00:00 en celda 175462
+Error procesando registro 61 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573014675505 @ 2024-04-19 08:00:37+00:00 en celda 175462
+Error procesando registro 62 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573123551888 @ 2024-04-19 08:00:38+00:00 en celda 175462
+Error procesando registro 63 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573204827023 @ 2024-04-19 08:00:40+00:00 en celda 175462
+Error procesando registro 64 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573143314501 @ 2024-04-19 08:00:40+00:00 en celda 175462
+Error procesando registro 65 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573143314501 @ 2024-04-19 08:00:40+00:00 en celda 175462
+Error procesando registro 66 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573143314501 @ 2024-04-19 08:00:40+00:00 en celda 175462
+Error procesando registro 67 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573143314501 @ 2024-04-19 08:00:40+00:00 en celda 175462
+Error procesando registro 68 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573143314501 @ 2024-04-19 08:00:40+00:00 en celda 175462
+Error procesando registro 69 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573143314501 @ 2024-04-19 08:00:40+00:00 en celda 175462
+Error procesando registro 70 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573203818686 @ 2024-04-19 08:00:41+00:00 en celda 175462
+Error procesando registro 71 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573138904245 @ 2024-04-19 08:00:41+00:00 en celda 175462
+Error procesando registro 72 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573107759064 @ 2024-04-19 08:00:43+00:00 en celda 175462
+Error procesando registro 73 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573123637243 @ 2024-04-19 08:00:45+00:00 en celda 175462
+Error procesando registro 74 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573123637243 @ 2024-04-19 08:00:45+00:00 en celda 175462
+Error procesando registro 75 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573123637243 @ 2024-04-19 08:00:45+00:00 en celda 175462
+Error procesando registro 76 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573123637243 @ 2024-04-19 08:00:45+00:00 en celda 175462
+Error procesando registro 77 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573123637243 @ 2024-04-19 08:00:45+00:00 en celda 175462
+Error procesando registro 78 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573144866816 @ 2024-04-19 08:00:46+00:00 en celda 175462
+Error procesando registro 79 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573505181937 @ 2024-04-19 08:00:47+00:00 en celda 175462
+Error procesando registro 80 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573505181937 @ 2024-04-19 08:00:47+00:00 en celda 175462
+Error procesando registro 81 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573222745267 @ 2024-04-19 08:00:47+00:00 en celda 175462
+Error procesando registro 82 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573222745267 @ 2024-04-19 08:00:47+00:00 en celda 175462
+Error procesando registro 83 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573222745267 @ 2024-04-19 08:00:47+00:00 en celda 175462
+Error procesando registro 84 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573103068548 @ 2024-04-19 08:00:48+00:00 en celda 175462
+Error procesando registro 85 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573103068548 @ 2024-04-19 08:00:48+00:00 en celda 175462
+Error procesando registro 86 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573162670028 @ 2024-04-19 08:00:49+00:00 en celda 175462
+Error procesando registro 87 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573053961794 @ 2024-04-19 08:00:50+00:00 en celda 175462
+Error procesando registro 88 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573145101850 @ 2024-04-19 08:00:51+00:00 en celda 175462
+Error procesando registro 89 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573145101850 @ 2024-04-19 08:00:51+00:00 en celda 175462
+Error procesando registro 90 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573145101850 @ 2024-04-19 08:00:51+00:00 en celda 175462
+Error procesando registro 91 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573145101850 @ 2024-04-19 08:00:51+00:00 en celda 175462
+Error procesando registro 92 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573145101850 @ 2024-04-19 08:00:51+00:00 en celda 175462
+Error procesando registro 93 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573145101850 @ 2024-04-19 08:00:51+00:00 en celda 175462
+Error procesando registro 94 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573145101850 @ 2024-04-19 08:00:51+00:00 en celda 175462
+Error procesando registro 95 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573145101850 @ 2024-04-19 08:00:51+00:00 en celda 175462
+Error procesando registro 96 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573145101850 @ 2024-04-19 08:00:51+00:00 en celda 175462
+Error procesando registro 97 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573227268274 @ 2024-04-19 08:00:52+00:00 en celda 175462
+Error procesando registro 98 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573227268274 @ 2024-04-19 08:00:52+00:00 en celda 175462
+Error procesando registro 99 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573105579646 @ 2024-04-19 08:00:53+00:00 en celda 175462
+Error procesando registro 100 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573202453203 @ 2024-04-19 08:00:54+00:00 en celda 175462
+Error procesando registro 101 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573053961794 @ 2024-04-19 08:00:54+00:00 en celda 175462
+Error procesando registro 102 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573053961794 @ 2024-04-19 08:00:54+00:00 en celda 175462
+Error procesando registro 103 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573118787116 @ 2024-04-19 08:00:54+00:00 en celda 175462
+Error procesando registro 104 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573135074288 @ 2024-04-19 08:00:55+00:00 en celda 175462
+Error procesando registro 105 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573135074288 @ 2024-04-19 08:00:55+00:00 en celda 175462
+Error procesando registro 106 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573135074288 @ 2024-04-19 08:00:55+00:00 en celda 175462
+Error procesando registro 107 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573135074288 @ 2024-04-19 08:00:55+00:00 en celda 175462
+Error procesando registro 108 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573138178964 @ 2024-04-19 08:00:55+00:00 en celda 175462
+Error procesando registro 109 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573232294762 @ 2024-04-19 08:00:56+00:00 en celda 175462
+Error procesando registro 110 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573232294762 @ 2024-04-19 08:00:56+00:00 en celda 175462
+Error procesando registro 111 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573232294762 @ 2024-04-19 08:00:56+00:00 en celda 175462
+Error procesando registro 112 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573163355038 @ 2024-04-19 08:00:56+00:00 en celda 175462
+Error procesando registro 113 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573222566214 @ 2024-04-19 08:00:57+00:00 en celda 175462
+Error procesando registro 114 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 579103777822 @ 2024-04-19 08:00:59+00:00 en celda 175462
+Error procesando registro 115 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573108140036 @ 2024-04-19 08:01:00+00:00 en celda 175462
+Error procesando registro 116 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573108140036 @ 2024-04-19 08:01:00+00:00 en celda 175462
+Error procesando registro 117 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573142771382 @ 2024-04-19 08:01:02+00:00 en celda 175462
+Error procesando registro 118 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573102165926 @ 2024-04-19 08:01:03+00:00 en celda 175462
+Error procesando registro 119 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573102165926 @ 2024-04-19 08:01:03+00:00 en celda 175462
+Error procesando registro 120 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573114917582 @ 2024-04-19 08:01:04+00:00 en celda 175462
+Error procesando registro 121 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573114917582 @ 2024-04-19 08:01:04+00:00 en celda 175462
+Error procesando registro 122 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573114917582 @ 2024-04-19 08:01:04+00:00 en celda 175462
+Error procesando registro 123 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573114917582 @ 2024-04-19 08:01:04+00:00 en celda 175462
+Error procesando registro 124 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573114917582 @ 2024-04-19 08:01:04+00:00 en celda 175462
+Error procesando registro 125 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573112739423 @ 2024-04-19 08:01:06+00:00 en celda 175462
+Error procesando registro 126 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573112739423 @ 2024-04-19 08:01:06+00:00 en celda 175462
+Error procesando registro 127 en chunk 1: FOREIGN KEY constraint failed
+Registro CLARO normalizado: 573112739423 @ 2024-04-19 08:01:06+00:00 en celda 175462
+Error procesando registro 128 en chunk 1: FOREIGN KEY constraint failed
+Chunk 1 procesado: 0 exitosos, 128 fallidos
+Demasiados errores (128), abortando procesamiento
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo LLAMADAS_SALIENTES_POR_CELDA CLARO.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo LLAMADAS_ENTRANTES_POR_CELDA CLARO.xlsx
+Registro de archivo creado: 1f7cdf27-eb00-41da-8e44-ae3320a5299d
+Iniciando procesamiento CLARO llamadas entrantes: LLAMADAS_ENTRANTES_POR_CELDA CLARO.xlsx
+Excel leído exitosamente: 4 filas, 7 columnas
+Archivo leído: 4 registros, 7 columnas
+Datos de llamadas limpiados: 4 filas válidas (solo CDR_ENTRANTE)
+Procesando chunk 1: registros 1 a 4
+Registro CLARO llamada entrante normalizado: 573213639847 -> 573132825038 @ 2021-05-20 10:02:26+00:00
+Registro CLARO llamada entrante normalizado: 573205148564 -> 573206001800 @ 2021-05-20 10:02:43+00:00
+Registro CLARO llamada entrante normalizado: 573203024898 -> 573208990550 @ 2021-05-20 10:10:56+00:00
+Registro CLARO llamada entrante normalizado: 573234183277 -> 573206001801 @ 2021-05-20 10:12:33+00:00
+Chunk 1 procesado: 4 exitosos, 0 fallidos
+Procesamiento CLARO llamadas entrantes completado: 4 exitosos, 0 fallidos (100.0% éxito)
+Archivo procesado exitosamente: LLAMADAS_ENTRANTES_POR_CELDA CLARO.xlsx
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo LLAMADAS_SALIENTES_POR_CELDA CLARO.xlsx
+Registro de archivo creado: 69ae3241-ba3e-4bcb-8123-f48b8813bb14
+Iniciando procesamiento CLARO llamadas salientes: LLAMADAS_SALIENTES_POR_CELDA CLARO.xlsx
+Excel leído exitosamente: 6 filas, 7 columnas
+Archivo leído: 6 registros, 7 columnas
+Datos de llamadas limpiados: 6 filas válidas (solo CDR_SALIENTE)
+Procesando chunk 1: registros 1 a 6
+Registro CLARO llamada saliente normalizado: 573143563084 -> 573136493179 @ 2021-05-20 10:00:39+00:00
+Registro CLARO llamada saliente normalizado: 573125043460 -> 573142223343 @ 2021-05-20 10:02:07+00:00
+Registro CLARO llamada saliente normalizado: 573112126788 -> 573128728333 @ 2021-05-20 10:04:06+00:00
+Registro CLARO llamada saliente normalizado: 573208990550 -> 573203024898 @ 2021-05-20 10:06:08+00:00
+Registro CLARO llamada saliente normalizado: 573203023700 -> 573124196982 @ 2021-05-20 10:06:59+00:00
+Registro CLARO llamada saliente normalizado: 573125043460 -> 573105635797 @ 2021-05-20 10:08:33+00:00
+Chunk 1 procesado: 6 exitosos, 0 fallidos
+Procesamiento CLARO llamadas salientes completado: 6 exitosos, 0 fallidos (100.0% éxito)
+Archivo procesado exitosamente: LLAMADAS_SALIENTES_POR_CELDA CLARO.xlsx
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+OperatorLogger inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_claro_datos_celda.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_claro_datos_celda.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_claro_datos_celda.csv
+Registro de archivo creado: 337f7688-2db6-40ab-b2f1-9598c8072c60
+Iniciando procesamiento CLARO datos por celda: test_claro_datos_celda.csv
+Encoding auto-detectado: ascii (confianza: 1.00)
+CSV leído exitosamente: 5 filas, 1 columnas
+Archivo leído: 5 registros, 1 columnas
+ERROR RESPONSE STRUCTURE: {'success': False, 'error': 'Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal', 'error_code': 'PROCESSING_FAILED', 'sheetId': '337f7688-2db6-40ab-b2f1-9598c8072c60', 'processedRecords': 0, 'warnings': [], 'errors': ['Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal']}
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+OperatorDataService inicializado correctamente
+OperatorLogger inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new has 17 columns but 19 values were supplied
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_claro_datos_celda_duplicate.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_claro_datos_cross_mission.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_claro_datos_cross_mission.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_claro_datos_file_1.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_claro_datos_file_2.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_error_message.csv
+OperatorLogger inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_duplicate_mision_a.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_duplicate_mision_a_repeat.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_duplicate_mision_b.csv
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_different_file_mision_a.csv
+OperatorLogger inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_duplicate_mision_a.csv
+Registro de archivo creado: 3e59d38e-42b8-46c6-b369-730bda393ad3
+Iniciando procesamiento CLARO datos por celda: test_duplicate_mision_a.csv
+Encoding auto-detectado: ascii (confianza: 1.00)
+CSV leído exitosamente: 2 filas, 1 columnas
+Archivo leído: 2 registros, 1 columnas
+ERROR RESPONSE STRUCTURE: {'success': False, 'error': 'Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal', 'error_code': 'PROCESSING_FAILED', 'sheetId': '3e59d38e-42b8-46c6-b369-730bda393ad3', 'processedRecords': 0, 'warnings': [], 'errors': ['Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal']}
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_duplicate_mision_a_repeat.csv
+Archivo duplicado detectado en misión m1: checksum d3275bb0...
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: table operator_data_sheets_new already exists
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_duplicate_mision_b.csv
+Error creando registro de archivo: UNIQUE constraint failed: operator_data_sheets.file_checksum
+OperatorLogger inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Aplicando migración: cambiar validación duplicados de global a por misión
+Error verificando migración de schema: error in trigger trg_update_processing_stats_cellular: no such table: main.operator_data_sheets
+OperatorDataService inicializado correctamente
+OperatorLogger inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_duplicate_mision_a.csv
+Registro de archivo creado: e70fc1e7-1f6f-474e-b4a7-62e1d966f749
+Iniciando procesamiento CLARO datos por celda: test_duplicate_mision_a.csv
+Encoding auto-detectado: ascii (confianza: 1.00)
+CSV leído exitosamente: 2 filas, 1 columnas
+Archivo leído: 2 registros, 1 columnas
+ERROR RESPONSE STRUCTURE: {'success': False, 'error': 'Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal', 'error_code': 'PROCESSING_FAILED', 'sheetId': 'e70fc1e7-1f6f-474e-b4a7-62e1d966f749', 'processedRecords': 0, 'warnings': [], 'errors': ['Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal']}
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_duplicate_mision_a_repeat.csv
+Archivo duplicado detectado en misión m1: checksum d3275bb0...
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_duplicate_mision_b.csv
+Registro de archivo creado: d42b386a-bbb7-482e-9c1c-4e9222eb5d73
+Iniciando procesamiento CLARO datos por celda: test_duplicate_mision_b.csv
+Encoding auto-detectado: ascii (confianza: 1.00)
+CSV leído exitosamente: 2 filas, 1 columnas
+Archivo leído: 2 registros, 1 columnas
+ERROR RESPONSE STRUCTURE: {'success': False, 'error': 'Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal', 'error_code': 'PROCESSING_FAILED', 'sheetId': 'd42b386a-bbb7-482e-9c1c-4e9222eb5d73', 'processedRecords': 0, 'warnings': [], 'errors': ['Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal']}
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente
+Iniciando carga de archivo test_different_file_mision_a.csv
+Registro de archivo creado: 5a784b09-b17c-421c-9e87-81f35d2e78df
+Iniciando procesamiento CLARO datos por celda: test_different_file_mision_a.csv
+Encoding auto-detectado: ascii (confianza: 1.00)
+CSV leído exitosamente: 2 filas, 1 columnas
+Archivo leído: 2 registros, 1 columnas
+ERROR RESPONSE STRUCTURE: {'success': False, 'error': 'Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal', 'error_code': 'PROCESSING_FAILED', 'sheetId': '5a784b09-b17c-421c-9e87-81f35d2e78df', 'processedRecords': 0, 'warnings': [], 'errors': ['Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal']}

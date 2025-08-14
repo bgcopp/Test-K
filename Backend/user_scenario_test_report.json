@@ -1,0 +1,39 @@
+{
+  "total_tests": 5,
+  "passed": 0,
+  "failed": 5,
+  "success_rate": 0.0,
+  "all_passed": false,
+  "results": [
+    {
+      "test": "Mission CERT-CLARO-001 Exists",
+      "success": false,
+      "details": "Mission not found in database",
+      "timestamp": "2025-08-12 08:53:42"
+    },
+    {
+      "test": "File Upload",
+      "success": false,
+      "details": "Upload failed with exception: Error en enrutamiento de upload: Error en procesador CLARO: Error en procesamiento: Error procesando archivo CLARO: La misión CERT-CLARO-001 no existe. Debe crear la misión antes de procesar archivos.",
+      "timestamp": "2025-08-12 08:53:42"
+    },
+    {
+      "test": "Data Persistence",
+      "success": false,
+      "details": "No new data detected: 386 total records",
+      "timestamp": "2025-08-12 08:53:42"
+    },
+    {
+      "test": "Operator Files Visible",
+      "success": false,
+      "details": "No files found - Sábanas de Operador would be empty",
+      "timestamp": "2025-08-12 08:53:42"
+    },
+    {
+      "test": "Mission Data Updated",
+      "success": false,
+      "details": "Could not retrieve updated mission",
+      "timestamp": "2025-08-12 08:53:42"
+    }
+  ]
+}

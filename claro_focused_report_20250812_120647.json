@@ -1,0 +1,216 @@
+{
+  "test_start_time": "2025-08-12T12:06:46.280774",
+  "tests_executed": 8,
+  "tests_passed": 2,
+  "tests_failed": 6,
+  "issues": [
+    {
+      "test": "Operator Schema",
+      "details": {
+        "required_tables": [
+          "operator_data_sheets",
+          "operator_cellular_data",
+          "operator_call_data"
+        ],
+        "existing_tables": [
+          "roles",
+          "users",
+          "missions",
+          "cellular_data",
+          "target_records"
+        ],
+        "missing_tables": [
+          "operator_data_sheets",
+          "operator_cellular_data",
+          "operator_call_data"
+        ],
+        "table_schemas": {},
+        "error": "Tablas faltantes: ['operator_data_sheets', 'operator_cellular_data', 'operator_call_data']"
+      },
+      "timestamp": "2025-08-12T12:06:46.283769"
+    },
+    {
+      "test": "Service Imports",
+      "details": {
+        "imports": {
+          "FileProcessorService": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+          "DataNormalizerService": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+          "OperatorLogger": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)"
+        },
+        "error": "Imports fallidos: ['FileProcessorService', 'DataNormalizerService', 'OperatorLogger']"
+      },
+      "timestamp": "2025-08-12T12:06:47.161728"
+    },
+    {
+      "test": "Data Normalizer Basic",
+      "details": {
+        "error": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\test_claro_focused.py\", line 234, in test_data_normalizer_basic\n    from services.data_normalizer_service import DataNormalizerService\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\services\\data_normalizer_service.py\", line 36, in <module>\n    from utils.operator_logger import OperatorLogger\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\utils\\operator_logger.py\", line 44, in <module>\n    from database.connection import get_db_connection\nImportError: cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)\n"
+      },
+      "timestamp": "2025-08-12T12:06:47.163731"
+    },
+    {
+      "test": "File Processor Basic",
+      "details": {
+        "error": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\test_claro_focused.py\", line 282, in test_file_processor_basic\n    from services.file_processor_service import FileProcessorService\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\services\\file_processor_service.py\", line 42, in <module>\n    from database.connection import get_db_connection\nImportError: cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)\n"
+      },
+      "timestamp": "2025-08-12T12:06:47.164727"
+    },
+    {
+      "test": "Real CSV File Structure",
+      "details": {
+        "error": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\test_claro_focused.py\", line 333, in test_real_csv_file_structure\n    from services.file_processor_service import FileProcessorService\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\services\\file_processor_service.py\", line 42, in <module>\n    from database.connection import get_db_connection\nImportError: cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)\n"
+      },
+      "timestamp": "2025-08-12T12:06:47.165864"
+    },
+    {
+      "test": "Real Excel File Structure",
+      "details": {
+        "error": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\test_claro_focused.py\", line 405, in test_excel_file_structure\n    from services.file_processor_service import FileProcessorService\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\services\\file_processor_service.py\", line 42, in <module>\n    from database.connection import get_db_connection\nImportError: cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)\n"
+      },
+      "timestamp": "2025-08-12T12:06:47.166869"
+    }
+  ],
+  "performance_metrics": {},
+  "test_details": [
+    {
+      "test_name": "Database Existence",
+      "status": "PASS",
+      "duration_seconds": 0.0019965171813964844,
+      "details": {
+        "db_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\kronos.db",
+        "db_size_mb": 0.63,
+        "tables_found": 5,
+        "tables": [
+          "roles",
+          "users",
+          "missions",
+          "cellular_data",
+          "target_records"
+        ]
+      },
+      "timestamp": "2025-08-12T12:06:46.282771"
+    },
+    {
+      "test_name": "Operator Schema",
+      "status": "FAIL",
+      "duration_seconds": 0.0009980201721191406,
+      "details": {
+        "required_tables": [
+          "operator_data_sheets",
+          "operator_cellular_data",
+          "operator_call_data"
+        ],
+        "existing_tables": [
+          "roles",
+          "users",
+          "missions",
+          "cellular_data",
+          "target_records"
+        ],
+        "missing_tables": [
+          "operator_data_sheets",
+          "operator_cellular_data",
+          "operator_call_data"
+        ],
+        "table_schemas": {},
+        "error": "Tablas faltantes: ['operator_data_sheets', 'operator_cellular_data', 'operator_call_data']"
+      },
+      "timestamp": "2025-08-12T12:06:46.283769"
+    },
+    {
+      "test_name": "Service Imports",
+      "status": "FAIL",
+      "duration_seconds": 0.8779594898223877,
+      "details": {
+        "imports": {
+          "FileProcessorService": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+          "DataNormalizerService": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+          "OperatorLogger": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)"
+        },
+        "error": "Imports fallidos: ['FileProcessorService', 'DataNormalizerService', 'OperatorLogger']"
+      },
+      "timestamp": "2025-08-12T12:06:47.161728"
+    },
+    {
+      "test_name": "Data Normalizer Basic",
+      "status": "FAIL",
+      "duration_seconds": 0.0020024776458740234,
+      "details": {
+        "error": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\test_claro_focused.py\", line 234, in test_data_normalizer_basic\n    from services.data_normalizer_service import DataNormalizerService\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\services\\data_normalizer_service.py\", line 36, in <module>\n    from utils.operator_logger import OperatorLogger\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\utils\\operator_logger.py\", line 44, in <module>\n    from database.connection import get_db_connection\nImportError: cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)\n"
+      },
+      "timestamp": "2025-08-12T12:06:47.163731"
+    },
+    {
+      "test_name": "File Processor Basic",
+      "status": "FAIL",
+      "duration_seconds": 0.0009958744049072266,
+      "details": {
+        "error": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\test_claro_focused.py\", line 282, in test_file_processor_basic\n    from services.file_processor_service import FileProcessorService\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\services\\file_processor_service.py\", line 42, in <module>\n    from database.connection import get_db_connection\nImportError: cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)\n"
+      },
+      "timestamp": "2025-08-12T12:06:47.164727"
+    },
+    {
+      "test_name": "Real CSV File Structure",
+      "status": "FAIL",
+      "duration_seconds": 0.0011372566223144531,
+      "details": {
+        "error": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\test_claro_focused.py\", line 333, in test_real_csv_file_structure\n    from services.file_processor_service import FileProcessorService\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\services\\file_processor_service.py\", line 42, in <module>\n    from database.connection import get_db_connection\nImportError: cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)\n"
+      },
+      "timestamp": "2025-08-12T12:06:47.165864"
+    },
+    {
+      "test_name": "Real Excel File Structure",
+      "status": "FAIL",
+      "duration_seconds": 0.0010051727294921875,
+      "details": {
+        "error": "cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\test_claro_focused.py\", line 405, in test_excel_file_structure\n    from services.file_processor_service import FileProcessorService\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\services\\file_processor_service.py\", line 42, in <module>\n    from database.connection import get_db_connection\nImportError: cannot import name 'get_db_connection' from 'database.connection' (C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\database\\connection.py)\n"
+      },
+      "timestamp": "2025-08-12T12:06:47.166869"
+    },
+    {
+      "test_name": "Frontend Components",
+      "status": "PASS",
+      "duration_seconds": 0.0009963512420654297,
+      "details": {
+        "frontend_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\Frontend",
+        "expected_components": [
+          "components/operator-data/OperatorDataUpload.tsx",
+          "components/operator-data/OperatorSheetsManager.tsx",
+          "services/api.ts",
+          "types.ts"
+        ],
+        "component_status": {
+          "components/operator-data/OperatorDataUpload.tsx": {
+            "exists": true,
+            "size_kb": 15.6
+          },
+          "components/operator-data/OperatorSheetsManager.tsx": {
+            "exists": true,
+            "size_kb": 18.63
+          },
+          "services/api.ts": {
+            "exists": true,
+            "size_kb": 25.02
+          },
+          "types.ts": {
+            "exists": true,
+            "size_kb": 2.4
+          }
+        },
+        "missing_components": []
+      },
+      "timestamp": "2025-08-12T12:06:47.167865"
+    }
+  ],
+  "test_end_time": "2025-08-12T12:06:47.167865",
+  "total_duration": 0.887091,
+  "success_rate": 25.0
+}

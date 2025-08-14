@@ -1,0 +1,79 @@
+{
+  "timestamp": "2025-08-12T18:11:44.446961",
+  "test_summary": {
+    "total_tests": 5,
+    "passed_tests": 1,
+    "failed_tests": 4,
+    "critical_fixes_validated": [
+      "FIX-1-FRONTEND"
+    ]
+  },
+  "frontend_fix_validation": {
+    "fix_id": "FIX-1-FRONTEND-DOCUMENT-TYPES",
+    "description": "Corrección de IDs de tipos de documento en frontend",
+    "validated": true,
+    "details": {
+      "has_cellular_data_id": true,
+      "has_call_data_id": true,
+      "no_spanish_ids": true
+    }
+  },
+  "backend_fix_validation": {
+    "fix_id": "FIX-2-BACKEND-RESPONSE-FIELDS",
+    "description": "Corrección de nombres de campos en respuesta del backend",
+    "validated": false,
+    "response_received": {
+      "success": false,
+      "error": "Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal",
+      "error_code": "PROCESSING_FAILED",
+      "file_upload_id": "94217626-0de9-4311-9345-4ba9fbd5bb9d"
+    },
+    "details": {
+      "has_success": true,
+      "has_sheet_id": false,
+      "has_processed_records": false,
+      "has_warnings": false,
+      "has_errors": false,
+      "no_old_fields": false,
+      "upload_successful": false,
+      "processed_count": 0
+    }
+  },
+  "integration_tests": {
+    "claro_cellular_data": {
+      "test_name": "CLARO CELLULAR_DATA Integration",
+      "passed": false,
+      "result": {
+        "success": false,
+        "error": "Este archivo ya ha sido procesado anteriormente",
+        "error_code": "DUPLICATE_FILE"
+      },
+      "expected_records": 3,
+      "actual_records": 0
+    },
+    "claro_call_data": {
+      "test_name": "CLARO CALL_DATA Integration",
+      "passed": false,
+      "result": {
+        "success": false,
+        "error": "No quedaron registros válidos después de la limpieza (no se encontraron CDR_ENTRANTE)",
+        "error_code": "PROCESSING_FAILED",
+        "file_upload_id": "0a007d65-c1af-4f64-8d1a-cadd020cc736"
+      },
+      "expected_records": 3,
+      "actual_records": 0
+    }
+  },
+  "regression_tests": {
+    "MOVISTAR_CELLULAR_DATA": {
+      "passed": false,
+      "result": {
+        "success": false,
+        "error": "Estructura de archivo inválida: Columnas faltantes: fecha_hora_fin_sesion",
+        "error_code": "PROCESSING_FAILED",
+        "file_upload_id": "97d12240-be1a-4621-a087-217144ddcd63"
+      }
+    }
+  },
+  "certification_status": "NO_CERTIFICADO"
+}

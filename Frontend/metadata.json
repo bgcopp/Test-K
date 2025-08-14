@@ -1,0 +1,6 @@
+{
+  "name": "KRONOS",
+  "description": "Un panel de administración moderno y profesional para gestionar usuarios, roles, permisos y misiones de investigación. Construido con React, TypeScript y Tailwind CSS.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

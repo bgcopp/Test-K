@@ -1,0 +1,269 @@
+{
+  "start_time": "2025-08-12T12:18:30.762325",
+  "test_files": {
+    "csv": "C:\\Soluciones\\BGC\\claude\\KNSOft\\datatest\\Claro\\LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv",
+    "xlsx": "C:\\Soluciones\\BGC\\claude\\KNSOft\\datatest\\Claro\\formato excel\\LLAMADAS_ENTRANTES_POR_CELDA CLARO.xlsx"
+  },
+  "results": {
+    "file_reading": {
+      "csv": {
+        "success": true,
+        "file_size": 8123,
+        "rows_read": 973,
+        "columns": [
+          "celda_inicio_llamada",
+          "celda_final_llamada",
+          "originador",
+          "receptor",
+          "fecha_hora",
+          "duracion",
+          "tipo"
+        ],
+        "sample_data": [
+          {
+            "celda_inicio_llamada": "20264",
+            "celda_final_llamada": "20264",
+            "originador": "3213639847",
+            "receptor": "3132825038",
+            "fecha_hora": "20/05/2021 10:02:26",
+            "duracion": "91",
+            "tipo": "CDR_ENTRANTE"
+          },
+          {
+            "celda_inicio_llamada": "37825",
+            "celda_final_llamada": "20264",
+            "originador": "3205148564",
+            "receptor": "3206001800",
+            "fecha_hora": "20/05/2021 10:02:43",
+            "duracion": "30",
+            "tipo": "CDR_ENTRANTE"
+          }
+        ]
+      },
+      "xlsx": {
+        "success": true,
+        "file_size": 30410,
+        "rows_read": 4,
+        "columns": [
+          "celda_inicio_llamada",
+          "celda_final_llamada",
+          "originador",
+          "receptor",
+          "fecha_hora",
+          "duracion",
+          "tipo"
+        ],
+        "sample_data": [
+          {
+            "celda_inicio_llamada": "20264",
+            "celda_final_llamada": "20264",
+            "originador": "3213639847",
+            "receptor": "3132825038",
+            "fecha_hora": "2021-05-20 10:02:26",
+            "duracion": "91",
+            "tipo": "CDR_ENTRANTE"
+          },
+          {
+            "celda_inicio_llamada": "37825",
+            "celda_final_llamada": "20264",
+            "originador": "3205148564",
+            "receptor": "3206001800",
+            "fecha_hora": "2021-05-20 10:02:43",
+            "duracion": "30",
+            "tipo": "CDR_ENTRANTE"
+          }
+        ]
+      }
+    },
+    "data_validation": {
+      "csv": {
+        "success": false,
+        "structure_errors": [
+          "La columna 'celda_inicio_llamada' tiene 969 valores vacíos de 973 total",
+          "La columna 'celda_final_llamada' tiene 969 valores vacíos de 973 total",
+          "La columna 'originador' tiene 969 valores vacíos de 973 total",
+          "La columna 'receptor' tiene 969 valores vacíos de 973 total",
+          "La columna 'fecha_hora' tiene 969 valores vacíos de 973 total",
+          "La columna 'duracion' tiene 969 valores vacíos de 973 total",
+          "La columna 'tipo' tiene 969 valores vacíos de 973 total"
+        ],
+        "original_rows": 973,
+        "cleaned_rows": 4,
+        "cdr_entrante_rows": 4,
+        "sample_validation": {
+          "valid_records": 4,
+          "invalid_records": 0,
+          "sample_errors": []
+        }
+      },
+      "xlsx": {
+        "success": true,
+        "structure_errors": [],
+        "original_rows": 4,
+        "cleaned_rows": 4,
+        "cdr_entrante_rows": 4,
+        "sample_validation": {
+          "valid_records": 4,
+          "invalid_records": 0,
+          "sample_errors": []
+        }
+      }
+    },
+    "data_normalization": {
+      "success": true,
+      "total_records": 2,
+      "normalized_successfully": 2,
+      "errors": [],
+      "sample_normalized_data": [
+        {
+          "file_upload_id": "050a3818-5958-47d9-bc42-5e3464be7c59",
+          "mission_id": "test-mission-claro-entrantes-20250812_121830",
+          "operator": "CLARO",
+          "tipo_llamada": "ENTRANTE",
+          "numero_origen": "573213639847",
+          "numero_destino": "573132825038",
+          "numero_objetivo": "573132825038",
+          "fecha_hora_llamada": "2021-05-20 10:02:26",
+          "duracion_segundos": 91,
+          "celda_origen": "20264",
+          "celda_destino": "20264",
+          "celda_objetivo": "20264",
+          "latitud_origen": null,
+          "longitud_origen": null,
+          "latitud_destino": null,
+          "longitud_destino": null,
+          "tecnologia": "LTE",
+          "tipo_trafico": "VOZ",
+          "estado_llamada": "COMPLETADA",
+          "operator_specific_data": "{\"operator\": \"CLARO\", \"original_fields\": {}, \"data_type\": \"call_data\", \"claro_metadata\": {\"data_type\": \"call_data\", \"file_format\": \"llamadas_entrantes\", \"cdr_type\": \"CDR_ENTRANTE\"}}"
+        },
+        {
+          "file_upload_id": "050a3818-5958-47d9-bc42-5e3464be7c59",
+          "mission_id": "test-mission-claro-entrantes-20250812_121830",
+          "operator": "CLARO",
+          "tipo_llamada": "ENTRANTE",
+          "numero_origen": "573205148564",
+          "numero_destino": "573206001800",
+          "numero_objetivo": "573206001800",
+          "fecha_hora_llamada": "2021-05-20 10:02:43",
+          "duracion_segundos": 30,
+          "celda_origen": "37825",
+          "celda_destino": "20264",
+          "celda_objetivo": "20264",
+          "latitud_origen": null,
+          "longitud_origen": null,
+          "latitud_destino": null,
+          "longitud_destino": null,
+          "tecnologia": "LTE",
+          "tipo_trafico": "VOZ",
+          "estado_llamada": "COMPLETADA",
+          "operator_specific_data": "{\"operator\": \"CLARO\", \"original_fields\": {}, \"data_type\": \"call_data\", \"claro_metadata\": {\"data_type\": \"call_data\", \"file_format\": \"llamadas_entrantes\", \"cdr_type\": \"CDR_ENTRANTE\"}}"
+        }
+      ]
+    },
+    "full_processing_csv": {
+      "success": false,
+      "error": "Estructura de archivo inválida: La columna 'celda_inicio_llamada' tiene 969 valores vacíos de 973 total; La columna 'celda_final_llamada' tiene 969 valores vacíos de 973 total; La columna 'originador' tiene 969 valores vacíos de 973 total; La columna 'receptor' tiene 969 valores vacíos de 973 total; La columna 'fecha_hora' tiene 969 valores vacíos de 973 total; La columna 'duracion' tiene 969 valores vacíos de 973 total; La columna 'tipo' tiene 969 valores vacíos de 973 total",
+      "database_verification": {
+        "records_in_db": 0,
+        "matches_processed": true
+      }
+    },
+    "full_processing_xlsx": {
+      "success": false,
+      "records_processed": 0,
+      "records_failed": 4,
+      "success_rate": 0.0,
+      "processing_time_seconds": 0.06,
+      "details": {
+        "original_records": 4,
+        "cleaned_records": 4,
+        "chunks_processed": 1,
+        "processing_errors": [
+          {
+            "row": 1,
+            "errors": [
+              "Error procesando registro: FOREIGN KEY constraint failed"
+            ],
+            "record": {
+              "celda_inicio_llamada": "20264",
+              "celda_final_llamada": "20264",
+              "originador": "3213639847",
+              "receptor": "3132825038",
+              "fecha_hora": "2021-05-20 10:02:26",
+              "duracion": 91,
+              "tipo": "CDR_ENTRANTE"
+            }
+          },
+          {
+            "row": 2,
+            "errors": [
+              "Error procesando registro: FOREIGN KEY constraint failed"
+            ],
+            "record": {
+              "celda_inicio_llamada": "37825",
+              "celda_final_llamada": "20264",
+              "originador": "3205148564",
+              "receptor": "3206001800",
+              "fecha_hora": "2021-05-20 10:02:43",
+              "duracion": 30,
+              "tipo": "CDR_ENTRANTE"
+            }
+          },
+          {
+            "row": 3,
+            "errors": [
+              "Error procesando registro: FOREIGN KEY constraint failed"
+            ],
+            "record": {
+              "celda_inicio_llamada": "20264",
+              "celda_final_llamada": "20264",
+              "originador": "3203024898",
+              "receptor": "3208990550",
+              "fecha_hora": "2021-05-20 10:10:56",
+              "duracion": 63,
+              "tipo": "CDR_ENTRANTE"
+            }
+          },
+          {
+            "row": 4,
+            "errors": [
+              "Error procesando registro: FOREIGN KEY constraint failed"
+            ],
+            "record": {
+              "celda_inicio_llamada": "37825",
+              "celda_final_llamada": "20264",
+              "originador": "3234183277",
+              "receptor": "3206001801",
+              "fecha_hora": "2021-05-20 10:12:33",
+              "duracion": 10,
+              "tipo": "CDR_ENTRANTE"
+            }
+          }
+        ],
+        "file_type": "CLARO_LLAMADAS_ENTRANTES"
+      },
+      "error": "Tasa de éxito baja (0.0%). Verifique el formato del archivo.",
+      "database_verification": {
+        "records_in_db": 0,
+        "matches_processed": true
+      }
+    },
+    "integration_test": {
+      "success": false,
+      "error": "Estructura de archivo inválida: La columna 'celda_inicio_llamada' tiene 969 valores vacíos de 973 total; La columna 'celda_final_llamada' tiene 969 valores vacíos de 973 total; La columna 'originador' tiene 969 valores vacíos de 973 total; La columna 'receptor' tiene 969 valores vacíos de 973 total; La columna 'fecha_hora' tiene 969 valores vacíos de 973 total; La columna 'duracion' tiene 969 valores vacíos de 973 total; La columna 'tipo' tiene 969 valores vacíos de 973 total",
+      "error_code": "PROCESSING_FAILED",
+      "file_upload_id": "d759f055-ac2a-4187-a48a-e51822042814",
+      "sheet_verification": null
+    }
+  },
+  "end_time": "2025-08-12T12:18:31.220445",
+  "duration_seconds": 0.46,
+  "summary": {
+    "total_tests": 6,
+    "successful_tests": 1,
+    "failed_tests": 5,
+    "success_rate": 16.7
+  },
+  "overall_success": false
+}

@@ -1,0 +1,23 @@
+{
+  "success": false,
+  "tests_passed": 0,
+  "tests_failed": 13,
+  "total_tests": 13,
+  "duration_seconds": 0.009547,
+  "errors": [
+    "Archivo datos_celulares existe: No encontrado: datatest\\Movistar\\jgd202410754_00007301_datos_ MOVISTAR.csv",
+    "Archivo llamadas_salientes existe: No encontrado: datatest\\Movistar\\jgd202410754_07F08305_vozm_saliente_ MOVISTAR.csv",
+    "Estructura datos celulares: [Errno 2] No such file or directory: 'datatest/Movistar/jgd202410754_00007301_datos_ MOVISTAR.csv'",
+    "Estructura llamadas salientes: [Errno 2] No such file or directory: 'datatest/Movistar/jgd202410754_07F08305_vozm_saliente_ MOVISTAR.csv'",
+    "Limpieza datos celulares: [Errno 2] No such file or directory: 'datatest/Movistar/jgd202410754_00007301_datos_ MOVISTAR.csv'",
+    "Limpieza llamadas salientes: [Errno 2] No such file or directory: 'datatest/Movistar/jgd202410754_07F08305_vozm_saliente_ MOVISTAR.csv'",
+    "Normalización datos celulares: [Errno 2] No such file or directory: 'datatest/Movistar/jgd202410754_00007301_datos_ MOVISTAR.csv'",
+    "Normalización llamadas salientes: [Errno 2] No such file or directory: 'datatest/Movistar/jgd202410754_07F08305_vozm_saliente_ MOVISTAR.csv'",
+    "Procesamiento completo datos celulares: [Errno 2] No such file or directory: 'datatest/Movistar/jgd202410754_00007301_datos_ MOVISTAR.csv'",
+    "Procesamiento completo llamadas salientes: [Errno 2] No such file or directory: 'datatest/Movistar/jgd202410754_07F08305_vozm_saliente_ MOVISTAR.csv'",
+    "Datos celulares en DB: Registros encontrados: 0",
+    "Datos de llamadas en DB: Registros encontrados: 0",
+    "Tecnologías válidas: Registros con tecnología válida: 0"
+  ],
+  "timestamp": "2025-08-12T12:49:02.627810"
+}

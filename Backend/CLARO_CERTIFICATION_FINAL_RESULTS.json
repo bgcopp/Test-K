@@ -1,0 +1,134 @@
+{
+  "start_time": "2025-08-12 06:35:20.450033",
+  "database_initialized": true,
+  "test_files": [
+    {
+      "name": "DATOS_POR_CELDA CLARO_MANUAL_FIX.csv",
+      "type": "DATOS",
+      "size": 599435,
+      "expected_records": 99001,
+      "validated": true
+    },
+    {
+      "name": "LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv",
+      "type": "LLAMADAS_ENTRANTES",
+      "size": 8123,
+      "expected_records": 973,
+      "validated": true
+    },
+    {
+      "name": "LLAMADAS_SALIENTES_POR_CELDA CLARO.csv",
+      "type": "LLAMADAS_SALIENTES",
+      "size": 8154,
+      "expected_records": 961,
+      "validated": true
+    }
+  ],
+  "processing_results": {
+    "DATOS_DATOS_POR_CELDA CLARO_MANUAL_FIX.csv": {
+      "success": true,
+      "processing_time": 0.4965536594390869,
+      "records_processed": 128,
+      "expected_records": 99001,
+      "file_upload_id": "9445ab08-5250-48bf-a2b5-373253c30ee8",
+      "records_match_expected": false,
+      "result": {
+        "success": true,
+        "file_upload_id": "9445ab08-5250-48bf-a2b5-373253c30ee8",
+        "file_type": "DATOS",
+        "operator": "CLARO",
+        "records_processed": 128,
+        "filename": "DATOS_POR_CELDA CLARO_MANUAL_FIX.csv",
+        "file_size": 599435
+      }
+    },
+    "LLAMADAS_ENTRANTES_LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv": {
+      "success": true,
+      "processing_time": 0.0,
+      "records_processed": 0,
+      "expected_records": 973,
+      "file_upload_id": "6e5ec8e2-3b6e-4146-a3ff-3bf4bfd97da5",
+      "records_match_expected": false,
+      "result": {
+        "success": true,
+        "file_upload_id": "6e5ec8e2-3b6e-4146-a3ff-3bf4bfd97da5",
+        "file_type": "LLAMADAS_ENTRANTES",
+        "operator": "CLARO",
+        "records_processed": 0,
+        "filename": "LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv",
+        "file_size": 8123
+      }
+    },
+    "LLAMADAS_SALIENTES_LLAMADAS_SALIENTES_POR_CELDA CLARO.csv": {
+      "success": true,
+      "processing_time": 0.021739721298217773,
+      "records_processed": 0,
+      "expected_records": 961,
+      "file_upload_id": "a82335a8-f0a8-46d1-97f0-a579891d3501",
+      "records_match_expected": false,
+      "result": {
+        "success": true,
+        "file_upload_id": "a82335a8-f0a8-46d1-97f0-a579891d3501",
+        "file_type": "LLAMADAS_SALIENTES",
+        "operator": "CLARO",
+        "records_processed": 0,
+        "filename": "LLAMADAS_SALIENTES_POR_CELDA CLARO.csv",
+        "file_size": 8154
+      }
+    }
+  },
+  "persistence_validation": {
+    "uploads_found": 3,
+    "uploads_expected": 3,
+    "cellular_data_records": 128,
+    "call_data_records": 0,
+    "total_data_records": 128,
+    "file_details": [
+      {
+        "file_name": "DATOS_POR_CELDA CLARO_MANUAL_FIX.csv",
+        "file_type": "DATOS",
+        "upload_status": "completed",
+        "records_count": 128,
+        "created_at": "2025-08-12T11:35:20",
+        "processed_at": "2025-08-12T06:35:21.007613",
+        "error_message": null
+      },
+      {
+        "file_name": "LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv",
+        "file_type": "LLAMADAS_ENTRANTES",
+        "upload_status": "completed",
+        "records_count": 0,
+        "created_at": "2025-08-12T11:35:21",
+        "processed_at": "2025-08-12T06:35:21.023440",
+        "error_message": null
+      },
+      {
+        "file_name": "LLAMADAS_SALIENTES_POR_CELDA CLARO.csv",
+        "file_type": "LLAMADAS_SALIENTES",
+        "upload_status": "completed",
+        "records_count": 0,
+        "created_at": "2025-08-12T11:35:21",
+        "processed_at": "2025-08-12T06:35:21.045180",
+        "error_message": null
+      }
+    ],
+    "all_uploads_completed": true,
+    "uploads_count_match": true,
+    "expected_total_records": 100935,
+    "data_count_matches": true,
+    "all_validated": true
+  },
+  "performance_metrics": {
+    "total_files_processed": 3,
+    "successful_files": 3,
+    "failed_files": 0,
+    "total_processing_time": 0.5182933807373047,
+    "total_records_processed": 128,
+    "avg_records_per_second": 246.96437337847536,
+    "success_rate": 100.0
+  },
+  "errors": [],
+  "success": true,
+  "end_time": "2025-08-12 06:35:21.045180",
+  "total_duration": 0.595147
+}

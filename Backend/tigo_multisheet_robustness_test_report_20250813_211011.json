@@ -1,0 +1,100 @@
+{
+  "test_execution_time": 0.49738454818725586,
+  "test_timestamp": "2025-08-13T21:10:11.071238",
+  "test_cases": [
+    {
+      "test_name": "single_sheet_processing",
+      "passed": false,
+      "assertions": [
+        {
+          "description": "Procesamiento exitoso",
+          "expected": true,
+          "actual": false,
+          "passed": false
+        },
+        {
+          "description": "Registros procesados correctamente",
+          "expected": 5,
+          "actual": 0,
+          "passed": false
+        }
+      ],
+      "result_data": {
+        "success": false,
+        "error": "Archivo TIGO falta columnas requeridas: direccion",
+        "records_processed": 0,
+        "records_failed": 0
+      },
+      "execution_time": 1755137411.33725
+    },
+    {
+      "test_name": "three_sheets_processing",
+      "passed": false,
+      "assertions": [
+        {
+          "description": "Procesamiento exitoso",
+          "expected": true,
+          "actual": false,
+          "passed": false
+        },
+        {
+          "description": "Registros procesados correctamente",
+          "expected": 9,
+          "actual": 0,
+          "passed": false
+        }
+      ],
+      "result_data": {
+        "success": false,
+        "error": "Archivo TIGO falta columnas requeridas: direccion",
+        "records_processed": 0,
+        "records_failed": 0
+      },
+      "execution_time": 1755137411.419387
+    },
+    {
+      "test_name": "complex_multisheet_processing",
+      "passed": false,
+      "assertions": [
+        {
+          "description": "Procesamiento parcialmente exitoso",
+          "expected": true,
+          "actual": false,
+          "passed": false
+        },
+        {
+          "description": "Solo registros válidos procesados",
+          "expected": 5,
+          "actual": 0,
+          "passed": false
+        }
+      ],
+      "result_data": {
+        "success": false,
+        "error": "Archivo TIGO falta columnas requeridas: direccion",
+        "records_processed": 0,
+        "records_failed": 0
+      },
+      "execution_time": 1755137411.49568
+    },
+    {
+      "test_name": "source_information_preservation",
+      "passed": false,
+      "error": "Falló el procesamiento base",
+      "execution_time": 1755137411.5706294
+    }
+  ],
+  "summary": {
+    "total_tests": 4,
+    "passed_tests": 0,
+    "failed_tests": 4,
+    "test_coverage": [
+      "Procesamiento de archivo con 1 hoja",
+      "Procesamiento de archivo con 3 hojas válidas",
+      "Procesamiento robusto con hojas mixtas (válidas/inválidas/vacías)",
+      "Preservación de información de origen por hoja",
+      "Manejo de errores por hoja individual",
+      "Logging detallado de estadísticas por hoja"
+    ]
+  }
+}

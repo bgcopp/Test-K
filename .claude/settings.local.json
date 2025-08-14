@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(timeout:*)",
+      "Bash(python test_shutdown.py:*)",
+      "Bash(true)",
+      "Bash(python:*)"
+    ],
+    "deny": []
+  }
+}

@@ -1,0 +1,260 @@
+{
+  "report_info": {
+    "title": "EVALUACIÓN RÁPIDA BACKEND COORDINADO",
+    "specialist": "Backend Python/Eel Team",
+    "date": "2025-08-11 23:04:47",
+    "context": "Testing post-issues críticos de BD - Evaluación independiente"
+  },
+  "executive_summary": {
+    "backend_status": "APROBADO",
+    "backend_approved": true,
+    "total_tests": 5,
+    "passed_tests": 5,
+    "warning_tests": 0,
+    "failed_tests": 0,
+    "error_tests": 0,
+    "critical_failures": 0
+  },
+  "detailed_results": {
+    "BACKEND-IMPORTS": {
+      "test_name": "BACKEND-IMPORTS",
+      "imports_tested": 10,
+      "imports_successful": 10,
+      "failed_imports": [],
+      "status": "PASSED"
+    },
+    "BACKEND-PROCESSORS": {
+      "test_name": "BACKEND-PROCESSORS",
+      "processors_tested": 4,
+      "processors_working": 4,
+      "processor_details": {
+        "CLARO": {
+          "available": true,
+          "methods": {
+            "process_file": true,
+            "validate_file_structure": true,
+            "get_supported_file_types": true
+          },
+          "errors": [],
+          "supported_file_types": {
+            "DATOS": "Datos por celda - Actividad de datos en celda celular",
+            "LLAMADAS_ENTRANTES": "Llamadas entrantes por celda",
+            "LLAMADAS_SALIENTES": "Llamadas salientes por celda"
+          }
+        },
+        "MOVISTAR": {
+          "available": true,
+          "methods": {
+            "process_file": true,
+            "validate_file_structure": true,
+            "get_supported_file_types": true
+          },
+          "errors": [],
+          "supported_file_types": {
+            "DATOS": "Datos por celda - Actividad de datos con ubicación geográfica",
+            "LLAMADAS_SALIENTES": "Llamadas salientes por celda con información geoespacial"
+          }
+        },
+        "TIGO": {
+          "available": true,
+          "methods": {
+            "process_file": true,
+            "validate_file_structure": true,
+            "get_supported_file_types": true
+          },
+          "errors": [],
+          "supported_file_types": {
+            "LLAMADAS_MIXTAS": "Llamadas entrantes y salientes en archivo único - diferenciadas por campo DIRECCION"
+          }
+        },
+        "WOM": {
+          "available": true,
+          "methods": {
+            "process_file": true,
+            "validate_file_structure": true,
+            "get_supported_file_types": true
+          },
+          "errors": [],
+          "supported_file_types": {
+            "DATOS_POR_CELDA": "Datos de navegación móvil por celda - contiene sesiones de datos con bytes UP/DOWN",
+            "LLAMADAS_ENTRANTES": "Llamadas diferenciadas por campo SENTIDO - solo entrantes según especificación"
+          }
+        }
+      },
+      "status": "PASSED"
+    },
+    "BACKEND-VALIDATORS": {
+      "test_name": "BACKEND-VALIDATORS",
+      "validators_tested": 12,
+      "validators_passed": 12,
+      "validation_details": {
+        "phone": [
+          {
+            "input": "3001234567",
+            "expected": true,
+            "result": "3001234567",
+            "passed": true
+          },
+          {
+            "input": "6011234567",
+            "expected": true,
+            "result": "6011234567",
+            "passed": true
+          },
+          {
+            "input": "12345",
+            "expected": false,
+            "error": "número telefónico debe tener al menos 10 dígitos",
+            "passed": true
+          },
+          {
+            "input": "abc123",
+            "expected": false,
+            "error": "número telefónico debe tener al menos 10 dígitos",
+            "passed": true
+          }
+        ],
+        "coordinates": [
+          {
+            "lat": 4.6097,
+            "lon": -74.0817,
+            "expected": true,
+            "result": [
+              4.6097,
+              -74.0817
+            ],
+            "passed": true
+          },
+          {
+            "lat": 0.0,
+            "lon": 0.0,
+            "expected": true,
+            "result": [
+              0.0,
+              0.0
+            ],
+            "passed": true
+          },
+          {
+            "lat": 91.0,
+            "lon": 0.0,
+            "expected": false,
+            "error": "lat debe estar entre -90.0 y 90.0",
+            "passed": true
+          },
+          {
+            "lat": "a",
+            "lon": "b",
+            "expected": false,
+            "error": "lat y lon deben ser números válidos",
+            "passed": true
+          }
+        ],
+        "dates": [
+          {
+            "input": "20250115123000",
+            "expected": true,
+            "result": "2025-01-15 12:30:00",
+            "passed": true
+          },
+          {
+            "input": "20241225000000",
+            "expected": true,
+            "result": "2024-12-25 00:00:00",
+            "passed": true
+          },
+          {
+            "input": "fecha_invalida",
+            "expected": false,
+            "error": "fecha debe contener solo dígitos",
+            "passed": true
+          },
+          {
+            "input": "20250115",
+            "expected": false,
+            "error": "fecha debe tener formato YYYYMMDDHHMMSS (14 dígitos)",
+            "passed": true
+          }
+        ]
+      },
+      "status": "PASSED"
+    },
+    "BACKEND-FILE-PROCESSING": {
+      "test_name": "BACKEND-FILE-PROCESSING",
+      "tests_executed": 2,
+      "tests_passed": 2,
+      "processing_details": {
+        "base64_decode": "PASSED",
+        "csv_read": "PASSED"
+      },
+      "status": "PASSED"
+    },
+    "BACKEND-REAL-FILES": {
+      "test_name": "BACKEND-REAL-FILES",
+      "files_checked": 7,
+      "files_found": 7,
+      "file_details": {
+        "claro/DATOS_POR_CELDA CLARO.xlsx": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\CeldasDiferenteOperador\\claro\\DATOS_POR_CELDA CLARO.xlsx",
+          "description": "CLARO - Datos por celda",
+          "exists": true,
+          "size": 1799817
+        },
+        "claro/LLAMADAS_ENTRANTES_POR_CELDA CLARO.xlsx": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\CeldasDiferenteOperador\\claro\\LLAMADAS_ENTRANTES_POR_CELDA CLARO.xlsx",
+          "description": "CLARO - Llamadas entrantes",
+          "exists": true,
+          "size": 30410
+        },
+        "claro/LLAMADAS_SALIENTES_POR_CELDA CLARO.xlsx": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\CeldasDiferenteOperador\\claro\\LLAMADAS_SALIENTES_POR_CELDA CLARO.xlsx",
+          "description": "CLARO - Llamadas salientes",
+          "exists": true,
+          "size": 30704
+        },
+        "mov/jgd202410754_00007301_datos_ MOVISTAR.xlsx": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\CeldasDiferenteOperador\\mov\\jgd202410754_00007301_datos_ MOVISTAR.xlsx",
+          "description": "MOVISTAR - Datos",
+          "exists": true,
+          "size": 256473
+        },
+        "tigo/Reporte TIGO.xlsx": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\CeldasDiferenteOperador\\tigo\\Reporte TIGO.xlsx",
+          "description": "TIGO - Reporte mixto",
+          "exists": true,
+          "size": 348446
+        },
+        "wom/PUNTO 1 TRÁFICO DATOS WOM.xlsx": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\CeldasDiferenteOperador\\wom\\PUNTO 1 TRÁFICO DATOS WOM.xlsx",
+          "description": "WOM - Datos",
+          "exists": true,
+          "size": 16323
+        },
+        "wom/PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\CeldasDiferenteOperador\\wom\\PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx",
+          "description": "WOM - Llamadas",
+          "exists": true,
+          "size": 28464
+        }
+      },
+      "status": "PASSED"
+    }
+  },
+  "findings": {
+    "backend_functional": true,
+    "can_process_files": true,
+    "processors_available": true,
+    "validators_working": true,
+    "test_files_available": true
+  },
+  "recommendations": {
+    "immediate_actions": [],
+    "before_production": [],
+    "coordination_notes": [
+      "Backend funcionalmente estable - issues de BD pueden ser independientes",
+      "Backend aprobado para continuar con testing coordinado",
+      "Evaluar si issues de BD son de configuración o datos, no de backend",
+      "Proceder con casos P0-001 a P0-004 usando backend validado"
+    ]
+  }
+}

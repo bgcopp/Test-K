@@ -1,0 +1,100 @@
+{
+  "start_time": "2025-08-12T12:35:06.208498",
+  "tests": {
+    "DATOS_POR_CELDA_CSV": {
+      "test_name": "DATOS_POR_CELDA_CSV",
+      "success": false,
+      "duration": 0.07384443283081055,
+      "memory_usage": 0.86328125,
+      "file_size_mb": 9.822845458984375e-05,
+      "records_processed": 0,
+      "records_failed": 0,
+      "file_upload_id": "06b27b7d-db3d-4803-ba8f-484a1512aa84",
+      "response": {
+        "success": false,
+        "error": "Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal",
+        "error_code": "PROCESSING_FAILED",
+        "file_upload_id": "06b27b7d-db3d-4803-ba8f-484a1512aa84"
+      }
+    },
+    "LLAMADAS_ENTRANTES_CSV": {
+      "test_name": "LLAMADAS_ENTRANTES_CSV",
+      "success": true,
+      "duration": 0.10456418991088867,
+      "memory_usage": 0.90625,
+      "file_size_mb": 0.007746696472167969,
+      "records_processed": 4,
+      "records_failed": 0,
+      "file_upload_id": "2ceb59b6-bf9b-4441-a526-49b8f9dcf1b1",
+      "response": {
+        "success": true,
+        "message": "Archivo procesado exitosamente",
+        "file_upload_id": "2ceb59b6-bf9b-4441-a526-49b8f9dcf1b1",
+        "records_processed": 4,
+        "records_failed": 0,
+        "processing_details": {
+          "original_records": 973,
+          "cleaned_records": 4,
+          "chunks_processed": 1,
+          "processing_errors": [],
+          "file_type": "CLARO_LLAMADAS_ENTRANTES"
+        }
+      }
+    },
+    "LLAMADAS_SALIENTES_CSV": {
+      "test_name": "LLAMADAS_SALIENTES_CSV",
+      "success": true,
+      "duration": 0.11261510848999023,
+      "memory_usage": 0.53125,
+      "file_size_mb": 0.0077762603759765625,
+      "records_processed": 6,
+      "records_failed": 0,
+      "file_upload_id": "d5faf95d-be8c-4829-a421-ecb0966ff607",
+      "response": {
+        "success": true,
+        "message": "Archivo procesado exitosamente",
+        "file_upload_id": "d5faf95d-be8c-4829-a421-ecb0966ff607",
+        "records_processed": 6,
+        "records_failed": 0,
+        "processing_details": {
+          "original_records": 961,
+          "cleaned_records": 6,
+          "chunks_processed": 1,
+          "processing_errors": [],
+          "file_type": "CLARO_LLAMADAS_SALIENTES"
+        }
+      }
+    }
+  },
+  "critical_issues": [],
+  "major_issues": [
+    "DATOS_POR_CELDA_CSV: Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal"
+  ],
+  "minor_issues": [],
+  "system_statistics": {
+    "success": true,
+    "statistics": {
+      "CLARO": {
+        "total_files": 3,
+        "total_records": 10,
+        "total_failed": 0,
+        "total_bytes": 16380,
+        "avg_processing_time": 0,
+        "completed_files": 2,
+        "failed_files": 1,
+        "success_rate": 66.7
+      }
+    },
+    "totals": {
+      "total_files": 3,
+      "total_records": 10,
+      "total_failed": 0,
+      "total_bytes": 16380,
+      "completed_files": 2,
+      "failed_files": 1,
+      "success_rate": 66.7
+    },
+    "mission_id": null
+  },
+  "end_time": "2025-08-12T12:35:06.522763"
+}

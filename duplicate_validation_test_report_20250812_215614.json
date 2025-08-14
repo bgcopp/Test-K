@@ -1,0 +1,105 @@
+{
+  "test_execution": {
+    "timestamp": "2025-08-12T21:56:14.264308",
+    "environment": {
+      "test_db_path": "C:\\Users\\Boris\\AppData\\Local\\Temp\\kronos_test_duplicates_glpi0ntg\\test_duplicates.db",
+      "temp_directory": "C:\\Users\\Boris\\AppData\\Local\\Temp\\kronos_test_duplicates_glpi0ntg",
+      "python_version": "3.11.7 | packaged by Anaconda, Inc. | (main, Dec 15 2023, 18:05:47) [MSC v.1916 64 bit (AMD64)]",
+      "test_mission_a": "mission-test-a",
+      "test_mission_b": "mission-test-b"
+    }
+  },
+  "summary": {
+    "total_tests": 6,
+    "passed": 0,
+    "failed": 6,
+    "errors": 0,
+    "success_rate": 0.0
+  },
+  "test_results": [
+    {
+      "test_name": "Test 1: Migración Automática de Schema",
+      "status": "FAILED",
+      "duration_seconds": 0.043893,
+      "details": {
+        "success": false,
+        "details": {
+          "initial_global_unique": true,
+          "final_mission_unique": false,
+          "final_global_unique": true,
+          "migration_applied": false
+        }
+      },
+      "timestamp": "2025-08-12T21:56:14.077825"
+    },
+    {
+      "test_name": "Test 2: Duplicado en Misma Misión",
+      "status": "FAILED",
+      "duration_seconds": 0.02247,
+      "details": {
+        "success": false,
+        "error": "Primera carga falló: La misión mission-test-a no existe"
+      },
+      "timestamp": "2025-08-12T21:56:14.121718"
+    },
+    {
+      "test_name": "Test 3: Mismo Archivo en Misiones Diferentes",
+      "status": "FAILED",
+      "duration_seconds": 0.042443,
+      "details": {
+        "success": false,
+        "details": {
+          "mission_a_success": false,
+          "mission_a_error": "La misión mission-test-a no existe",
+          "mission_b_success": false,
+          "mission_b_error": "La misión mission-test-b no existe",
+          "both_missions_succeeded": false
+        }
+      },
+      "timestamp": "2025-08-12T21:56:14.144188"
+    },
+    {
+      "test_name": "Test 4: Archivos Diferentes en Misma Misión",
+      "status": "FAILED",
+      "duration_seconds": 0.047591,
+      "details": {
+        "success": false,
+        "details": {
+          "file_1_success": false,
+          "file_1_error": "La misión mission-test-a no existe",
+          "file_2_success": false,
+          "file_2_error": "La misión mission-test-a no existe",
+          "different_checksums": true,
+          "both_files_succeeded": false
+        }
+      },
+      "timestamp": "2025-08-12T21:56:14.186631"
+    },
+    {
+      "test_name": "Test 5: Enforcement de Constraint en BD",
+      "status": "FAILED",
+      "duration_seconds": 0.009479,
+      "details": {
+        "success": false,
+        "error": "NOT NULL constraint failed: operator_data_sheets.operator_file_format"
+      },
+      "timestamp": "2025-08-12T21:56:14.234222"
+    },
+    {
+      "test_name": "Test 6: Especificidad de Mensajes de Error",
+      "status": "FAILED",
+      "duration_seconds": 0.020607,
+      "details": {
+        "success": false,
+        "error": "Setup falló: La misión mission-test-a no existe"
+      },
+      "timestamp": "2025-08-12T21:56:14.243701"
+    }
+  ],
+  "conclusion": {
+    "migration_functionality": null,
+    "duplicate_validation": null,
+    "cross_mission_support": null,
+    "overall_assessment": "MAJOR_ISSUES"
+  }
+}

@@ -1,0 +1,75 @@
+================================================================================
+REPORTE DE TESTING - EQUIPO DE BASE DE DATOS
+================================================================================
+Fecha: 2025-08-11 22:56:06
+Contexto: Testing Coordinado Post-Arquitectura L2
+
+RESUMEN EJECUTIVO:
+- Pruebas exitosas: 1/4
+- Pruebas fallidas: 3/4
+- Issues críticos: 3
+- Issues totales: 3
+
+ESTADO DE LA BASE DE DATOS: [ERROR] REQUIERE CORRECCIONES CRITICAS
+
+P0-008 (CRÍTICO): FAILED
+  - CRÍTICO: Operadores faltantes en consulta cross-operador: {'MOVISTAR', 'WOM', 'TIGO', 'CLARO'}
+  cross_operator_query:
+    time_ms: 0.0
+    operators_found: 0
+    results: []
+  join_query:
+    time_ms: 0.0
+    results: 0
+  temporal_query:
+    time_ms: 0.0
+    results: 0
+
+P1-003 (IMPORTANTE): PASSED
+  Duración: 39.37ms
+  original_counts:
+    uploads: 4
+    cellular: 500
+    calls: 250
+  backup_time_ms: 0.0
+  backup_size_bytes: 278528
+  restore_time_ms: 11.01374626159668
+  restored_counts:
+    uploads: 4
+    cellular: 500
+    calls: 250
+
+P1-007 (IMPORTANTE): FAILED
+  Duración: 4.75ms
+  - CRÍTICO: Foreign key violation no causó rollback automático
+  - CRÍTICO: Datos parciales permanecieron después de rollback
+  initial_uploads: 4
+  constraint_error: CHECK constraint failed: operator IN ('CLARO', 'MOVISTAR', 'TIGO', 'WOM')
+  final_uploads: 5
+  rollback_uploads_found: 1
+  rollback_tests:
+    constraint_violation: True
+    foreign_key_violation: False
+
+P2-007 (EDGE CASE): FAILED
+
+ISSUES POR SEVERIDAD:
+
+CRÍTICO:
+- [P0-008] Operadores faltantes en consulta cross-operador: {'MOVISTAR', 'WOM', 'TIGO', 'CLARO'}
+  Sugerencia: Verificar proceso de inserción y normalización
+- [P1-007] Foreign key violation no causó rollback automático
+  Sugerencia: Verificar PRAGMA foreign_keys=ON
+- [P1-007] Datos parciales permanecieron después de rollback
+  Sugerencia: Revisar manejo de transacciones en aplicación
+
+RECOMENDACIONES:
+- CRITICO: Resolver issues críticos antes de continuar
+- Revisar casos fallidos e implementar correcciones
+- Implementar monitoreo continuo de performance
+- Mantener estadísticas de BD actualizadas
+- Documentar procedimientos de backup/recovery
+
+SIGN-OFF EQUIPO DE BASE DE DATOS: [ERROR] REQUIERE CORRECCIONES CRITICAS
+Especialista: Database Testing Team
+Fecha: 2025-08-11 22:56:06

@@ -1,0 +1,108 @@
+# KRONOS - Git Ignore Configuration
+# =====================================
+
+# Frontend Build Output
+Frontend/dist/
+Frontend/build/
+
+archivos/*
+
+# Node.js
+Frontend/node_modules/
+Frontend/.npm/
+Frontend/.cache/
+Frontend/.pnp/
+Frontend/.pnp.js
+
+# Environment variables
+Frontend/.env
+Frontend/.env.local
+Frontend/.env.development.local
+Frontend/.env.test.local
+Frontend/.env.production.local
+
+# Frontend logs
+Frontend/npm-debug.log*
+Frontend/yarn-debug.log*
+Frontend/yarn-error.log*
+
+# Vite
+Frontend/.vite/
+
+# Python Backend
+Backend/__pycache__/
+Backend/*.pyc
+Backend/*.pyo
+Backend/*.pyd
+Backend/.Python
+Backend/build/
+Backend/develop-eggs/
+Backend/dist/
+Backend/downloads/
+Backend/eggs/
+Backend/.eggs/
+Backend/lib/
+Backend/lib64/
+Backend/parts/
+Backend/sdist/
+Backend/var/
+Backend/wheels/
+Backend/*.egg-info/
+Backend/.installed.cfg
+Backend/*.egg
+Backend/MANIFEST
+
+# Virtual Environment
+Backend/venv/
+Backend/env/
+Backend/.env
+Backend/.venv
+
+# Python IDE
+Backend/.vscode/
+Backend/.idea/
+Backend/*.swp
+Backend/*.swo
+Backend/*~
+
+# Database
+Backend/*.db
+Backend/*.sqlite
+Backend/*.sqlite3
+Backend/database.db
+Backend/kronos.db
+
+# Logs
+Backend/*.log
+Backend/logs/
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+Backend/htmlcov/
+Backend/.coverage
+Backend/.coverage.*
+Backend/coverage.xml
+Backend/*.cover
+Backend/.hypothesis/
+Backend/.pytest_cache/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

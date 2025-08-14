@@ -1,0 +1,75 @@
+{
+  "timestamp": "2025-08-12T22:01:35.543732",
+  "test_results": [
+    {
+      "test": "Upload to Mission A",
+      "success": false,
+      "details": {
+        "success": false,
+        "error": "Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal",
+        "error_code": "PROCESSING_FAILED",
+        "sheetId": "e70fc1e7-1f6f-474e-b4a7-62e1d966f749",
+        "processedRecords": 0,
+        "warnings": [],
+        "errors": [
+          "Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal"
+        ]
+      }
+    },
+    {
+      "test": "Same file to same mission (should fail)",
+      "success": true,
+      "details": {
+        "success": false,
+        "error": "Este archivo ya ha sido procesado anteriormente en esta misión",
+        "error_code": "DUPLICATE_FILE",
+        "processedRecords": 0,
+        "warnings": [],
+        "errors": [
+          "Este archivo ya ha sido procesado anteriormente en esta misión"
+        ]
+      }
+    },
+    {
+      "test": "Same file to different mission",
+      "success": false,
+      "details": {
+        "success": false,
+        "error": "Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal",
+        "error_code": "PROCESSING_FAILED",
+        "sheetId": "d42b386a-bbb7-482e-9c1c-4e9222eb5d73",
+        "processedRecords": 0,
+        "warnings": [],
+        "errors": [
+          "Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal"
+        ]
+      }
+    },
+    {
+      "test": "Different file to same mission",
+      "success": false,
+      "details": {
+        "success": false,
+        "error": "Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal",
+        "error_code": "PROCESSING_FAILED",
+        "sheetId": "5a784b09-b17c-421c-9e87-81f35d2e78df",
+        "processedRecords": 0,
+        "warnings": [],
+        "errors": [
+          "Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal"
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "total_tests": 4,
+    "passed_tests": 1,
+    "success_rate": 25.0,
+    "overall_success": false
+  },
+  "functionality_check": {
+    "duplicate_detection_works": true,
+    "cross_mission_works": false,
+    "different_files_work": false
+  }
+}

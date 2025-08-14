@@ -1,0 +1,17 @@
+{
+  "test_start_time": "2025-08-13T20:47:43.532257",
+  "total_records_processed": 0,
+  "successful_records": 0,
+  "failed_records": 0,
+  "error_details": [],
+  "validation_errors": [],
+  "json_validation_errors": [],
+  "normalization_issues": [],
+  "success_rate": 0.0,
+  "sheets_processed": {},
+  "detailed_stats": {},
+  "critical_error": "FOREIGN KEY constraint failed",
+  "test_end_time": "2025-08-13T20:47:43.545430",
+  "total_test_duration_seconds": 0.013173,
+  "overall_status": "NEEDS_IMPROVEMENT"
+}

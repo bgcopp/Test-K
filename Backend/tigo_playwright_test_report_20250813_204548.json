@@ -1,0 +1,17 @@
+{
+  "test_start_time": "2025-08-13T20:45:48.964504",
+  "total_records_processed": 0,
+  "successful_records": 0,
+  "failed_records": 0,
+  "error_details": [],
+  "validation_errors": [],
+  "json_validation_errors": [],
+  "normalization_issues": [],
+  "success_rate": 0.0,
+  "sheets_processed": {},
+  "detailed_stats": {},
+  "critical_error": "no such column: mission_name",
+  "test_end_time": "2025-08-13T20:45:48.980542",
+  "total_test_duration_seconds": 0.016038,
+  "overall_status": "NEEDS_IMPROVEMENT"
+}

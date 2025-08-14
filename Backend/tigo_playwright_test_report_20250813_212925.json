@@ -1,0 +1,31 @@
+{
+  "test_start_time": "2025-08-13T21:29:19.171809",
+  "total_records_processed": 0,
+  "successful_records": 0,
+  "failed_records": 3812,
+  "error_details": [],
+  "validation_errors": [],
+  "json_validation_errors": [],
+  "normalization_issues": [],
+  "success_rate": 0.0,
+  "sheets_processed": {},
+  "detailed_stats": {},
+  "structure_validation": {
+    "is_valid": true,
+    "file_size_bytes": 348446,
+    "file_name": "Reporte TIGO.xlsx"
+  },
+  "processing_success": true,
+  "processing_time_seconds": 0,
+  "file_size_mb": 0,
+  "database_verification": {
+    "total_call_records": 0,
+    "file_uploads": 0,
+    "salientes_count": 0,
+    "entrantes_count": 0,
+    "sample_operator_data": []
+  },
+  "test_end_time": "2025-08-13T21:29:25.214409",
+  "total_test_duration_seconds": 6.0426,
+  "overall_status": "NEEDS_IMPROVEMENT"
+}

@@ -1,0 +1,302 @@
+{
+  "test_start_time": "2025-08-13T21:33:03.925503",
+  "total_records_processed": 3807,
+  "successful_records": 0,
+  "failed_records": 5,
+  "error_details": [],
+  "validation_errors": [],
+  "json_validation_errors": [],
+  "normalization_issues": [],
+  "success_rate": 0.0,
+  "sheets_processed": {},
+  "detailed_stats": {},
+  "structure_validation": {
+    "is_valid": true,
+    "file_size_bytes": 348446,
+    "file_name": "Reporte TIGO.xlsx"
+  },
+  "processing_success": true,
+  "processing_time_seconds": 0,
+  "file_size_mb": 0,
+  "database_verification": {
+    "total_call_records": 3807,
+    "file_uploads": 0,
+    "salientes_count": 3805,
+    "entrantes_count": 2,
+    "sample_operator_data": [
+      {
+        "operator": "TIGO",
+        "data_type": "llamadas_unificadas",
+        "direccion_original": "I",
+        "tipo_llamada_original": "20",
+        "codec": "nan",
+        "tecnologia": "3G",
+        "ubicacion": {
+          "ciudad": "BOGOTÁ. D.C.",
+          "departamento": "CUNDINAMARCA",
+          "direccion_fisica": "Diagonal 61D N 26A-29",
+          "coordenadas": {
+            "latitud": "4.64958",
+            "longitud": "-74.074989"
+          }
+        },
+        "antena_info": {
+          "azimuth": "240.0",
+          "altura_metros": "22.0",
+          "potencia_dbm": "43.0",
+          "tipo_cobertura": "6 - 1. URBANA",
+          "tipo_estructura": "12 - ROOFTOP + TOWER",
+          "cellid_nval": ""
+        },
+        "raw_fields": {
+          "tipo_de_llamada": "20",
+          "trcsextracodec": null,
+          "direccion": "I",
+          "celda_origen_truncada": "0001D799",
+          "tecnologia": "3G",
+          "direccion_fisica": "Diagonal 61D N 26A-29",
+          "ciudad": "BOGOTÁ. D.C.",
+          "departamento": "CUNDINAMARCA",
+          "azimuth": "240",
+          "altura": "22",
+          "potencia": "43.0",
+          "longitud": "-74.074989",
+          "latitud": "4.64958",
+          "tipo_cobertura": "6 - 1. URBANA",
+          "tipo_estructura": "12 - ROOFTOP + TOWER",
+          "operador": "TIGO",
+          "cellid_nval": "55193",
+          "_source_sheet": "Hoja1",
+          "_sheet_index": "1",
+          "_total_sheets": "3"
+        },
+        "original_destination": "3166574186",
+        "destination_normalized": "3166574186",
+        "is_service_call": false,
+        "source_sheet": "Hoja1",
+        "sheet_index": 1,
+        "total_sheets_in_file": 3,
+        "call_direction": "ENTRANTE"
+      },
+      {
+        "operator": "TIGO",
+        "data_type": "llamadas_unificadas",
+        "direccion_original": "I",
+        "tipo_llamada_original": "20",
+        "codec": "nan",
+        "tecnologia": "3G",
+        "ubicacion": {
+          "ciudad": "BOGOTÁ. D.C.",
+          "departamento": "CUNDINAMARCA",
+          "direccion_fisica": "CARRERA 91A No 51-37/41/45 SUR",
+          "coordenadas": {
+            "latitud": "4.634785",
+            "longitud": "-74.183842"
+          }
+        },
+        "antena_info": {
+          "azimuth": "170.0",
+          "altura_metros": "32.0",
+          "potencia_dbm": "43.0",
+          "tipo_cobertura": "6 - 1. URBANA",
+          "tipo_estructura": "2 - TOWER",
+          "cellid_nval": ""
+        },
+        "raw_fields": {
+          "tipo_de_llamada": "20",
+          "trcsextracodec": null,
+          "direccion": "I",
+          "celda_origen_truncada": "0010AF18",
+          "tecnologia": "3G",
+          "direccion_fisica": "CARRERA 91A No 51-37/41/45 SUR",
+          "ciudad": "BOGOTÁ. D.C.",
+          "departamento": "CUNDINAMARCA",
+          "azimuth": "170",
+          "altura": "32",
+          "potencia": "43.0",
+          "longitud": "-74.183842",
+          "latitud": "4.634785",
+          "tipo_cobertura": "6 - 1. URBANA",
+          "tipo_estructura": "2 - TOWER",
+          "operador": "TIGO",
+          "cellid_nval": "44824",
+          "_source_sheet": "Hoja3",
+          "_sheet_index": "3",
+          "_total_sheets": "3"
+        },
+        "original_destination": "3123553909",
+        "destination_normalized": "3123553909",
+        "is_service_call": false,
+        "source_sheet": "Hoja3",
+        "sheet_index": 3,
+        "total_sheets_in_file": 3,
+        "call_direction": "ENTRANTE"
+      },
+      {
+        "operator": "TIGO",
+        "data_type": "llamadas_unificadas",
+        "direccion_original": "O",
+        "tipo_llamada_original": "200",
+        "codec": "10.198.50.152",
+        "tecnologia": "4G",
+        "ubicacion": {
+          "ciudad": "BOGOTÁ. D.C.",
+          "departamento": "CUNDINAMARCA",
+          "direccion_fisica": "Diagonal 61D N 26A-29",
+          "coordenadas": {
+            "latitud": "4.64958",
+            "longitud": "-74.074989"
+          }
+        },
+        "antena_info": {
+          "azimuth": "350.0",
+          "altura_metros": "22.0",
+          "potencia_dbm": "18.2",
+          "tipo_cobertura": "6 - 1. URBANA",
+          "tipo_estructura": "12 - ROOFTOP + TOWER",
+          "cellid_nval": ""
+        },
+        "raw_fields": {
+          "tipo_de_llamada": "200",
+          "trcsextracodec": "10.198.50.152",
+          "direccion": "O",
+          "celda_origen_truncada": "010006CC",
+          "tecnologia": "4G",
+          "direccion_fisica": "Diagonal 61D N 26A-29",
+          "ciudad": "BOGOTÁ. D.C.",
+          "departamento": "CUNDINAMARCA",
+          "azimuth": "350",
+          "altura": "22",
+          "potencia": "18.2",
+          "longitud": "-74.074989",
+          "latitud": "4.64958",
+          "tipo_cobertura": "6 - 1. URBANA",
+          "tipo_estructura": "12 - ROOFTOP + TOWER",
+          "operador": "TIGO",
+          "cellid_nval": "1",
+          "_source_sheet": "Hoja1",
+          "_sheet_index": "1",
+          "_total_sheets": "3"
+        },
+        "original_destination": "internet.movistar.com.co",
+        "destination_normalized": "9999999010",
+        "is_service_call": true,
+        "source_sheet": "Hoja1",
+        "sheet_index": 1,
+        "total_sheets_in_file": 3,
+        "call_direction": "SALIENTE"
+      },
+      {
+        "operator": "TIGO",
+        "data_type": "llamadas_unificadas",
+        "direccion_original": "O",
+        "tipo_llamada_original": "200",
+        "codec": "nan",
+        "tecnologia": "4G",
+        "ubicacion": {
+          "ciudad": "BOGOTÁ. D.C.",
+          "departamento": "CUNDINAMARCA",
+          "direccion_fisica": "Diagonal 61D N 26A-29",
+          "coordenadas": {
+            "latitud": "4.64958",
+            "longitud": "-74.074989"
+          }
+        },
+        "antena_info": {
+          "azimuth": "350.0",
+          "altura_metros": "22.0",
+          "potencia_dbm": "18.2",
+          "tipo_cobertura": "6 - 1. URBANA",
+          "tipo_estructura": "12 - ROOFTOP + TOWER",
+          "cellid_nval": ""
+        },
+        "raw_fields": {
+          "tipo_de_llamada": "200",
+          "trcsextracodec": null,
+          "direccion": "O",
+          "celda_origen_truncada": "010006CC",
+          "tecnologia": "4G",
+          "direccion_fisica": "Diagonal 61D N 26A-29",
+          "ciudad": "BOGOTÁ. D.C.",
+          "departamento": "CUNDINAMARCA",
+          "azimuth": "350",
+          "altura": "22",
+          "potencia": "18.2",
+          "longitud": "-74.074989",
+          "latitud": "4.64958",
+          "tipo_cobertura": "6 - 1. URBANA",
+          "tipo_estructura": "12 - ROOFTOP + TOWER",
+          "operador": "TIGO",
+          "cellid_nval": "1",
+          "_source_sheet": "Hoja1",
+          "_sheet_index": "1",
+          "_total_sheets": "3"
+        },
+        "original_destination": "web.colombiamovil.com.co",
+        "destination_normalized": "9999999011",
+        "is_service_call": true,
+        "source_sheet": "Hoja1",
+        "sheet_index": 1,
+        "total_sheets_in_file": 3,
+        "call_direction": "SALIENTE"
+      },
+      {
+        "operator": "TIGO",
+        "data_type": "llamadas_unificadas",
+        "direccion_original": "O",
+        "tipo_llamada_original": "200",
+        "codec": "nan",
+        "tecnologia": "4G",
+        "ubicacion": {
+          "ciudad": "BOGOTÁ. D.C.",
+          "departamento": "CUNDINAMARCA",
+          "direccion_fisica": "Diagonal 61D N 26A-29",
+          "coordenadas": {
+            "latitud": "4.64958",
+            "longitud": "-74.074989"
+          }
+        },
+        "antena_info": {
+          "azimuth": "260.0",
+          "altura_metros": "22.0",
+          "potencia_dbm": "18.2",
+          "tipo_cobertura": "6 - 1. URBANA",
+          "tipo_estructura": "12 - ROOFTOP + TOWER",
+          "cellid_nval": ""
+        },
+        "raw_fields": {
+          "tipo_de_llamada": "200",
+          "trcsextracodec": null,
+          "direccion": "O",
+          "celda_origen_truncada": "030006CC",
+          "tecnologia": "4G",
+          "direccion_fisica": "Diagonal 61D N 26A-29",
+          "ciudad": "BOGOTÁ. D.C.",
+          "departamento": "CUNDINAMARCA",
+          "azimuth": "260",
+          "altura": "22",
+          "potencia": "18.2",
+          "longitud": "-74.074989",
+          "latitud": "4.64958",
+          "tipo_cobertura": "6 - 1. URBANA",
+          "tipo_estructura": "12 - ROOFTOP + TOWER",
+          "operador": "TIGO",
+          "cellid_nval": "3",
+          "_source_sheet": "Hoja1",
+          "_sheet_index": "1",
+          "_total_sheets": "3"
+        },
+        "original_destination": "ims",
+        "destination_normalized": "9999999001",
+        "is_service_call": true,
+        "source_sheet": "Hoja1",
+        "sheet_index": 1,
+        "total_sheets_in_file": 3,
+        "call_direction": "SALIENTE"
+      }
+    ]
+  },
+  "test_end_time": "2025-08-13T21:33:07.898958",
+  "total_test_duration_seconds": 3.973455,
+  "overall_status": "NEEDS_IMPROVEMENT"
+}

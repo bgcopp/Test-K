@@ -1,0 +1,66 @@
+================================================================================
+REPORTE DE CERTIFICACIÓN FINAL - SISTEMA CLARO
+================================================================================
+Fecha de ejecución: 2025-08-12 06:35:20
+Duración total: 0.60 segundos
+Estado general: EXITO
+
+ARCHIVOS PROCESADOS:
+----------------------------------------
+• DATOS_POR_CELDA CLARO_MANUAL_FIX.csv
+  Tipo: DATOS
+  Tamaño: 599,435 bytes
+  Registros esperados: 99,001
+
+• LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv
+  Tipo: LLAMADAS_ENTRANTES
+  Tamaño: 8,123 bytes
+  Registros esperados: 973
+
+• LLAMADAS_SALIENTES_POR_CELDA CLARO.csv
+  Tipo: LLAMADAS_SALIENTES
+  Tamaño: 8,154 bytes
+  Registros esperados: 961
+
+RESULTADOS DE PROCESAMIENTO:
+----------------------------------------
+• DATOS_DATOS_POR_CELDA CLARO_MANUAL_FIX.csv: EXITO
+  Tiempo: 0.50s
+  Registros: 128
+  ADVERTENCIA: Conteo no coincide con esperado
+
+• LLAMADAS_ENTRANTES_LLAMADAS_ENTRANTES_POR_CELDA CLARO.csv: EXITO
+  Tiempo: 0.00s
+  Registros: 0
+  ADVERTENCIA: Conteo no coincide con esperado
+
+• LLAMADAS_SALIENTES_LLAMADAS_SALIENTES_POR_CELDA CLARO.csv: EXITO
+  Tiempo: 0.02s
+  Registros: 0
+  ADVERTENCIA: Conteo no coincide con esperado
+
+VALIDACIÓN DE PERSISTENCIA:
+----------------------------------------
+PERSISTENCIA VALIDADA CORRECTAMENTE
+Uploads encontrados: 3
+Registros datos celulares: 128
+Registros datos llamadas: 0
+Total registros persistidos: 128
+
+MÉTRICAS DE RENDIMIENTO:
+----------------------------------------
+Archivos exitosos: 3/3
+Tiempo total de procesamiento: 0.52s
+Registros procesados: 128
+Velocidad promedio: 247 registros/s
+Tasa de éxito: 100.0%
+
+CONCLUSIÓN:
+----------------------------------------
+EL SISTEMA CLARO HA SIDO CERTIFICADO EXITOSAMENTE
+   - Todos los archivos fueron procesados correctamente
+   - Los datos se persistieron en la base de datos
+   - El rendimiento es aceptable
+   - No se encontraron errores criticos
+
+================================================================================

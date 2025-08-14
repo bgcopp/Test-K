@@ -1,0 +1,143 @@
+{
+  "total_tests": 22,
+  "passed": 8,
+  "failed": 14,
+  "pass_rate": 36.36363636363637,
+  "critical_tests_passed": 0,
+  "critical_tests_total": 3,
+  "production_ready": false,
+  "details": [
+    {
+      "test": "Test Environment Setup",
+      "passed": true,
+      "details": "Clean environment initialized",
+      "timestamp": "2025-08-12 08:50:32"
+    },
+    {
+      "test": "Critical 1: FOREIGN KEY Resolution",
+      "passed": false,
+      "details": "Unexpected error: Error en enrutamiento de upload: Error en procesador CLARO: Error en procesamiento: Error procesando archivo CLARO: La misión CERT-CLARO-001 no existe. Debe crear la misión antes de procesar archivos.",
+      "timestamp": "2025-08-12 08:50:32"
+    },
+    {
+      "test": "Critical 2: Sábanas de Operador",
+      "passed": false,
+      "details": "Unexpected error: Error en enrutamiento de upload: Error en procesador CLARO: Error en procesamiento: Error procesando archivo CLARO: La misión CERT-CLARO-001 no existe. Debe crear la misión antes de procesar archivos.",
+      "timestamp": "2025-08-12 08:50:33"
+    },
+    {
+      "test": "Critical 3: Progress Error Resolution",
+      "passed": false,
+      "details": "Unexpected error: Error en enrutamiento de upload: Error en procesador CLARO: Error en procesamiento: Error procesando archivo CLARO: La misión CERT-REGRESSION-001 no existe. Debe crear la misión antes de procesar archivos.",
+      "timestamp": "2025-08-12 08:50:34"
+    },
+    {
+      "test": "Regression CLARO DATOS",
+      "passed": false,
+      "details": "Exception: Error en enrutamiento de upload: Error en procesador CLARO: Error en procesamiento: Error procesando archivo CLARO: La misión CERT-REGRESSION-001 no existe. Debe crear la misión antes de procesar archivos.",
+      "timestamp": "2025-08-12 08:50:34"
+    },
+    {
+      "test": "Regression CLARO LLAMADAS_ENTRANTES",
+      "passed": false,
+      "details": "Exception: Error en enrutamiento de upload: Error en procesador CLARO: Error en procesamiento: Error procesando archivo CLARO: La misión CERT-REGRESSION-001 no existe. Debe crear la misión antes de procesar archivos.",
+      "timestamp": "2025-08-12 08:50:34"
+    },
+    {
+      "test": "Regression CLARO LLAMADAS_SALIENTES",
+      "passed": false,
+      "details": "Exception: Error en enrutamiento de upload: Error en procesador CLARO: Error en procesamiento: Error procesando archivo CLARO: La misión CERT-REGRESSION-001 no existe. Debe crear la misión antes de procesar archivos.",
+      "timestamp": "2025-08-12 08:50:34"
+    },
+    {
+      "test": "Regression MOVISTAR DATOS",
+      "passed": false,
+      "details": "Exception: Error en enrutamiento de upload: Error en procesador genérico: Columnas faltantes en archivo operador: operatorId, towers, name, coverage",
+      "timestamp": "2025-08-12 08:50:37"
+    },
+    {
+      "test": "Regression MOVISTAR VOZ_SALIENTE",
+      "passed": false,
+      "details": "Exception: Error en enrutamiento de upload: Error en procesador genérico: Columnas faltantes en archivo operador: operatorId, towers, name, coverage",
+      "timestamp": "2025-08-12 08:50:37"
+    },
+    {
+      "test": "Regression TIGO DATOS",
+      "passed": false,
+      "details": "Exception: Error en enrutamiento de upload: Error en procesador genérico: Columnas faltantes en archivo operador: operatorId, towers, coverage",
+      "timestamp": "2025-08-12 08:50:38"
+    },
+    {
+      "test": "Regression WOM DATOS",
+      "passed": false,
+      "details": "Exception: Error en enrutamiento de upload: Error en procesador genérico: Columnas faltantes en archivo operador: operatorId, towers, name, coverage",
+      "timestamp": "2025-08-12 08:50:38"
+    },
+    {
+      "test": "Regression WOM VOZ",
+      "passed": false,
+      "details": "Exception: Error en enrutamiento de upload: Error en procesador genérico: Columnas faltantes en archivo operador: operatorId, towers, name, coverage",
+      "timestamp": "2025-08-12 08:50:39"
+    },
+    {
+      "test": "Edge Case: Large File Performance",
+      "passed": true,
+      "details": "File size acceptable (599435 bytes)",
+      "timestamp": "2025-08-12 08:50:39"
+    },
+    {
+      "test": "Edge Case: Concurrent Upload Resilience",
+      "passed": false,
+      "details": "Concurrent test failed: Error en enrutamiento de upload: Error en procesador CLARO: Error en procesamiento: Error procesando archivo CLARO: La misión CERT-PERFORMANCE-001 no existe. Debe crear la misión antes de procesar archivos.",
+      "timestamp": "2025-08-12 08:50:39"
+    },
+    {
+      "test": "Edge Case: Database Integrity",
+      "passed": false,
+      "details": "Database integrity issues: 0 records, 0 missions",
+      "timestamp": "2025-08-12 08:50:39"
+    },
+    {
+      "test": "Production: L2 Router Architecture",
+      "passed": true,
+      "details": "L2 router architecture confirmed",
+      "timestamp": "2025-08-12 08:50:39"
+    },
+    {
+      "test": "Production: Database Schema Integrity",
+      "passed": true,
+      "details": "All required tables present: 12",
+      "timestamp": "2025-08-12 08:50:39"
+    },
+    {
+      "test": "Production: Error Handling Coverage",
+      "passed": true,
+      "details": "Error handling working properly",
+      "timestamp": "2025-08-12 08:50:39"
+    },
+    {
+      "test": "Production: File Type Detection",
+      "passed": true,
+      "details": "File detection configured for 3 types",
+      "timestamp": "2025-08-12 08:50:39"
+    },
+    {
+      "test": "Production: Transaction Rollback",
+      "passed": true,
+      "details": "Transaction handling verified through successful operations",
+      "timestamp": "2025-08-12 08:50:39"
+    },
+    {
+      "test": "Production: Logging Architecture",
+      "passed": false,
+      "details": "Logging system not working properly",
+      "timestamp": "2025-08-12 08:50:39"
+    },
+    {
+      "test": "Production: Memory Management",
+      "passed": true,
+      "details": "Memory management verified through sustained operations",
+      "timestamp": "2025-08-12 08:50:39"
+    }
+  ]
+}

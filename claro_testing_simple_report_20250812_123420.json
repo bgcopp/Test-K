@@ -1,0 +1,72 @@
+{
+  "start_time": "2025-08-12T12:34:20.943656",
+  "tests": {
+    "DATOS_POR_CELDA_CSV": {
+      "test_name": "DATOS_POR_CELDA_CSV",
+      "success": false,
+      "duration": 0.01408529281616211,
+      "memory_usage": 1.8125,
+      "file_size_mb": 0.4772500991821289,
+      "records_processed": 0,
+      "records_failed": 0,
+      "file_upload_id": null,
+      "response": {
+        "success": false,
+        "error": "La misión test-mission-claro no existe",
+        "error_code": "MISSION_NOT_FOUND"
+      }
+    },
+    "LLAMADAS_ENTRANTES_CSV": {
+      "test_name": "LLAMADAS_ENTRANTES_CSV",
+      "success": false,
+      "duration": 0.009270668029785156,
+      "memory_usage": 0.0,
+      "file_size_mb": 0.007746696472167969,
+      "records_processed": 0,
+      "records_failed": 0,
+      "file_upload_id": null,
+      "response": {
+        "success": false,
+        "error": "La misión test-mission-claro no existe",
+        "error_code": "MISSION_NOT_FOUND"
+      }
+    },
+    "LLAMADAS_SALIENTES_CSV": {
+      "test_name": "LLAMADAS_SALIENTES_CSV",
+      "success": false,
+      "duration": 0.010072469711303711,
+      "memory_usage": 0.0,
+      "file_size_mb": 0.0077762603759765625,
+      "records_processed": 0,
+      "records_failed": 0,
+      "file_upload_id": null,
+      "response": {
+        "success": false,
+        "error": "La misión test-mission-claro no existe",
+        "error_code": "MISSION_NOT_FOUND"
+      }
+    }
+  },
+  "critical_issues": [],
+  "major_issues": [
+    "DATOS_POR_CELDA_CSV: La misión test-mission-claro no existe",
+    "LLAMADAS_ENTRANTES_CSV: La misión test-mission-claro no existe",
+    "LLAMADAS_SALIENTES_CSV: La misión test-mission-claro no existe"
+  ],
+  "minor_issues": [],
+  "system_statistics": {
+    "success": true,
+    "statistics": {},
+    "totals": {
+      "total_files": 0,
+      "total_records": 0,
+      "total_failed": 0,
+      "total_bytes": 0,
+      "completed_files": 0,
+      "failed_files": 0,
+      "success_rate": 0
+    },
+    "mission_id": null
+  },
+  "end_time": "2025-08-12T12:34:20.995198"
+}

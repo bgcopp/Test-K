@@ -1,0 +1,83 @@
+{
+  "timestamp": "2025-08-12T18:15:36.987165",
+  "test_type": "COMPLETE_FINAL_VALIDATION",
+  "certification_status": "NOT_CERTIFIED",
+  "fix1_frontend": {
+    "status": "VALIDATED",
+    "details": {
+      "has_cellular_data_id": true,
+      "has_call_data_id": true,
+      "no_spanish_ids": true
+    }
+  },
+  "fix2_backend": {
+    "status": "FAILED",
+    "error_responses": {
+      "status": "VALIDATED",
+      "details": [
+        {
+          "test_name": "Archivo con datos inválidos (estructura incorrecta)",
+          "success_field": true,
+          "sheet_id_field": true,
+          "old_field_present": false,
+          "error_as_expected": true,
+          "fields_correct": true,
+          "response": {
+            "success": false,
+            "error": "Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal",
+            "error_code": "PROCESSING_FAILED",
+            "sheetId": "5bd56953-b725-4f63-9e99-fe9b9e8d0bdf"
+          }
+        },
+        {
+          "test_name": "Operador no soportado",
+          "success_field": true,
+          "sheet_id_field": false,
+          "old_field_present": false,
+          "error_as_expected": true,
+          "fields_correct": true,
+          "response": {
+            "success": false,
+            "error": "Operador no soportado: UNKNOWN_OPERATOR. Soportados: CLARO, MOVISTAR, TIGO, WOM",
+            "error_code": "UNSUPPORTED_OPERATOR"
+          }
+        },
+        {
+          "test_name": "Tipo de archivo no soportado para TIGO",
+          "success_field": true,
+          "sheet_id_field": true,
+          "old_field_present": false,
+          "error_as_expected": true,
+          "fields_correct": true,
+          "response": {
+            "success": false,
+            "error": "TIGO no maneja datos celulares separados. Use CALL_DATA para llamadas unificadas.",
+            "error_code": "INVALID_FILE_TYPE_FOR_OPERATOR",
+            "sheetId": "8a75e101-a7d0-4679-a1ff-7a4237602f0c"
+          }
+        }
+      ]
+    },
+    "success_responses": {
+      "status": "FAILED",
+      "details": {
+        "upload_successful": false,
+        "has_sheet_id": true,
+        "has_processed_records": false,
+        "has_warnings": false,
+        "has_errors": false,
+        "no_old_fields": true,
+        "response": {
+          "success": false,
+          "error": "Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal",
+          "error_code": "PROCESSING_FAILED",
+          "sheetId": "b3818667-8e83-424f-b4db-ce3fa75fbe6e"
+        }
+      }
+    }
+  },
+  "summary": {
+    "both_fixes_validated": false,
+    "user_reported_issue_resolved": false
+  }
+}

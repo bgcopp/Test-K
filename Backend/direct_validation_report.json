@@ -1,0 +1,41 @@
+{
+  "timestamp": "2025-08-12T07:36:30.567468",
+  "total_time": 1.1,
+  "tests_passed": 0,
+  "tests_total": 5,
+  "success_rate": 0.0,
+  "results": {
+    "Imports de módulos": {
+      "status": "ERROR",
+      "error": "'charmap' codec can't encode character '\\u2717' in position 8: character maps to <undefined>",
+      "time": 0.81
+    },
+    "Procesadores de operadores": {
+      "status": "ERROR",
+      "error": "'charmap' codec can't encode character '\\u2717' in position 8: character maps to <undefined>",
+      "time": 0.0
+    },
+    "Estructura de base de datos": {
+      "status": "ERROR",
+      "error": "'charmap' codec can't encode character '\\u2717' in position 8: character maps to <undefined>",
+      "time": 0.29
+    },
+    "Archivos CLARO": {
+      "status": "ERROR",
+      "error": "'charmap' codec can't encode character '\\u2717' in position 8: character maps to <undefined>",
+      "time": 0.0
+    },
+    "Métodos operator_service": {
+      "status": "ERROR",
+      "error": "'charmap' codec can't encode character '\\u2717' in position 8: character maps to <undefined>",
+      "time": 0.0
+    }
+  },
+  "corrections_status": {
+    "modules_import_correctly": false,
+    "processors_available": false,
+    "database_structure_ok": false,
+    "claro_files_readable": false,
+    "operator_service_working": false
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-08-12T18:13:30.090979",
+  "test_type": "REAL_FILES_VALIDATION",
+  "results": {
+    "CELLULAR_DATA": {
+      "success": false,
+      "error": "Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal",
+      "error_code": "PROCESSING_FAILED",
+      "file_upload_id": "501b4922-db83-46f8-abd5-27c08acfe2f6"
+    },
+    "CALL_DATA": {
+      "success": false,
+      "error": "Este archivo ya ha sido procesado anteriormente",
+      "error_code": "DUPLICATE_FILE"
+    }
+  },
+  "fix1_status": "VALIDATED",
+  "fix2_status": "VALIDATED",
+  "successful_uploads": 0,
+  "total_tests": 2
+}

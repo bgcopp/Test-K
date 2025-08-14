@@ -1,0 +1,132 @@
+{
+  "start_time": "2025-08-12T12:35:54.619575",
+  "tests": {
+    "DATOS_POR_CELDA_XLSX": {
+      "test_name": "DATOS_POR_CELDA_XLSX",
+      "success": false,
+      "duration": 4.450861215591431,
+      "memory_usage": 34.33984375,
+      "file_size_mb": 1.7164392471313477,
+      "records_processed": 0,
+      "records_failed": 0,
+      "file_upload_id": "ebd56965-96fc-4e20-8653-09262d9c0c31",
+      "response": {
+        "success": false,
+        "error": "Demasiados errores en el archivo (128). Verifique el formato.",
+        "error_code": "PROCESSING_FAILED",
+        "file_upload_id": "ebd56965-96fc-4e20-8653-09262d9c0c31"
+      }
+    },
+    "LLAMADAS_ENTRANTES_CSV": {
+      "test_name": "LLAMADAS_ENTRANTES_CSV",
+      "success": false,
+      "duration": 0.009160995483398438,
+      "memory_usage": 0.0,
+      "file_size_mb": 0.007746696472167969,
+      "records_processed": 0,
+      "records_failed": 0,
+      "file_upload_id": null,
+      "response": {
+        "success": false,
+        "error": "Este archivo ya ha sido procesado anteriormente",
+        "error_code": "DUPLICATE_FILE"
+      }
+    },
+    "LLAMADAS_SALIENTES_CSV": {
+      "test_name": "LLAMADAS_SALIENTES_CSV",
+      "success": false,
+      "duration": 0.008081436157226562,
+      "memory_usage": 0.0,
+      "file_size_mb": 0.0077762603759765625,
+      "records_processed": 0,
+      "records_failed": 0,
+      "file_upload_id": null,
+      "response": {
+        "success": false,
+        "error": "Este archivo ya ha sido procesado anteriormente",
+        "error_code": "DUPLICATE_FILE"
+      }
+    },
+    "LLAMADAS_ENTRANTES_XLSX": {
+      "test_name": "LLAMADAS_ENTRANTES_XLSX",
+      "success": true,
+      "duration": 0.12130618095397949,
+      "memory_usage": -6.83984375,
+      "file_size_mb": 0.029001235961914062,
+      "records_processed": 4,
+      "records_failed": 0,
+      "file_upload_id": "1f7cdf27-eb00-41da-8e44-ae3320a5299d",
+      "response": {
+        "success": true,
+        "message": "Archivo procesado exitosamente",
+        "file_upload_id": "1f7cdf27-eb00-41da-8e44-ae3320a5299d",
+        "records_processed": 4,
+        "records_failed": 0,
+        "processing_details": {
+          "original_records": 4,
+          "cleaned_records": 4,
+          "chunks_processed": 1,
+          "processing_errors": [],
+          "file_type": "CLARO_LLAMADAS_ENTRANTES"
+        }
+      }
+    },
+    "LLAMADAS_SALIENTES_XLSX": {
+      "test_name": "LLAMADAS_SALIENTES_XLSX",
+      "success": true,
+      "duration": 0.1570141315460205,
+      "memory_usage": 0.0703125,
+      "file_size_mb": 0.0292816162109375,
+      "records_processed": 6,
+      "records_failed": 0,
+      "file_upload_id": "69ae3241-ba3e-4bcb-8123-f48b8813bb14",
+      "response": {
+        "success": true,
+        "message": "Archivo procesado exitosamente",
+        "file_upload_id": "69ae3241-ba3e-4bcb-8123-f48b8813bb14",
+        "records_processed": 6,
+        "records_failed": 0,
+        "processing_details": {
+          "original_records": 6,
+          "cleaned_records": 6,
+          "chunks_processed": 1,
+          "processing_errors": [],
+          "file_type": "CLARO_LLAMADAS_SALIENTES"
+        }
+      }
+    }
+  },
+  "critical_issues": [],
+  "major_issues": [
+    "DATOS_POR_CELDA_XLSX: Demasiados errores en el archivo (128). Verifique el formato.",
+    "LLAMADAS_ENTRANTES_CSV: Este archivo ya ha sido procesado anteriormente",
+    "LLAMADAS_SALIENTES_CSV: Este archivo ya ha sido procesado anteriormente"
+  ],
+  "minor_issues": [],
+  "system_statistics": {
+    "success": true,
+    "statistics": {
+      "CLARO": {
+        "total_files": 6,
+        "total_records": 20,
+        "total_failed": 0,
+        "total_bytes": 1877311,
+        "avg_processing_time": 0.83,
+        "completed_files": 4,
+        "failed_files": 2,
+        "success_rate": 66.7
+      }
+    },
+    "totals": {
+      "total_files": 6,
+      "total_records": 20,
+      "total_failed": 0,
+      "total_bytes": 1877311,
+      "completed_files": 4,
+      "failed_files": 2,
+      "success_rate": 66.7
+    },
+    "mission_id": null
+  },
+  "end_time": "2025-08-12T12:35:59.383346"
+}

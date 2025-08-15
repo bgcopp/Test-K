@@ -601,6 +601,9 @@ class FileProcessorService:
         """
         records_processed = 0
         records_failed = 0
+        records_duplicated = 0  # NUEVO: contador de duplicados
+        validation_failed = 0   # NUEVO: contador de errores de validación
+        other_errors = 0        # NUEVO: contador de otros errores
         failed_records = []
         
         try:
@@ -615,10 +618,13 @@ class FileProcessorService:
                         # Validar registro
                         is_valid, errors = self._validate_claro_cellular_record(record)
                         if not is_valid:
+                            # CAMBIO: errores de validación se clasifican por separado
+                            validation_failed += 1
                             records_failed += 1
                             failed_records.append({
                                 'row': index + 1,
                                 'errors': errors,
+                                'type': 'validation',
                                 'record': record
                             })
                             
@@ -632,10 +638,12 @@ class FileProcessorService:
                         )
                         
                         if not normalized_data:
+                            validation_failed += 1
                             records_failed += 1
                             failed_records.append({
                                 'row': index + 1,
                                 'errors': ['Error en normalización'],
+                                'type': 'normalization',
                                 'record': record
                             })
                             continue
@@ -680,28 +688,43 @@ class FileProcessorService:
                         records_processed += 1
                         
                     except Exception as e:
-                        records_failed += 1
+                        error_str = str(e)
+                        
+                        # NUEVO: Distinguir tipos de errores por mensaje
+                        if "UNIQUE constraint failed" in error_str:
+                            # Es un duplicado legítimo - NO cuenta como error para el límite
+                            records_duplicated += 1
+                            error_type = 'duplicate'
+                            self.logger.debug(f"Registro duplicado omitido {index + 1} en chunk {chunk_number}: {error_str}")
+                        else:
+                            # Es un error real - SÍ cuenta para el límite de errores
+                            other_errors += 1
+                            records_failed += 1  # SOLO errores reales incrementan records_failed
+                            error_type = 'database'
+                            self.logger.error(f"Error procesando registro {index + 1} en chunk {chunk_number}: {e}")
+                        
+                        # Agregar a la lista de fallos (para debugging, pero no afecta límite de errores)
                         failed_records.append({
                             'row': index + 1,
-                            'errors': [f'Error procesando registro: {str(e)}'],
+                            'errors': [f'Error procesando registro: {error_str}'],
+                            'type': error_type,
                             'record': record if 'record' in locals() else {}
                         })
-                        
-                        self.logger.error(
-                            f"Error procesando registro {index + 1} en chunk {chunk_number}: {e}"
-                        )
                 
                 # Confirmar transacción del chunk
                 conn.commit()
                 
                 self.logger.debug(
-                    f"Chunk {chunk_number} procesado: {records_processed} exitosos, {records_failed} fallidos"
+                    f"Chunk {chunk_number} procesado: {records_processed} exitosos, {records_failed} fallidos ({records_duplicated} duplicados, {validation_failed} validación, {other_errors} otros)"
                 )
                 
                 return {
                     'success': True,
                     'records_processed': records_processed,
                     'records_failed': records_failed,
+                    'records_duplicated': records_duplicated,      # NUEVO
+                    'validation_failed': validation_failed,       # NUEVO
+                    'other_errors': other_errors,                 # NUEVO
                     'failed_records': failed_records[:10]  # Limitar detalle
                 }
                 
@@ -711,7 +734,10 @@ class FileProcessorService:
                 'success': False,
                 'error': str(e),
                 'records_processed': records_processed,
-                'records_failed': records_failed
+                'records_failed': records_failed,
+                'records_duplicated': records_duplicated,
+                'validation_failed': validation_failed,
+                'other_errors': other_errors
             }
     
     def _process_claro_call_chunk(self, chunk_df: pd.DataFrame, file_upload_id: str, 
@@ -922,6 +948,9 @@ class FileProcessorService:
             
             total_processed = 0
             total_failed = 0
+            total_duplicated = 0        # NUEVO: contador total de duplicados
+            total_validation_failed = 0 # NUEVO: contador total de errores de validación
+            total_other_errors = 0      # NUEVO: contador total de otros errores
             chunk_number = 0
             processing_errors = []
             
@@ -940,6 +969,9 @@ class FileProcessorService:
                 if chunk_result.get('success', False):
                     total_processed += chunk_result.get('records_processed', 0)
                     total_failed += chunk_result.get('records_failed', 0)
+                    total_duplicated += chunk_result.get('records_duplicated', 0)          # NUEVO
+                    total_validation_failed += chunk_result.get('validation_failed', 0)  # NUEVO
+                    total_other_errors += chunk_result.get('other_errors', 0)             # NUEVO
                     
                     # Acumular errores detallados (limitado)
                     if chunk_result.get('failed_records'):
@@ -955,8 +987,11 @@ class FileProcessorService:
                     return {
                         'success': False,
                         'error': f'Error procesando datos (chunk {chunk_number}): {error_msg}',
-                        'records_processed': total_processed,
-                        'records_failed': total_failed
+                        'processedRecords': total_processed,
+                        'records_failed': total_failed,
+                        'records_duplicated': total_duplicated,
+                        'records_validation_failed': total_validation_failed,
+                        'records_other_errors': total_other_errors
                     }
                 
                 # Verificar si hay demasiados errores
@@ -965,7 +1000,7 @@ class FileProcessorService:
                     return {
                         'success': False,
                         'error': f'Demasiados errores en el archivo ({total_failed}). Verifique el formato.',
-                        'records_processed': total_processed,
+                        'processedRecords': total_processed,
                         'records_failed': total_failed
                     }
             
@@ -976,28 +1011,49 @@ class FileProcessorService:
             # Determinar éxito basado en ratio de registros procesados
             success_rate = (total_processed / (total_processed + total_failed)) * 100 if (total_processed + total_failed) > 0 else 0
             
-            # Considerar exitoso si al menos 80% de registros se procesaron
-            is_successful = success_rate >= 80.0
+            # NUEVA LÓGICA CON MÉTRICAS PRECISAS: usar contadores exactos de los chunks
+            effective_failures = total_validation_failed + total_other_errors  # Solo errores reales, no duplicados
+            effective_success_rate = (total_processed / (total_processed + effective_failures)) * 100 if (total_processed + effective_failures) > 0 else 0
+            
+            # NUEVA LÓGICA: Duplicados = comportamiento normal, no error
+            is_successful = (
+                total_processed > 0 and  # Se procesó al menos 1 registro único
+                (effective_failures == 0 or effective_success_rate >= 80.0)  # Sin errores reales O tasa efectiva alta
+            )
             
             result = {
                 'success': is_successful,
-                'records_processed': total_processed,
+                'processedRecords': total_processed,
                 'records_failed': total_failed,
+                'records_duplicated': total_duplicated,                    # NUEVO: contador exacto de duplicados
+                'records_validation_failed': total_validation_failed,     # NUEVO: contador exacto de errores de validación
+                'records_other_errors': total_other_errors,               # NUEVO: contador exacto de otros errores
                 'success_rate': round(success_rate, 2),
                 'processing_time_seconds': round(processing_time, 2),
                 'details': {
                     'original_records': original_count,
                     'cleaned_records': cleaned_count,
                     'chunks_processed': chunk_number,
-                    'processing_errors': processing_errors[:10]  # Limitar errores mostrados
+                    'processing_errors': processing_errors[:10],  # Limitar errores mostrados
+                    'duplicate_analysis': {
+                        'detected_duplicates': total_duplicated,
+                        'validation_failures': total_validation_failed,
+                        'other_failures': total_other_errors,
+                        'duplicate_percentage': round((total_duplicated / total_failed) * 100, 1) if total_failed > 0 else 0
+                    }
                 }
             }
             
             if not is_successful:
-                result['error'] = f'Tasa de éxito baja ({success_rate:.1f}%). Verifique el formato del archivo.'
+                # Crear mensaje específico según tipo de problemas
+                duplicate_percentage = (total_duplicated / total_failed) * 100 if total_failed > 0 else 0
+                if duplicate_percentage >= 50.0:
+                    result['error'] = f'Procesamiento incompleto: {total_processed}/{total_processed + total_failed} registros únicos procesados. {total_duplicated} registros duplicados omitidos ({duplicate_percentage:.1f}% del total de fallos). Verifique si el archivo contiene registros válidos adicionales.'
+                else:
+                    result['error'] = f'Tasa de procesamiento baja ({success_rate:.1f}%). Verifique el formato del archivo. Errores: {effective_failures} reales, {total_duplicated} duplicados.'
             
             self.logger.info(
-                f"Procesamiento CLARO completado: {total_processed} exitosos, {total_failed} fallidos ({success_rate:.1f}% éxito)"
+                f"Procesamiento CLARO completado: {total_processed} exitosos, {total_failed} fallidos, {total_duplicated} duplicados ({success_rate:.1f}% éxito)"
             )
             
             # Actualizar tabla operator_data_sheets con conteo final
@@ -1149,7 +1205,7 @@ class FileProcessorService:
                     return {
                         'success': False,
                         'error': f'Error procesando datos (chunk {chunk_number}): {error_msg}',
-                        'records_processed': total_processed,
+                        'processedRecords': total_processed,
                         'records_failed': total_failed
                     }
                 
@@ -1159,7 +1215,7 @@ class FileProcessorService:
                     return {
                         'success': False,
                         'error': f'Demasiados errores en el archivo ({total_failed}). Verifique el formato.',
-                        'records_processed': total_processed,
+                        'processedRecords': total_processed,
                         'records_failed': total_failed
                     }
             
@@ -1170,12 +1226,12 @@ class FileProcessorService:
             # Determinar éxito basado en ratio de registros procesados
             success_rate = (total_processed / (total_processed + total_failed)) * 100 if (total_processed + total_failed) > 0 else 0
             
-            # Considerar exitoso si al menos 80% de registros se procesaron
-            is_successful = success_rate >= 80.0
+            # NUEVA LÓGICA: Considerar exitoso si se procesó al menos 1 registro (duplicados = normal)
+            is_successful = total_processed > 0
             
             result = {
                 'success': is_successful,
-                'records_processed': total_processed,
+                'processedRecords': total_processed,
                 'records_failed': total_failed,
                 'success_rate': round(success_rate, 2),
                 'processing_time_seconds': round(processing_time, 2),
@@ -1713,7 +1769,7 @@ class FileProcessorService:
                     return {
                         'success': False,
                         'error': f'Error procesando datos (chunk {chunk_number}): {error_msg}',
-                        'records_processed': total_processed,
+                        'processedRecords': total_processed,
                         'records_failed': total_failed
                     }
                 
@@ -1723,7 +1779,7 @@ class FileProcessorService:
                     return {
                         'success': False,
                         'error': f'Demasiados errores en el archivo ({total_failed}). Verifique el formato.',
-                        'records_processed': total_processed,
+                        'processedRecords': total_processed,
                         'records_failed': total_failed
                     }
             
@@ -1734,12 +1790,12 @@ class FileProcessorService:
             # Determinar éxito basado en ratio de registros procesados
             success_rate = (total_processed / (total_processed + total_failed)) * 100 if (total_processed + total_failed) > 0 else 0
             
-            # Considerar exitoso si al menos 80% de registros se procesaron
-            is_successful = success_rate >= 80.0
+            # NUEVA LÓGICA: Considerar exitoso si se procesó al menos 1 registro (duplicados = normal)
+            is_successful = total_processed > 0
             
             result = {
                 'success': is_successful,
-                'records_processed': total_processed,
+                'processedRecords': total_processed,
                 'records_failed': total_failed,
                 'success_rate': round(success_rate, 2),
                 'processing_time_seconds': round(processing_time, 2),
@@ -1875,6 +1931,9 @@ class FileProcessorService:
             
             total_processed = 0
             total_failed = 0
+            total_duplicated = 0      # NUEVO: contador total de duplicados
+            total_validation_failed = 0  # NUEVO: contador total de errores de validación
+            total_other_errors = 0    # NUEVO: contador total de otros errores
             chunk_number = 0
             processing_errors = []
             
@@ -1893,6 +1952,9 @@ class FileProcessorService:
                 if chunk_result.get('success', False):
                     total_processed += chunk_result.get('records_processed', 0)
                     total_failed += chunk_result.get('records_failed', 0)
+                    total_duplicated += chunk_result.get('records_duplicated', 0)      # NUEVO
+                    total_validation_failed += chunk_result.get('validation_failed', 0)  # NUEVO
+                    total_other_errors += chunk_result.get('other_errors', 0)         # NUEVO
                     
                     # Acumular errores detallados (limitado)
                     if chunk_result.get('failed_records'):
@@ -1908,7 +1970,7 @@ class FileProcessorService:
                     return {
                         'success': False,
                         'error': f'Error procesando datos (chunk {chunk_number}): {error_msg}',
-                        'records_processed': total_processed,
+                        'processedRecords': total_processed,
                         'records_failed': total_failed
                     }
                 
@@ -1918,7 +1980,7 @@ class FileProcessorService:
                     return {
                         'success': False,
                         'error': f'Demasiados errores en el archivo ({total_failed}). Verifique el formato.',
-                        'records_processed': total_processed,
+                        'processedRecords': total_processed,
                         'records_failed': total_failed
                     }
             
@@ -1929,13 +1991,16 @@ class FileProcessorService:
             # Determinar éxito basado en ratio de registros procesados
             success_rate = (total_processed / (total_processed + total_failed)) * 100 if (total_processed + total_failed) > 0 else 0
             
-            # Considerar exitoso si al menos 80% de registros se procesaron
-            is_successful = success_rate >= 80.0
+            # NUEVA LÓGICA: Considerar exitoso si se procesó al menos 1 registro (duplicados = normal)
+            is_successful = total_processed > 0
             
             result = {
                 'success': is_successful,
-                'records_processed': total_processed,
+                'processedRecords': total_processed,
                 'records_failed': total_failed,
+                'records_duplicated': total_duplicated,      # NUEVO: incluir duplicados
+                'records_validation_failed': total_validation_failed,  # NUEVO
+                'records_other_errors': total_other_errors,  # NUEVO
                 'success_rate': round(success_rate, 2),
                 'processing_time_seconds': round(processing_time, 2),
                 'details': {
@@ -1943,7 +2008,13 @@ class FileProcessorService:
                     'cleaned_records': cleaned_count,
                     'chunks_processed': chunk_number,
                     'processing_errors': processing_errors[:10],  # Limitar errores mostrados
-                    'file_type': 'MOVISTAR_DATOS_POR_CELDA'
+                    'file_type': 'MOVISTAR_DATOS_POR_CELDA',
+                    'duplicate_analysis': {  # NUEVO: análisis detallado de duplicados
+                        'detected_duplicates': total_duplicated,
+                        'validation_failures': total_validation_failed,
+                        'other_failures': total_other_errors,
+                        'duplicate_percentage': round((total_duplicated / original_count) * 100, 1) if original_count > 0 else 0
+                    }
                 }
             }
             
@@ -1951,7 +2022,7 @@ class FileProcessorService:
                 result['error'] = f'Tasa de éxito baja ({success_rate:.1f}%). Verifique el formato del archivo.'
             
             self.logger.info(
-                f"Procesamiento MOVISTAR datos por celda completado: {total_processed} exitosos, {total_failed} fallidos ({success_rate:.1f}% éxito)"
+                f"Procesamiento MOVISTAR datos por celda completado: {total_processed} exitosos, {total_failed} fallidos, {total_duplicated} duplicados ({success_rate:.1f}% éxito)"
             )
             
             # Actualizar tabla operator_data_sheets con conteo final
@@ -2103,7 +2174,7 @@ class FileProcessorService:
                     return {
                         'success': False,
                         'error': f'Error procesando datos (chunk {chunk_number}): {error_msg}',
-                        'records_processed': total_processed,
+                        'processedRecords': total_processed,
                         'records_failed': total_failed
                     }
                 
@@ -2113,7 +2184,7 @@ class FileProcessorService:
                     return {
                         'success': False,
                         'error': f'Demasiados errores en el archivo ({total_failed}). Verifique el formato.',
-                        'records_processed': total_processed,
+                        'processedRecords': total_processed,
                         'records_failed': total_failed
                     }
             
@@ -2124,12 +2195,12 @@ class FileProcessorService:
             # Determinar éxito basado en ratio de registros procesados
             success_rate = (total_processed / (total_processed + total_failed)) * 100 if (total_processed + total_failed) > 0 else 0
             
-            # Considerar exitoso si al menos 80% de registros se procesaron
-            is_successful = success_rate >= 80.0
+            # NUEVA LÓGICA: Considerar exitoso si se procesó al menos 1 registro (duplicados = normal)
+            is_successful = total_processed > 0
             
             result = {
                 'success': is_successful,
-                'records_processed': total_processed,
+                'processedRecords': total_processed,
                 'records_failed': total_failed,
                 'success_rate': round(success_rate, 2),
                 'processing_time_seconds': round(processing_time, 2),
@@ -2211,6 +2282,9 @@ class FileProcessorService:
         """
         records_processed = 0
         records_failed = 0
+        records_duplicated = 0  # NUEVO: contador de duplicados
+        validation_failed = 0   # NUEVO: contador de errores de validación
+        other_errors = 0        # NUEVO: contador de otros errores
         failed_records = []
         
         try:
@@ -2225,10 +2299,13 @@ class FileProcessorService:
                         # Validar registro
                         is_valid, errors = self._validate_movistar_cellular_record(record)
                         if not is_valid:
+                            # CAMBIO: errores de validación se clasifican por separado
+                            validation_failed += 1
                             records_failed += 1
                             failed_records.append({
                                 'row': index + 1,
                                 'errors': errors,
+                                'type': 'validation',
                                 'record': record
                             })
                             
@@ -2242,10 +2319,12 @@ class FileProcessorService:
                         )
                         
                         if not normalized_data:
+                            validation_failed += 1
                             records_failed += 1
                             failed_records.append({
                                 'row': index + 1,
                                 'errors': ['Error en normalización'],
+                                'type': 'normalization',
                                 'record': record
                             })
                             continue
@@ -2275,28 +2354,43 @@ class FileProcessorService:
                         records_processed += 1
                         
                     except Exception as e:
-                        records_failed += 1
+                        error_str = str(e)
+                        
+                        # NUEVO: Distinguir tipos de errores por mensaje
+                        if "UNIQUE constraint failed" in error_str:
+                            # Es un duplicado legítimo - NO cuenta como error para el límite
+                            records_duplicated += 1
+                            error_type = 'duplicate'
+                            self.logger.debug(f"Registro duplicado omitido MOVISTAR {index + 1} en chunk {chunk_number}: {error_str}")
+                        else:
+                            # Es un error real - SÍ cuenta para el límite de errores
+                            other_errors += 1
+                            records_failed += 1  # SOLO errores reales incrementan records_failed
+                            error_type = 'database'
+                            self.logger.error(f"Error procesando registro MOVISTAR {index + 1} en chunk {chunk_number}: {e}")
+                        
+                        # Agregar a la lista de fallos (para debugging, pero no afecta límite de errores)
                         failed_records.append({
                             'row': index + 1,
-                            'errors': [f'Error procesando registro: {str(e)}'],
+                            'errors': [f'Error procesando registro: {error_str}'],
+                            'type': error_type,
                             'record': record if 'record' in locals() else {}
                         })
-                        
-                        self.logger.error(
-                            f"Error procesando registro MOVISTAR {index + 1} en chunk {chunk_number}: {e}"
-                        )
                 
                 # Confirmar transacción del chunk
                 conn.commit()
                 
                 self.logger.debug(
-                    f"Chunk MOVISTAR {chunk_number} procesado: {records_processed} exitosos, {records_failed} fallidos"
+                    f"Chunk MOVISTAR {chunk_number} procesado: {records_processed} exitosos, {records_failed} fallidos ({records_duplicated} duplicados, {validation_failed} validación, {other_errors} otros)"
                 )
                 
                 return {
                     'success': True,
                     'records_processed': records_processed,
                     'records_failed': records_failed,
+                    'records_duplicated': records_duplicated,      # NUEVO
+                    'validation_failed': validation_failed,       # NUEVO
+                    'other_errors': other_errors,                 # NUEVO
                     'failed_records': failed_records[:10]  # Limitar detalle
                 }
                 
@@ -2306,7 +2400,10 @@ class FileProcessorService:
                 'success': False,
                 'error': str(e),
                 'records_processed': records_processed,
-                'records_failed': records_failed
+                'records_failed': records_failed,
+                'records_duplicated': records_duplicated,
+                'validation_failed': validation_failed,
+                'other_errors': other_errors
             }
 
     def _process_movistar_call_chunk(self, chunk_df: pd.DataFrame, file_upload_id: str, 
@@ -2833,7 +2930,8 @@ class FileProcessorService:
             
             return {
                 'success': True,
-                'records_processed': total_records_processed,
+                'processedRecords': total_records_processed,  # CORRECCIÓN: Usar nombre consistente con frontend
+                'records_processed': total_records_processed,  # Mantener por compatibilidad
                 'records_failed': total_records_failed,
                 'failed_records': all_failed_records[:10],  # Limitar a primeros 10 errores
                 'details': result_details
@@ -2863,7 +2961,8 @@ class FileProcessorService:
             return {
                 'success': False,
                 'error': f'Error crítico: {str(e)}',
-                'records_processed': 0,
+                'processedRecords': 0,  # CORRECCIÓN: Usar nombre consistente con frontend
+                'records_processed': 0,  # Mantener por compatibilidad
                 'records_failed': 0
             }
 
@@ -3155,6 +3254,9 @@ class FileProcessorService:
             
             total_records_processed = 0
             total_records_failed = 0
+            total_duplicated = 0          # NUEVO: contador de duplicados
+            total_validation_failed = 0  # NUEVO: contador de errores de validación
+            total_other_errors = 0       # NUEVO: contador de otros errores
             all_failed_records = []
             
             for chunk_df in self._chunk_dataframe(df_clean, self.CHUNK_SIZE):
@@ -3164,6 +3266,9 @@ class FileProcessorService:
                 
                 total_records_processed += chunk_result.get('records_processed', 0)
                 total_records_failed += chunk_result.get('records_failed', 0)
+                total_duplicated += chunk_result.get('records_duplicated', 0)          # NUEVO
+                total_validation_failed += chunk_result.get('validation_failed', 0)  # NUEVO
+                total_other_errors += chunk_result.get('other_errors', 0)             # NUEVO
                 
                 if chunk_result.get('failed_records'):
                     all_failed_records.extend(chunk_result['failed_records'])
@@ -3216,8 +3321,12 @@ class FileProcessorService:
             
             return {
                 'success': True,
-                'records_processed': total_records_processed,
+                'processedRecords': total_records_processed,  # CORRECCIÓN: Usar nombre consistente con frontend
+                'records_processed': total_records_processed,  # Mantener por compatibilidad
                 'records_failed': total_records_failed,
+                'records_duplicated': total_duplicated,                    # NUEVO: contador exacto de duplicados
+                'records_validation_failed': total_validation_failed,     # NUEVO: contador exacto de errores de validación
+                'records_other_errors': total_other_errors,               # NUEVO: contador exacto de otros errores
                 'failed_records': all_failed_records[:10],  # Limitar a primeros 10 errores
                 'details': {
                     'processing_time_seconds': processing_time.total_seconds(),
@@ -3231,7 +3340,8 @@ class FileProcessorService:
             return {
                 'success': False,
                 'error': f'Error crítico: {str(e)}',
-                'records_processed': 0,
+                'processedRecords': 0,  # CORRECCIÓN: Usar nombre consistente con frontend
+                'records_processed': 0,  # Mantener por compatibilidad
                 'records_failed': 0
             }
 
@@ -3388,6 +3498,9 @@ class FileProcessorService:
             
             total_records_processed = 0
             total_records_failed = 0
+            total_duplicated = 0          # NUEVO: contador de duplicados
+            total_validation_failed = 0  # NUEVO: contador de errores de validación
+            total_other_errors = 0       # NUEVO: contador de otros errores
             all_failed_records = []
             
             # Procesar llamadas entrantes
@@ -3399,6 +3512,9 @@ class FileProcessorService:
                     
                     total_records_processed += chunk_result.get('records_processed', 0)
                     total_records_failed += chunk_result.get('records_failed', 0)
+                    total_duplicated += chunk_result.get('records_duplicated', 0)          # NUEVO
+                    total_validation_failed += chunk_result.get('validation_failed', 0)  # NUEVO
+                    total_other_errors += chunk_result.get('other_errors', 0)             # NUEVO
                     
                     if chunk_result.get('failed_records'):
                         all_failed_records.extend(chunk_result['failed_records'])
@@ -3415,6 +3531,9 @@ class FileProcessorService:
                     
                     total_records_processed += chunk_result.get('records_processed', 0)
                     total_records_failed += chunk_result.get('records_failed', 0)
+                    total_duplicated += chunk_result.get('records_duplicated', 0)          # NUEVO
+                    total_validation_failed += chunk_result.get('validation_failed', 0)  # NUEVO
+                    total_other_errors += chunk_result.get('other_errors', 0)             # NUEVO
                     
                     if chunk_result.get('failed_records'):
                         all_failed_records.extend(chunk_result['failed_records'])
@@ -3467,8 +3586,12 @@ class FileProcessorService:
             
             return {
                 'success': True,
-                'records_processed': total_records_processed,
+                'processedRecords': total_records_processed,  # CORRECCIÓN: Usar nombre consistente con frontend
+                'records_processed': total_records_processed,  # Mantener por compatibilidad
                 'records_failed': total_records_failed,
+                'records_duplicated': total_duplicated,                    # NUEVO: contador exacto de duplicados
+                'records_validation_failed': total_validation_failed,     # NUEVO: contador exacto de errores de validación
+                'records_other_errors': total_other_errors,               # NUEVO: contador exacto de otros errores
                 'failed_records': all_failed_records[:10],  # Limitar a primeros 10 errores
                 'details': {
                     'processing_time_seconds': processing_time.total_seconds(),
@@ -3484,7 +3607,8 @@ class FileProcessorService:
             return {
                 'success': False,
                 'error': f'Error crítico: {str(e)}',
-                'records_processed': 0,
+                'processedRecords': 0,  # CORRECCIÓN: Usar nombre consistente con frontend
+                'records_processed': 0,  # Mantener por compatibilidad
                 'records_failed': 0
             }
 
@@ -3506,6 +3630,9 @@ class FileProcessorService:
         
         records_processed = 0
         records_failed = 0
+        records_duplicated = 0  # NUEVO: contador de duplicados
+        validation_failed = 0   # NUEVO: contador de errores de validación
+        other_errors = 0        # NUEVO: contador de otros errores
         failed_records = []
         
         try:
@@ -3572,24 +3699,46 @@ class FileProcessorService:
                         records_processed += 1
                         
                     except Exception as record_error:
-                        records_failed += 1
-                        failed_records.append({
-                            'row': index + 1,
-                            'errors': [str(record_error)],
-                            'record': dict(row)
-                        })
-                        self.logger.warning(f"Error procesando registro WOM cellular chunk {chunk_number} fila {index + 1}: {record_error}")
+                        error_str = str(record_error)
+                        
+                        # NUEVO: Distinguir tipos de errores por mensaje
+                        if "UNIQUE constraint failed" in error_str:
+                            # Es un duplicado legítimo - NO cuenta como error para el límite
+                            records_duplicated += 1
+                            error_type = 'duplicate'
+                            self.logger.debug(f"Registro duplicado omitido WOM cellular {index + 1} en chunk {chunk_number}: {error_str}")
+                        else:
+                            # Error real - cuenta para el límite de errores
+                            records_failed += 1
+                            if "constraint failed" in error_str.lower() or "check constraint" in error_str.lower():
+                                validation_failed += 1
+                                error_type = 'validation'
+                            else:
+                                other_errors += 1
+                                error_type = 'other'
+                            
+                            self.logger.warning(f"Error procesando registro WOM cellular chunk {chunk_number} fila {index + 1}: {record_error}")
+                            
+                            failed_records.append({
+                                'row': index + 1,
+                                'error_type': error_type,
+                                'errors': [error_str],
+                                'record': dict(row)
+                            })
                 
                 conn.commit()
                 
                 self.logger.debug(
-                    f"Chunk WOM cellular {chunk_number} procesado: {records_processed} exitosos, {records_failed} fallidos"
+                    f"Chunk WOM cellular {chunk_number} procesado: {records_processed} exitosos, {records_failed} fallidos ({records_duplicated} duplicados, {validation_failed} validación, {other_errors} otros)"
                 )
                 
                 return {
                     'success': True,
                     'records_processed': records_processed,
                     'records_failed': records_failed,
+                    'records_duplicated': records_duplicated,      # NUEVO
+                    'validation_failed': validation_failed,       # NUEVO
+                    'other_errors': other_errors,                 # NUEVO
                     'failed_records': failed_records[:10]  # Limitar detalle
                 }
                 
@@ -3599,7 +3748,10 @@ class FileProcessorService:
                 'success': False,
                 'error': str(e),
                 'records_processed': records_processed,
-                'records_failed': records_failed
+                'records_failed': records_failed,
+                'records_duplicated': records_duplicated,
+                'validation_failed': validation_failed,
+                'other_errors': other_errors
             }
 
     def _process_wom_call_chunk(self, df_chunk: pd.DataFrame, call_direction: str,
@@ -3621,6 +3773,9 @@ class FileProcessorService:
         
         records_processed = 0
         records_failed = 0
+        records_duplicated = 0  # NUEVO: contador de duplicados
+        validation_failed = 0   # NUEVO: contador de errores de validación
+        other_errors = 0        # NUEVO: contador de otros errores
         failed_records = []
         
         try:
@@ -3694,24 +3849,46 @@ class FileProcessorService:
                         records_processed += 1
                         
                     except Exception as record_error:
-                        records_failed += 1
-                        failed_records.append({
-                            'row': index + 1,
-                            'errors': [str(record_error)],
-                            'record': dict(row)
-                        })
-                        self.logger.warning(f"Error procesando registro WOM call {call_direction} chunk {chunk_number} fila {index + 1}: {record_error}")
+                        error_str = str(record_error)
+                        
+                        # NUEVO: Distinguir tipos de errores por mensaje
+                        if "UNIQUE constraint failed" in error_str:
+                            # Es un duplicado legítimo - NO cuenta como error para el límite
+                            records_duplicated += 1
+                            error_type = 'duplicate'
+                            self.logger.debug(f"Registro duplicado omitido WOM call {call_direction} {index + 1} en chunk {chunk_number}: {error_str}")
+                        else:
+                            # Error real - cuenta para el límite de errores
+                            records_failed += 1
+                            if "constraint failed" in error_str.lower() or "check constraint" in error_str.lower():
+                                validation_failed += 1
+                                error_type = 'validation'
+                            else:
+                                other_errors += 1
+                                error_type = 'other'
+                            
+                            self.logger.warning(f"Error procesando registro WOM call {call_direction} chunk {chunk_number} fila {index + 1}: {record_error}")
+                            
+                            failed_records.append({
+                                'row': index + 1,
+                                'error_type': error_type,
+                                'errors': [error_str],
+                                'record': dict(row)
+                            })
                 
                 conn.commit()
                 
                 self.logger.debug(
-                    f"Chunk WOM {call_direction} {chunk_number} procesado: {records_processed} exitosos, {records_failed} fallidos"
+                    f"Chunk WOM {call_direction} {chunk_number} procesado: {records_processed} exitosos, {records_failed} fallidos ({records_duplicated} duplicados, {validation_failed} validación, {other_errors} otros)"
                 )
                 
                 return {
                     'success': True,
                     'records_processed': records_processed,
                     'records_failed': records_failed,
+                    'records_duplicated': records_duplicated,      # NUEVO
+                    'validation_failed': validation_failed,       # NUEVO
+                    'other_errors': other_errors,                 # NUEVO
                     'failed_records': failed_records[:10]  # Limitar detalle
                 }
                 
@@ -3721,7 +3898,10 @@ class FileProcessorService:
                 'success': False,
                 'error': str(e),
                 'records_processed': records_processed,
-                'records_failed': records_failed
+                'records_failed': records_failed,
+                'records_duplicated': records_duplicated,
+                'validation_failed': validation_failed,
+                'other_errors': other_errors
             }
             
     def _map_wom_technology(self, technology_value: str) -> str:
@@ -3869,7 +4049,7 @@ class FileProcessorService:
                         'success': False,
                         'error': f'Error crítico en procesamiento chunk {chunk_number}: {error_msg}',
                         'partial_results': {
-                            'records_processed': total_processed,
+                            'processedRecords': total_processed,
                             'records_failed': total_failed,
                             'chunks_completed': chunk_number - 1
                         }
@@ -3884,7 +4064,7 @@ class FileProcessorService:
                         'success': False,
                         'error': f'Demasiados errores: {total_failed} > {self.MAX_ERRORS_PER_FILE}',
                         'partial_results': {
-                            'records_processed': total_processed,
+                            'processedRecords': total_processed,
                             'records_failed': total_failed,
                             'chunks_completed': chunk_number
                         }
@@ -3897,7 +4077,7 @@ class FileProcessorService:
             
             result = {
                 'success': True,
-                'records_processed': total_processed,
+                'processedRecords': total_processed,
                 'records_failed': total_failed,
                 'success_rate': round(success_rate, 2),
                 'processing_time_seconds': round(processing_time, 2),
@@ -3918,7 +4098,7 @@ class FileProcessorService:
                 f"SCANHUNTER procesado exitosamente: {total_processed} registros, "
                 f"{success_rate:.2f}% éxito, {processing_time:.2f}s",
                 extra={
-                    'records_processed': total_processed,
+                    'processedRecords': total_processed,
                     'records_failed': total_failed,
                     'processing_time': processing_time,
                     'file_upload_id': file_upload_id

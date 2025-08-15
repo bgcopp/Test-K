@@ -949,14 +949,19 @@ def upload_operator_data(file_data: str, file_name: str, mission_id: str,
                     }
                 )
                 
-                # Construir respuesta de éxito
+                # Construir respuesta de éxito - INCLUIR TODOS LOS CONTADORES
                 success_response = {
                     'success': True,
                     'message': 'Archivo procesado exitosamente',
                     'sheetId': file_upload_id,
-                    'processedRecords': processing_result.get('records_processed', 0),
+                    'processedRecords': processing_result.get('processedRecords', 0),  # Usar nombre correcto
+                    'records_failed': processing_result.get('records_failed', 0),         # NUEVO: errores totales
+                    'records_duplicated': processing_result.get('records_duplicated', 0), # NUEVO: duplicados
+                    'records_validation_failed': processing_result.get('records_validation_failed', 0), # NUEVO: validación
+                    'records_other_errors': processing_result.get('records_other_errors', 0), # NUEVO: otros errores
                     'warnings': processing_result.get('warnings', []),
-                    'errors': processing_result.get('errors', [])
+                    'errors': processing_result.get('errors', []),
+                    'details': processing_result.get('details', {})  # NUEVO: análisis detallado
                 }
                 
                 # Asegurar compatibilidad con serialización Eel
@@ -968,15 +973,20 @@ def upload_operator_data(file_data: str, file_name: str, mission_id: str,
                 error_msg = processing_result.get('error', 'Error desconocido en el procesamiento') if processing_result else 'No se pudo procesar el archivo'
                 service._update_processing_status(file_upload_id, 'FAILED', error_msg)
                 
-                # Construir respuesta de error
+                # Construir respuesta de error - INCLUIR TODOS LOS CONTADORES
                 error_response = {
                     'success': False,
                     'error': error_msg,
                     'error_code': 'PROCESSING_FAILED',
                     'sheetId': file_upload_id,
-                    'processedRecords': 0,
-                    'warnings': [],
-                    'errors': [error_msg]
+                    'processedRecords': processing_result.get('processedRecords', 0) if processing_result else 0,
+                    'records_failed': processing_result.get('records_failed', 0) if processing_result else 0,
+                    'records_duplicated': processing_result.get('records_duplicated', 0) if processing_result else 0,
+                    'records_validation_failed': processing_result.get('records_validation_failed', 0) if processing_result else 0,
+                    'records_other_errors': processing_result.get('records_other_errors', 0) if processing_result else 0,
+                    'warnings': processing_result.get('warnings', []) if processing_result else [],
+                    'errors': processing_result.get('errors', [error_msg]) if processing_result else [error_msg],
+                    'details': processing_result.get('details', {}) if processing_result else {}
                 }
                 
                 # Asegurar compatibilidad con serialización Eel

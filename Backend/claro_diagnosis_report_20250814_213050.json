@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-08-14T21:30:50.730770",
+  "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\datatest\\Claro\\formato excel\\DATOS_POR_CELDA CLARO.xlsx",
+  "total_records": 128,
+  "valid_records": 128,
+  "invalid_records": 0,
+  "success_rate": 100.0,
+  "error_summary": {},
+  "sample_errors": [],
+  "tipo_cdr_values": {
+    "DATOS": 128
+  },
+  "columns": [
+    "numero",
+    "fecha_trafico",
+    "tipo_cdr",
+    "celda_decimal",
+    "lac_decimal"
+  ]
+}

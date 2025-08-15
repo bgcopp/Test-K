@@ -252,6 +252,8 @@ class DataNormalizerService:
         Calcula un hash único para el registro normalizado.
         
         Este hash se usa para detectar duplicados exactos en la base de datos.
+        Se basa únicamente en campos relevantes para determinar unicidad de negocio,
+        incluyendo timestamp truncado a minutos para evitar falsos duplicados.
         
         Args:
             normalized_data (Dict[str, Any]): Datos normalizados
@@ -259,17 +261,49 @@ class DataNormalizerService:
         Returns:
             str: Hash SHA256 del registro
         """
-        # Crear string único basado en campos clave
+        # Campos base para la identificación única
         hash_components = [
             str(normalized_data.get('numero_telefono', '')),
-            str(normalized_data.get('fecha_hora_inicio', '')),
             str(normalized_data.get('celda_id', '')),
             str(normalized_data.get('operator', '')),
             str(normalized_data.get('tipo_conexion', ''))
         ]
         
+        # CORRIGIDO: SIEMPRE incluir timestamp truncado para permitir 
+        # actividad del mismo número en diferentes momentos
+        fecha_inicio = normalized_data.get('fecha_hora_inicio')
+        if fecha_inicio:
+            try:
+                # Truncar a minutos para evitar falsos duplicados por segundos/microsegundos
+                if hasattr(fecha_inicio, 'replace') and hasattr(fecha_inicio, 'year'):
+                    # Es un objeto datetime
+                    fecha_truncada = fecha_inicio.replace(second=0, microsecond=0)
+                    timestamp_hash = fecha_truncada.strftime('%Y-%m-%d %H:%M')
+                    hash_components.append(timestamp_hash)
+                else:
+                    # Si es string, normalizar a formato YYYY-MM-DD HH:MM
+                    fecha_str = str(fecha_inicio)
+                    if len(fecha_str) >= 16:
+                        # Tomar los primeros 16 caracteres: YYYY-MM-DD HH:MM
+                        timestamp_hash = fecha_str[:16]
+                        hash_components.append(timestamp_hash)
+                    else:
+                        # Fallback: usar el string completo
+                        hash_components.append(fecha_str)
+                        
+                self.logger.debug(f"Hash timestamp incluido: {timestamp_hash}")
+            except Exception as e:
+                self.logger.warning(f"Error procesando timestamp para hash: {e}, usando string original")
+                hash_components.append(str(fecha_inicio))
+        else:
+            # Sin timestamp, agregar marcador vacío para consistencia
+            hash_components.append('')
+        
         hash_string = '|'.join(hash_components)
-        return hashlib.sha256(hash_string.encode('utf-8')).hexdigest()
+        hash_result = hashlib.sha256(hash_string.encode('utf-8')).hexdigest()
+        
+        self.logger.debug(f"Hash calculado para: {hash_components[0][:8]}... = {hash_result[:8]}...")
+        return hash_result
     
     def _create_operator_specific_data(self, operator: str, raw_data: Dict[str, Any]) -> str:
         """
@@ -513,21 +547,36 @@ class DataNormalizerService:
         """
         Calcula un hash único para el registro normalizado de llamadas.
         
+        Se basa únicamente en campos relevantes para determinar unicidad de negocio,
+        usando timestamp truncado a minutos para evitar falsos duplicados.
+        
         Args:
             normalized_data (Dict[str, Any]): Datos normalizados
             
         Returns:
             str: Hash SHA256 del registro
         """
-        # Crear string único basado en campos clave
+        # Crear string único basado en campos clave de negocio
         hash_components = [
             str(normalized_data.get('numero_origen', '')),
             str(normalized_data.get('numero_destino', '')),
-            str(normalized_data.get('fecha_hora_llamada', '')),
             str(normalized_data.get('duracion_segundos', '')),
             str(normalized_data.get('operator', '')),
             str(normalized_data.get('tipo_llamada', ''))
         ]
+        
+        # Incluir fecha truncada a minutos para evitar falsos duplicados por segundos/microsegundos
+        fecha_llamada = normalized_data.get('fecha_hora_llamada')
+        if fecha_llamada:
+            # Truncar a minutos para evitar falsos duplicados por segundos/microsegundos
+            if hasattr(fecha_llamada, 'replace') and hasattr(fecha_llamada, 'year'):
+                # Es un objeto datetime
+                fecha_truncada = fecha_llamada.replace(second=0, microsecond=0)
+                hash_components.append(str(fecha_truncada))
+            else:
+                # Si es string, tomar solo YYYY-MM-DD HH:MM
+                fecha_str = str(fecha_llamada)[:16]  # YYYY-MM-DD HH:MM
+                hash_components.append(fecha_str)
         
         hash_string = '|'.join(hash_components)
         return hashlib.sha256(hash_string.encode('utf-8')).hexdigest()

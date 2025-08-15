@@ -151,7 +151,10 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
         // Extraer información para crear el resultado
         const fileName = response.sheetId || 'archivo_operador';
         const processedRecords = response.processedRecords || 0;
-        const failedRecords = response.errors?.length || 0;
+        const failedRecords = response.records_failed || response.errors?.length || 0;
+        const duplicatedRecords = response.records_duplicated || 0;
+        const validationFailures = response.records_validation_failed || 0;
+        const otherErrors = response.records_other_errors || 0;
         const warnings = response.warnings || [];
         const errors = response.errors || [];
         
@@ -160,9 +163,13 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
             fileType: 'OPERADOR',
             processedRecords,
             failedRecords,
+            duplicatedRecords,      // NUEVO: incluir duplicados
+            validationFailures,     // NUEVO: incluir errores de validación
+            otherErrors,           // NUEVO: incluir otros errores
             processingTime: 0, // No tenemos tiempo en la respuesta
             warnings: warnings.length > 0 ? warnings : undefined,
-            errors: errors.length > 0 ? errors : undefined
+            errors: errors.length > 0 ? errors : undefined,
+            additionalInfo: response.details  // Incluir análisis de duplicados
         };
         
         showFileProcessingResult(result, response.success);

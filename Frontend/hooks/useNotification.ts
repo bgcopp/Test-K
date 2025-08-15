@@ -109,6 +109,9 @@ export const useNotification = () => {
             fileType,
             processedRecords,
             failedRecords = 0,
+            duplicatedRecords = 0,     // NUEVO: registros duplicados
+            validationFailures = 0,   // NUEVO: errores de validación
+            otherErrors = 0,          // NUEVO: otros errores
             totalRecords,
             processingTime,
             warnings = [],
@@ -124,11 +127,15 @@ export const useNotification = () => {
         let message: string;
         let details: string[] = [];
 
-        // Determinar tipo de notificación
+        // Determinar tipo de notificación basado en tipos de errores
         if (!success || (total > 0 && processedRecords === 0)) {
             type = 'error';
-        } else if (failedRecords > 0 || warnings.length > 0) {
+        } else if ((validationFailures > 0 || otherErrors > 0) || warnings.length > 0) {
+            // Solo warning si hay errores reales, no por duplicados
             type = 'warning';
+        } else if (duplicatedRecords > 0 && failedRecords === duplicatedRecords) {
+            // Si solo hay duplicados, mostrar como success con info adicional
+            type = 'success';
         } else {
             type = 'success';
         }
@@ -139,6 +146,9 @@ export const useNotification = () => {
         // Construir mensaje principal
         if (type === 'error') {
             message = `Error procesando archivo ${fileName}`;
+        } else if (duplicatedRecords > 0 && failedRecords === duplicatedRecords) {
+            // Mensaje específico para duplicados
+            message = `${processedRecords}/${total} registros únicos procesados${timeDisplay ? ` en ${timeDisplay}` : ''}`;
         } else {
             message = `${processedRecords}/${total} registros procesados${timeDisplay ? ` en ${timeDisplay}` : ''}`;
         }
@@ -149,16 +159,31 @@ export const useNotification = () => {
         if (type !== 'error') {
             details.push(`✅ Procesados: ${processedRecords.toLocaleString()}`);
             
-            if (failedRecords > 0) {
-                details.push(`❌ Fallidos: ${failedRecords.toLocaleString()}`);
+            // Mostrar información específica sobre duplicados y errores
+            if (duplicatedRecords > 0) {
+                details.push(`🔄 Duplicados omitidos: ${duplicatedRecords.toLocaleString()}`);
+            }
+            
+            if (validationFailures > 0) {
+                details.push(`❌ Errores de validación: ${validationFailures.toLocaleString()}`);
+            }
+            
+            if (otherErrors > 0) {
+                details.push(`⚠️ Otros errores: ${otherErrors.toLocaleString()}`);
             }
             
             if (total > 0) {
-                details.push(`📊 Éxito: ${successRate}%`);
+                details.push(`📊 Tasa de procesamiento: ${successRate}%`);
             }
             
             if (processingTime) {
                 details.push(`⏱️ Tiempo: ${timeDisplay}`);
+            }
+            
+            // Explicación especial para duplicados
+            if (duplicatedRecords > 0 && failedRecords === duplicatedRecords) {
+                details.push(`ℹ️ Los registros duplicados se omiten automáticamente`);
+                details.push(`   para mantener la integridad de los datos`);
             }
         }
 

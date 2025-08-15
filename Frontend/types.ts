@@ -99,8 +99,21 @@ export interface OperatorUploadResponse {
     message?: string;         // Para respuestas de éxito
     error?: string;           // Para respuestas de error
     processedRecords?: number;
+    records_failed?: number;
+    records_duplicated?: number;      // NUEVO: registros duplicados
+    records_validation_failed?: number; // NUEVO: errores de validación
+    records_other_errors?: number;    // NUEVO: otros errores
+    success_rate?: number;
     warnings?: string[];
     errors?: string[];
+    details?: {
+        duplicate_analysis?: {
+            detected_duplicates: number;
+            validation_failures: number;
+            other_failures: number;
+            duplicate_percentage: number;
+        };
+    };
 }
 
 export interface DocumentTypeConfig {
@@ -147,6 +160,9 @@ export interface FileProcessingResult {
     fileType: string; // 'SCANHUNTER', 'CLARO', 'MOVISTAR', 'TIGO', 'WOM', etc.
     processedRecords: number;
     failedRecords?: number;
+    duplicatedRecords?: number;      // NUEVO: registros duplicados
+    validationFailures?: number;     // NUEVO: errores de validación
+    otherErrors?: number;           // NUEVO: otros errores
     totalRecords?: number;
     processingTime?: number; // en milisegundos
     warnings?: string[];

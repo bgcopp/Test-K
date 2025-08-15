@@ -1,0 +1,38 @@
+{
+  "timestamp": "2025-08-14T10:22:50.907814",
+  "test_name": "WOM Multi-sheet Real Processing Test",
+  "tests": [
+    {
+      "test": "WOM Multi-sheet Processing",
+      "timestamp": "2025-08-14T10:22:50.907814",
+      "status": "WARNING",
+      "warning": "Esperado: 17, Procesado: 17, En BD: 0",
+      "details": {
+        "file": "PUNTO 1 TRÁFICO DATOS WOM.xlsx",
+        "sheets": {
+          "11648": 9,
+          "2981895": 8
+        },
+        "expected_total": 17,
+        "processed": 17,
+        "failed": 0,
+        "in_database": 0,
+        "sheets_in_db": [],
+        "processing_result": {
+          "success": true,
+          "records_processed": 17,
+          "records_failed": 0,
+          "failed_records": [],
+          "details": {
+            "processing_time_seconds": 0.033547,
+            "sheets_combined": 2,
+            "operator_technology_types": {
+              "WOM 3G": 9,
+              "WOM 4G": 8
+            }
+          }
+        }
+      }
+    }
+  ]
+}

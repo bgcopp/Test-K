@@ -76,6 +76,14 @@ const DataExplorationPanel: React.FC<DataExplorationPanelProps> = ({
             }
         }
         
+        // Formatear campos decimales de Cell ID y LAC como enteros simples
+        if (column === 'cellid_decimal' || column === 'lac_decimal') {
+            const num = parseInt(value);
+            if (!isNaN(num)) {
+                return num.toString(); // Mostrar como entero simple sin separadores
+            }
+        }
+        
         return value.toString();
     };
 
@@ -100,7 +108,16 @@ const DataExplorationPanel: React.FC<DataExplorationPanelProps> = ({
         const csvContent = [
             headers.join(','),
             ...filteredData.map(record => 
-                columns.map(col => (record as any)[col] || '').map(field => `"${field}"`).join(',')
+                columns.map(col => {
+                    const value = (record as any)[col];
+                    if (value === null || value === undefined) return '';
+                    // Para Cell ID y LAC, asegurar que se exporten como números sin formateo
+                    if (col === 'cellid_decimal' || col === 'lac_decimal') {
+                        const num = parseInt(value);
+                        return !isNaN(num) ? num.toString() : '';
+                    }
+                    return value.toString();
+                }).map(field => `"${field}"`).join(',')
             )
         ].join('\n');
 

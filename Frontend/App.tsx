@@ -8,9 +8,12 @@ import Missions from './pages/Missions';
 import MissionDetail from './pages/MissionDetail';
 import Sidebar from './components/layout/Sidebar';
 import Header from './components/layout/Header';
+import NotificationSystem from './components/ui/NotificationSystem';
+import { ConfirmationProvider } from './hooks/useConfirmation';
 
 import type { User, Role, Mission } from './types';
 import { getUsers, getRoles, getMissions, resetMockData } from './services/api';
+import { useNotification } from './hooks/useNotification';
 
 const AppContent: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const location = useLocation();
@@ -20,6 +23,8 @@ const AppContent: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
     const [roles, setRoles] = useState<Role[]>([]);
     const [missions, setMissions] = useState<Mission[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    
+    const { showError } = useNotification();
 
     useEffect(() => {
         const fetchInitialData = async () => {
@@ -35,7 +40,7 @@ const AppContent: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                 setMissions(missionsData);
             } catch (error) {
                 console.error("Failed to fetch initial data:", error);
-                alert(`Error al cargar datos iniciales: ${(error as Error).message}`);
+                showError("Error de Inicialización", `Error al cargar datos iniciales: ${(error as Error).message}`);
             } finally {
                 setIsLoading(false);
             }
@@ -91,6 +96,7 @@ const AppContent: React.FC<{ onLogout: () => void }> = ({ onLogout }) => {
                     </Routes>
                 </main>
             </div>
+            <NotificationSystem />
         </div>
     );
 };
@@ -115,7 +121,9 @@ const App: React.FC = () => {
 
     return (
         <HashRouter>
-            <AppContent onLogout={handleLogout} />
+            <ConfirmationProvider>
+                <AppContent onLogout={handleLogout} />
+            </ConfirmationProvider>
         </HashRouter>
     );
 };

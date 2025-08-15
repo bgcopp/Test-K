@@ -1,0 +1,48 @@
+{
+  "test_name": "CellularDataStats Component Validation",
+  "timestamp": "2025-08-14T17:04:02.439402",
+  "data_records_tested": 6,
+  "validation_results": {
+    "total_tests": 14,
+    "passed_tests": 14,
+    "failed_tests": 0,
+    "errors": [],
+    "warnings": []
+  },
+  "sample_stats": {
+    "totalRecords": 6,
+    "uniquePoints": 5,
+    "operatorCounts": {
+      "CLARO": 2,
+      "MOVISTAR": 2,
+      "TIGO": 1,
+      "WOM": 1
+    },
+    "techCounts": {
+      "LTE": 1,
+      "5G": 2,
+      "4G": 1,
+      "3G": 1,
+      "GSM": 1
+    },
+    "rssi": {
+      "min": -90,
+      "max": -55,
+      "avg": -72
+    },
+    "signalQuality": {
+      "excelente": 1,
+      "buena": 2,
+      "regular": 2,
+      "pobre": 1
+    },
+    "fileIdCounts": {
+      "101": 2,
+      "102": 1,
+      "103": 2,
+      "sin_id": 1
+    },
+    "hasMultipleFileIds": true
+  },
+  "empty_data_test_passed": true
+}

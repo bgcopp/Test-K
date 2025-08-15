@@ -1,0 +1,168 @@
+{
+  "test_summary": {
+    "total_tests": 7,
+    "passed_tests": 4,
+    "failed_tests": 3,
+    "success_rate": "57.1%",
+    "duration_seconds": 1.10101,
+    "critical_persistence_test_passed": true
+  },
+  "database_state": {
+    "initial_state": "Verified",
+    "final_state": {
+      "mission_count": 0,
+      "user_count": 7,
+      "role_count": 3,
+      "missions": []
+    }
+  },
+  "detailed_results": [
+    {
+      "test_name": "Initial State Check",
+      "success": true,
+      "details": "Database properly initialized with 4 missions, 7 users, 3 roles",
+      "timestamp": "2025-08-14T15:53:44.804571",
+      "data": {
+        "mission_count": 4,
+        "user_count": 7,
+        "role_count": 3,
+        "missions": [
+          {
+            "id": "m1",
+            "name": "Proyecto Fénix",
+            "code": "PX-001",
+            "status": "En Progreso"
+          },
+          {
+            "id": "m2",
+            "name": "Operación Inmersión Profunda",
+            "code": "DD-002",
+            "status": "Completada"
+          },
+          {
+            "id": "m3",
+            "name": "Centinela del Ártico",
+            "code": "AS-003",
+            "status": "Planificación"
+          },
+          {
+            "id": "m4",
+            "name": "Proyecto Quimera",
+            "code": "PC-004",
+            "status": "Cancelada"
+          }
+        ]
+      }
+    },
+    {
+      "test_name": "Create Mission",
+      "success": false,
+      "details": "Exception creating mission: startDate es requerido",
+      "timestamp": "2025-08-14T15:53:44.804571",
+      "data": {}
+    },
+    {
+      "test_name": "Delete All Missions",
+      "success": true,
+      "details": "All 4 missions deleted successfully",
+      "timestamp": "2025-08-14T15:53:44.825296",
+      "data": {
+        "deleted_missions": [
+          {
+            "id": "m1",
+            "code": "PX-001",
+            "name": "Proyecto Fénix",
+            "description": "Investigar anomalías de rayos cósmicos en la galaxia de Andrómeda.",
+            "status": "En Progreso",
+            "startDate": "2023-01-15",
+            "endDate": "2024-12-31",
+            "createdAt": "2025-08-14T20:48:43",
+            "updatedAt": "2025-08-14T20:48:43",
+            "createdBy": "u1",
+            "cellularData": [],
+            "operatorData": []
+          },
+          {
+            "id": "m2",
+            "code": "DD-002",
+            "name": "Operación Inmersión Profunda",
+            "description": "Explorar la Fosa de las Marianas en busca de nuevas especies biológicas.",
+            "status": "Completada",
+            "startDate": "2022-05-20",
+            "endDate": "2023-05-19",
+            "createdAt": "2025-08-14T20:48:43",
+            "updatedAt": "2025-08-14T20:48:43",
+            "createdBy": "u1",
+            "cellularData": [],
+            "operatorData": []
+          },
+          {
+            "id": "m3",
+            "code": "AS-003",
+            "name": "Centinela del Ártico",
+            "description": "Monitorear las tasas de derretimiento de los casquetes polares y el impacto climático.",
+            "status": "Planificación",
+            "startDate": "2025-02-01",
+            "endDate": "2026-02-01",
+            "createdAt": "2025-08-14T20:48:43",
+            "updatedAt": "2025-08-14T20:48:43",
+            "createdBy": "u2",
+            "cellularData": [],
+            "operatorData": []
+          },
+          {
+            "id": "m4",
+            "code": "PC-004",
+            "name": "Proyecto Quimera",
+            "description": "Investigación genética de extremófilos para la colonización espacial.",
+            "status": "Cancelada",
+            "startDate": "2023-08-01",
+            "endDate": "2024-08-01",
+            "createdAt": "2025-08-14T20:48:43",
+            "updatedAt": "2025-08-14T20:48:43",
+            "createdBy": "u4",
+            "cellularData": [],
+            "operatorData": []
+          }
+        ],
+        "initial_count": 4
+      }
+    },
+    {
+      "test_name": "Database Reinitialization",
+      "success": true,
+      "details": "Database reinitialized successfully. State: 0 missions, 7 users, 3 roles",
+      "timestamp": "2025-08-14T15:53:45.867196",
+      "data": {
+        "mission_count": 0,
+        "user_count": 7,
+        "role_count": 3,
+        "missions": []
+      }
+    },
+    {
+      "test_name": "Persistence Validation",
+      "success": true,
+      "details": "CRITICAL SUCCESS: Missions remain deleted after database reinitialization (auto-recreation bug fixed)",
+      "timestamp": "2025-08-14T15:53:45.871201",
+      "data": {
+        "mission_count_after_restart": 0
+      }
+    },
+    {
+      "test_name": "Create After Delete All",
+      "success": false,
+      "details": "Exception creating mission after delete all: code no puede exceder 20 caracteres",
+      "timestamp": "2025-08-14T15:53:45.871201",
+      "data": {}
+    },
+    {
+      "test_name": "Transaction Integrity",
+      "success": false,
+      "details": "Exception during transaction integrity test: code no puede exceder 20 caracteres",
+      "timestamp": "2025-08-14T15:53:45.871201",
+      "data": {}
+    }
+  ],
+  "timestamp": "2025-08-14T15:53:45.871201"
+}

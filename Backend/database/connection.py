@@ -179,16 +179,12 @@ class DatabaseManager:
                     self._create_initial_users(session)
                     logger.info("Usuarios iniciales restaurados")
                 
-                # Verificar misiones de ejemplo solo si no existen
-                mission_count = session.query(Mission).count()
-                if mission_count == 0:
-                    logger.info("Misiones de ejemplo faltantes. Restaurando...")
-                    self._create_initial_missions(session)
-                    logger.info("Misiones de ejemplo restauradas")
+                # NOTA: Las misiones son datos del usuario, no datos esenciales del sistema
+                # Por tanto, NO se recrean automáticamente al eliminarlas
                 
                 session.commit()
                 
-                if role_count == 0 or user_count == 0 or mission_count == 0:
+                if role_count == 0 or user_count == 0:
                     logger.info("Auto-reparación completada exitosamente")
                 
             except Exception as e:

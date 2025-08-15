@@ -357,6 +357,9 @@ class OperatorLogger:
         # Combinar contexto actual con kwargs
         full_context = {**self._current_context, **kwargs}
         
+        # Extraer exc_info antes de crear extra
+        exc_info = full_context.pop('exc_info', False)
+        
         # Crear registro con información extra
         extra = {
             'execution_time_ms': full_context.pop('execution_time_ms', None),
@@ -365,7 +368,8 @@ class OperatorLogger:
             **full_context
         }
         
-        self.logger.log(level, message, extra=extra)
+        # Llamar al logger con exc_info como parámetro separado
+        self.logger.log(level, message, extra=extra, exc_info=exc_info)
     
     def debug(self, message: str, **kwargs) -> None:
         """

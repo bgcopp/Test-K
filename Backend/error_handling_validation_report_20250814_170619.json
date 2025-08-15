@@ -1,0 +1,15 @@
+{
+  "test_name": "CellularDataStats Error Handling Validation",
+  "timestamp": "2025-08-14T17:06:19.127155",
+  "validation_results": {
+    "total_tests": 20,
+    "passed_tests": 18,
+    "failed_tests": 2,
+    "errors": [
+      "Datos malformados - Punto y operador missing",
+      "Datos malformados - Operador y tecnología missing"
+    ],
+    "warnings": []
+  },
+  "reliability_score": 90.0
+}

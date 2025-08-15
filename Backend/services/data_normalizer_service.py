@@ -29,6 +29,7 @@ from typing import Dict, Any, Optional, List
 import re
 import sys
 import os
+import pandas as pd
 
 # Agregar el directorio padre al path para imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -1294,6 +1295,11 @@ class DataNormalizerService:
                 }
             }
             
+            # Extraer Cell ID y LAC desde celda_origen_truncada
+            from utils.cell_id_converter import extract_cellid_lac_from_celda_origen
+            celda_origen_value = validated_record.get('celda_origen_truncada', '')
+            cell_data = extract_cellid_lac_from_celda_origen(celda_origen_value, 'TIGO')
+            
             # Construir datos normalizados
             normalized_data = {
                 'file_upload_id': file_upload_id,
@@ -1304,9 +1310,11 @@ class DataNormalizerService:
                 'numero_objetivo': numero_objetivo,
                 'fecha_hora_llamada': validated_record['fecha_hora_origen'].isoformat(),
                 'duracion_segundos': validated_record.get('duracion_total_seg', 0),
-                'celda_origen': validated_record.get('celda_origen_truncada', ''),
+                'celda_origen': celda_origen_value,
                 'celda_destino': None,  # TIGO no reporta celda destino explícitamente
-                'celda_objetivo': validated_record.get('celda_origen_truncada', ''),  # Usar celda origen como objetivo
+                'celda_objetivo': celda_origen_value,  # Usar celda origen como objetivo
+                'cellid_decimal': cell_data['cellid_decimal'],
+                'lac_decimal': cell_data['lac_decimal'],
                 'latitud_origen': validated_record.get('latitud'),
                 'longitud_origen': validated_record.get('longitud'),
                 'latitud_destino': None,  # TIGO no reporta coordenadas destino
@@ -1472,144 +1480,6 @@ class DataNormalizerService:
             }
             return json.dumps(fallback_data, ensure_ascii=False)
     
-    def normalize_wom_cellular_data(self, raw_record: Dict[str, Any],
-                                  file_upload_id: str, mission_id: str) -> Optional[Dict[str, Any]]:
-        """
-        Normaliza un registro de datos celulares de WOM al esquema unificado.
-        
-        Args:
-            raw_record (Dict[str, Any]): Registro bruto de WOM
-            file_upload_id (str): ID del archivo fuente
-            mission_id (str): ID de la misión
-            
-        Returns:
-            Optional[Dict[str, Any]]: Datos normalizados o None si hay error
-        """
-        try:
-            # TODO: Implementar cuando tengamos especificaciones de WOM
-            self.logger.warning("Normalización de datos WOM no implementada aún")
-            return None
-            
-        except Exception as e:
-            self.logger.error(f"Error normalizando registro WOM: {e}", exc_info=True)
-            return None
-
-
-# ==============================================================================
-# FUNCIONES DE UTILIDAD Y VALIDACIÓN
-# ==============================================================================
-
-def validate_normalized_data(normalized_data: Dict[str, Any]) -> List[str]:
-    """
-    Valida que los datos normalizados cumplan con el esquema de la base de datos.
-    
-    Args:
-        normalized_data (Dict[str, Any]): Datos normalizados a validar
-        
-    Returns:
-        List[str]: Lista de errores encontrados (vacía si es válido)
-    """
-    errors = []
-    
-    # Validar campos requeridos
-    required_fields = [
-        'file_upload_id', 'mission_id', 'operator', 'numero_telefono',
-        'fecha_hora_inicio', 'celda_id', 'record_hash'
-    ]
-    
-    for field in required_fields:
-        if field not in normalized_data or not normalized_data[field]:
-            errors.append(f"Campo requerido faltante o vacío: {field}")
-    
-    # Validar tipos de datos
-    if 'trafico_subida_bytes' in normalized_data:
-        try:
-            int(normalized_data['trafico_subida_bytes'] or 0)
-        except (ValueError, TypeError):
-            errors.append("trafico_subida_bytes debe ser numérico")
-    
-    if 'trafico_bajada_bytes' in normalized_data:
-        try:
-            int(normalized_data['trafico_bajada_bytes'] or 0)
-        except (ValueError, TypeError):
-            errors.append("trafico_bajada_bytes debe ser numérico")
-    
-    # Validar coordenadas geográficas
-    if normalized_data.get('latitud') is not None:
-        try:
-            lat = float(normalized_data['latitud'])
-            if not (-90.0 <= lat <= 90.0):
-                errors.append(f"Latitud fuera de rango válido: {lat}")
-        except (ValueError, TypeError):
-            errors.append("Latitud debe ser numérica")
-    
-    if normalized_data.get('longitud') is not None:
-        try:
-            lon = float(normalized_data['longitud'])
-            if not (-180.0 <= lon <= 180.0):
-                errors.append(f"Longitud fuera de rango válido: {lon}")
-        except (ValueError, TypeError):
-            errors.append("Longitud debe ser numérica")
-    
-    # Validar formato de fecha
-    if normalized_data.get('fecha_hora_inicio'):
-        try:
-            datetime.strptime(normalized_data['fecha_hora_inicio'], '%Y-%m-%d %H:%M:%S')
-        except ValueError:
-            errors.append("Formato de fecha_hora_inicio inválido")
-    
-    # Validar operador
-    valid_operators = ['CLARO', 'MOVISTAR', 'TIGO', 'WOM']
-    if normalized_data.get('operator') not in valid_operators:
-        errors.append(f"Operador inválido: {normalized_data.get('operator')}")
-    
-    # Validar JSON de datos específicos
-    if normalized_data.get('operator_specific_data'):
-        try:
-            json.loads(normalized_data['operator_specific_data'])
-        except json.JSONDecodeError:
-            errors.append("operator_specific_data no es JSON válido")
-    
-    return errors
-
-
-
-def test_claro_normalization() -> None:
-    """
-    Función de testing para normalización de datos CLARO.
-    No expuesta via Eel, solo para desarrollo/debugging.
-    """
-    service = DataNormalizerService()
-    
-    # Datos de prueba CLARO
-    test_record = {
-        'numero': '573123456789',
-        'fecha_trafico': '20240419080000',
-        'tipo_cdr': 'DATOS',
-        'celda_decimal': '175462',
-        'lac_decimal': '20010'
-    }
-    
-    print("Datos de prueba CLARO:")
-    print(json.dumps(test_record, indent=2))
-    
-    normalized = service.normalize_claro_cellular_data(
-        test_record, 'test-file-id', 'test-mission-id'
-    )
-    
-    if normalized:
-        print("\nDatos normalizados:")
-        print(json.dumps(normalized, indent=2, default=str))
-        
-        # Validar datos normalizados
-        errors = validate_normalized_data(normalized)
-        if errors:
-            print(f"\nErrores de validación: {errors}")
-        else:
-            print("\n✓ Datos normalizados válidos")
-    else:
-        print("\n❌ Error en normalización")
-
     # ==============================================================================
     # MÉTODOS ESPECÍFICOS PARA OPERADOR WOM
     # ==============================================================================
@@ -1866,6 +1736,17 @@ def test_claro_normalization() -> None:
             # Generar ID único para el registro
             record_id = str(uuid.uuid4())
             
+            # Convertir timestamps pandas a strings ISO
+            def convert_timestamp(ts):
+                if ts is not None:
+                    if hasattr(ts, 'isoformat'):
+                        return ts.isoformat()
+                    elif hasattr(ts, 'strftime'):
+                        return ts.strftime('%Y-%m-%d %H:%M:%S')
+                    else:
+                        return str(ts)
+                return None
+            
             # Construir datos normalizados
             normalized_data = {
                 'id': record_id,
@@ -1876,8 +1757,8 @@ def test_claro_normalization() -> None:
                 'tac': validated_record.get('tac', 0),
                 'cell_id_voz': validated_record.get('cell_id_voz', 0),
                 'sector': validated_record.get('sector', 0),
-                'fecha_hora_inicio': validated_record.get('fecha_hora_inicio'),
-                'fecha_hora_fin': validated_record.get('fecha_hora_fin'),
+                'fecha_hora_inicio': convert_timestamp(validated_record.get('fecha_hora_inicio')),
+                'fecha_hora_fin': convert_timestamp(validated_record.get('fecha_hora_fin')),
                 'operador_ran': validated_record.get('operador_ran', ''),
                 'numero_origen': validated_record.get('numero_origen', ''),
                 'duracion_seg': validated_record.get('duracion_seg', 0),
@@ -1930,6 +1811,17 @@ def test_claro_normalization() -> None:
             # Generar ID único para el registro
             record_id = str(uuid.uuid4())
             
+            # Convertir timestamps pandas a strings ISO
+            def convert_timestamp(ts):
+                if ts is not None:
+                    if hasattr(ts, 'isoformat'):
+                        return ts.isoformat()
+                    elif hasattr(ts, 'strftime'):
+                        return ts.strftime('%Y-%m-%d %H:%M:%S')
+                    else:
+                        return str(ts)
+                return None
+            
             # Construir datos normalizados
             normalized_data = {
                 'id': record_id,
@@ -1942,8 +1834,8 @@ def test_claro_normalization() -> None:
                 'sector': validated_record.get('sector', 0),
                 'numero_origen': validated_record.get('numero_origen', ''),
                 'numero_destino': validated_record.get('numero_destino', ''),
-                'fecha_hora_inicio': validated_record.get('fecha_hora_inicio'),
-                'fecha_hora_fin': validated_record.get('fecha_hora_fin'),
+                'fecha_hora_inicio': convert_timestamp(validated_record.get('fecha_hora_inicio')),
+                'fecha_hora_fin': convert_timestamp(validated_record.get('fecha_hora_fin')),
                 'duracion_seg': validated_record.get('duracion_seg', 0),
                 'operador_ran_origen': validated_record.get('operador_ran_origen', ''),
                 'user_location_info': validated_record.get('user_location_info', ''),
@@ -1989,6 +1881,333 @@ def test_claro_normalization() -> None:
                 # Como último recurso, usar inferencia automática
                 return pd.to_datetime(date_series, errors='coerce')
 
+    def normalize_scanhunter_data(self, raw_record: Dict[str, Any], 
+                                 file_upload_id: str, mission_id: str) -> Optional[Dict[str, Any]]:
+        """
+        Normaliza un registro de datos SCANHUNTER al esquema de cellular_data.
+        
+        SCANHUNTER contiene mediciones directas de scanner celular con información
+        de punto, coordenadas, operador, RSSI, tecnología y datos técnicos de celda.
+        
+        Args:
+            raw_record (Dict[str, Any]): Registro bruto de SCANHUNTER
+            file_upload_id (str): ID del archivo fuente
+            mission_id (str): ID de la misión
+            
+        Returns:
+            Optional[Dict[str, Any]]: Datos normalizados o None si hay error
+        """
+        try:
+            # === VALIDACIÓN DE ENTRADA ===
+            
+            # Campos obligatorios para SCANHUNTER (Id es opcional pero recomendado)
+            required_fields = ['Punto', 'Latitud', 'Longitud', 'OPERADOR', 'RSSI', 'TECNOLOGIA', 'CELLID']
+            for field in required_fields:
+                if field not in raw_record or raw_record[field] is None:
+                    self.logger.warning(f"Campo requerido faltante en SCANHUNTER: {field}")
+                    return None
+                elif field in ['Punto', 'OPERADOR', 'TECNOLOGIA'] and str(raw_record[field]).strip() == '':
+                    self.logger.warning(f"Campo requerido vacío en SCANHUNTER: {field}")
+                    return None
+            
+            # === PROCESAMIENTO DEL ID ORIGINAL DEL ARCHIVO ===
+            
+            file_record_id = None
+            if 'Id' in raw_record and raw_record['Id'] is not None:
+                try:
+                    file_record_id = int(raw_record['Id'])
+                    self.logger.debug(f"ID original del archivo SCANHUNTER: {file_record_id}")
+                except (ValueError, TypeError) as e:
+                    self.logger.warning(f"ID inválido en SCANHUNTER, se ignorará: {raw_record['Id']} - {e}")
+                    file_record_id = None
+            else:
+                self.logger.debug("Campo 'Id' no encontrado en SCANHUNTER, se continuará sin ID de archivo")
+            
+            # === NORMALIZACIÓN DE COORDENADAS ===
+            
+            try:
+                latitud = float(raw_record['Latitud'])
+                longitud = float(raw_record['Longitud'])
+                
+                # Validar rangos
+                if not (-90 <= latitud <= 90):
+                    self.logger.error(f"Latitud fuera de rango en SCANHUNTER: {latitud}")
+                    return None
+                if not (-180 <= longitud <= 180):
+                    self.logger.error(f"Longitud fuera de rango en SCANHUNTER: {longitud}")
+                    return None
+                    
+            except (ValueError, TypeError) as e:
+                self.logger.error(f"Error convirtiendo coordenadas SCANHUNTER: {e}")
+                return None
+            
+            # === NORMALIZACIÓN DE RSSI ===
+            
+            try:
+                rssi = int(raw_record['RSSI'])
+                
+                # Validar rango de RSSI (debe ser negativo)
+                if rssi > 0 or rssi < -150:
+                    self.logger.warning(f"RSSI fuera de rango típico en SCANHUNTER: {rssi}")
+                    # No retornar None, solo advertir
+                    
+            except (ValueError, TypeError) as e:
+                self.logger.error(f"Error convirtiendo RSSI SCANHUNTER: {e}")
+                return None
+            
+            # === NORMALIZACIÓN DE OPERADOR ===
+            
+            operador = str(raw_record['OPERADOR']).strip().upper()
+            
+            # Mapear nombres de operador a valores estándar
+            operador_mapping = {
+                'CLARO': 'CLARO',
+                'TIGO': 'TIGO',
+                'MOVISTAR': 'MOVISTAR',
+                'WOM': 'WOM',
+                'ETB': 'ETB',
+                'PARTNERS': 'PARTNERS',
+                'AVANTEL': 'AVANTEL'
+            }
+            
+            operador_normalizado = operador_mapping.get(operador, operador)
+            
+            # === NORMALIZACIÓN DE TECNOLOGÍA ===
+            
+            tecnologia = str(raw_record['TECNOLOGIA']).strip().upper()
+            
+            # Mapear tecnologías a valores estándar
+            tecnologia_mapping = {
+                'LTE': '4G',
+                'UMTS': '3G',
+                'WCDMA': '3G',
+                'EDGE': '2G',
+                'GPRS': '2G',
+                'GSM': 'GSM',
+                '2G': '2G',
+                '3G': '3G',
+                '4G': '4G',
+                '5G': '5G',
+                '5G NR': '5G'
+            }
+            
+            tecnologia_normalizada = tecnologia_mapping.get(tecnologia, tecnologia)
+            
+            # === NORMALIZACIÓN DE CAMPOS TÉCNICOS ===
+            
+            # MNC+MCC
+            mnc_mcc = None
+            if 'MNC+MCC' in raw_record and raw_record['MNC+MCC'] is not None:
+                try:
+                    mnc_mcc = str(int(raw_record['MNC+MCC']))
+                except (ValueError, TypeError):
+                    self.logger.warning(f"MNC+MCC inválido en SCANHUNTER: {raw_record['MNC+MCC']}")
+                    mnc_mcc = None
+            
+            # CELLID
+            cell_id = None
+            if 'CELLID' in raw_record and raw_record['CELLID'] is not None:
+                try:
+                    cell_id = str(int(raw_record['CELLID']))
+                except (ValueError, TypeError):
+                    self.logger.warning(f"CELLID inválido en SCANHUNTER: {raw_record['CELLID']}")
+                    cell_id = str(raw_record['CELLID'])
+            
+            # LAC o TAC
+            lac_tac = None
+            if 'LAC o TAC' in raw_record and raw_record['LAC o TAC'] is not None:
+                try:
+                    lac_tac = str(int(raw_record['LAC o TAC']))
+                except (ValueError, TypeError):
+                    self.logger.warning(f"LAC o TAC inválido en SCANHUNTER: {raw_record['LAC o TAC']}")
+                    lac_tac = str(raw_record['LAC o TAC'])
+            
+            # ENB
+            enb = None
+            if 'ENB' in raw_record and raw_record['ENB'] is not None:
+                try:
+                    enb = str(int(raw_record['ENB']))
+                except (ValueError, TypeError):
+                    self.logger.warning(f"ENB inválido en SCANHUNTER: {raw_record['ENB']}")
+                    enb = str(raw_record['ENB'])
+            
+            # CHANNEL
+            channel = None
+            if 'CHANNEL' in raw_record and raw_record['CHANNEL'] is not None:
+                try:
+                    channel = str(int(raw_record['CHANNEL']))
+                except (ValueError, TypeError):
+                    self.logger.warning(f"CHANNEL inválido en SCANHUNTER: {raw_record['CHANNEL']}")
+                    channel = str(raw_record['CHANNEL'])
+            
+            # Comentario
+            comentario = None
+            if 'Comentario' in raw_record and raw_record['Comentario'] is not None:
+                comentario = str(raw_record['Comentario']).strip()
+                if comentario == '' or comentario.lower() in ['nan', 'none', 'null']:
+                    comentario = None
+            
+            # Punto
+            punto = str(raw_record['Punto']).strip()
+            if punto == '' or punto.lower() in ['nan', 'none', 'null']:
+                self.logger.error("Punto es obligatorio en SCANHUNTER")
+                return None
+            
+            # === CONSTRUCCIÓN DEL REGISTRO NORMALIZADO ===
+            
+            normalized_record = {
+                'mission_id': mission_id,
+                'file_record_id': file_record_id,  # ID original del archivo SCANHUNTER
+                'punto': punto,
+                'lat': latitud,
+                'lon': longitud,
+                'mnc_mcc': mnc_mcc,
+                'operator': operador_normalizado,
+                'rssi': rssi,
+                'tecnologia': tecnologia_normalizada,
+                'cell_id': cell_id,
+                'lac_tac': lac_tac,
+                'enb': enb,
+                'channel': channel,
+                'comentario': comentario
+            }
+            
+            # === VALIDACIÓN FINAL ===
+            
+            # Verificar que todos los campos obligatorios estén presentes
+            required_normalized_fields = ['mission_id', 'punto', 'lat', 'lon', 'operator', 'rssi', 'tecnologia', 'cell_id']
+            for field in required_normalized_fields:
+                if field not in normalized_record or normalized_record[field] is None:
+                    self.logger.error(f"Campo normalizado obligatorio faltante: {field}")
+                    return None
+            
+            self.logger.debug(
+                f"SCANHUNTER normalizado exitosamente: file_record_id={file_record_id}, punto={punto}, "
+                f"operador={operador_normalizado}, tecnologia={tecnologia_normalizada}, rssi={rssi}"
+            )
+            
+            return normalized_record
+            
+        except Exception as e:
+            self.logger.error(f"Error crítico normalizando SCANHUNTER: {str(e)}", exc_info=True)
+            return None
+
+
+# ==============================================================================
+# FUNCIONES DE UTILIDAD Y VALIDACIÓN
+# ==============================================================================
+
+def validate_normalized_data(normalized_data: Dict[str, Any]) -> List[str]:
+    """
+    Valida que los datos normalizados cumplan con el esquema de la base de datos.
+    
+    Args:
+        normalized_data (Dict[str, Any]): Datos normalizados a validar
+        
+    Returns:
+        List[str]: Lista de errores encontrados (vacía si es válido)
+    """
+    errors = []
+    
+    # Validar campos requeridos
+    required_fields = [
+        'file_upload_id', 'mission_id', 'operator', 'numero_telefono',
+        'fecha_hora_inicio', 'celda_id', 'record_hash'
+    ]
+    
+    for field in required_fields:
+        if field not in normalized_data or not normalized_data[field]:
+            errors.append(f"Campo requerido faltante o vacío: {field}")
+    
+    # Validar tipos de datos
+    if 'trafico_subida_bytes' in normalized_data:
+        try:
+            int(normalized_data['trafico_subida_bytes'] or 0)
+        except (ValueError, TypeError):
+            errors.append("trafico_subida_bytes debe ser numérico")
+    
+    if 'trafico_bajada_bytes' in normalized_data:
+        try:
+            int(normalized_data['trafico_bajada_bytes'] or 0)
+        except (ValueError, TypeError):
+            errors.append("trafico_bajada_bytes debe ser numérico")
+    
+    # Validar coordenadas geográficas
+    if normalized_data.get('latitud') is not None:
+        try:
+            lat = float(normalized_data['latitud'])
+            if not (-90.0 <= lat <= 90.0):
+                errors.append(f"Latitud fuera de rango válido: {lat}")
+        except (ValueError, TypeError):
+            errors.append("Latitud debe ser numérica")
+    
+    if normalized_data.get('longitud') is not None:
+        try:
+            lon = float(normalized_data['longitud'])
+            if not (-180.0 <= lon <= 180.0):
+                errors.append(f"Longitud fuera de rango válido: {lon}")
+        except (ValueError, TypeError):
+            errors.append("Longitud debe ser numérica")
+    
+    # Validar formato de fecha
+    if normalized_data.get('fecha_hora_inicio'):
+        try:
+            datetime.strptime(normalized_data['fecha_hora_inicio'], '%Y-%m-%d %H:%M:%S')
+        except ValueError:
+            errors.append("Formato de fecha_hora_inicio inválido")
+    
+    # Validar operador
+    valid_operators = ['CLARO', 'MOVISTAR', 'TIGO', 'WOM']
+    if normalized_data.get('operator') not in valid_operators:
+        errors.append(f"Operador inválido: {normalized_data.get('operator')}")
+    
+    # Validar JSON de datos específicos
+    if normalized_data.get('operator_specific_data'):
+        try:
+            json.loads(normalized_data['operator_specific_data'])
+        except json.JSONDecodeError:
+            errors.append("operator_specific_data no es JSON válido")
+    
+    return errors
+
+
+
+def test_claro_normalization() -> None:
+    """
+    Función de testing para normalización de datos CLARO.
+    No expuesta via Eel, solo para desarrollo/debugging.
+    """
+    service = DataNormalizerService()
+    
+    # Datos de prueba CLARO
+    test_record = {
+        'numero': '573123456789',
+        'fecha_trafico': '20240419080000',
+        'tipo_cdr': 'DATOS',
+        'celda_decimal': '175462',
+        'lac_decimal': '20010'
+    }
+    
+    print("Datos de prueba CLARO:")
+    print(json.dumps(test_record, indent=2))
+    
+    normalized = service.normalize_claro_cellular_data(
+        test_record, 'test-file-id', 'test-mission-id'
+    )
+    
+    if normalized:
+        print("\nDatos normalizados:")
+        print(json.dumps(normalized, indent=2, default=str))
+        
+        # Validar datos normalizados
+        errors = validate_normalized_data(normalized)
+        if errors:
+            print(f"\nErrores de validación: {errors}")
+        else:
+            print("\n✓ Datos normalizados válidos")
+    else:
+        print("\n❌ Error en normalización")
+
 
 if __name__ == "__main__":
     # Código de testing básico
@@ -1997,3 +2216,4 @@ if __name__ == "__main__":
     
     # Test de normalización
     test_claro_normalization()
+

@@ -1,0 +1,38 @@
+{
+  "overall_success": false,
+  "test_timestamp": "2025-08-14T16:48:24.533883",
+  "test_details": {
+    "extraction": {
+      "test_name": "file_record_id_extraction",
+      "success": false,
+      "extracted_ids": [],
+      "errors": [
+        "Exception during extraction: 'DataNormalizerService' object has no attribute 'normalize_scanhunter_record'"
+      ]
+    },
+    "database": {
+      "test_name": "database_insertion",
+      "success": false,
+      "inserted_records": 0,
+      "errors": [
+        "Exception during database insertion: 'FileProcessorService' object has no attribute 'process_excel_cellular_data'"
+      ]
+    },
+    "patterns": {
+      "test_name": "expected_id_patterns",
+      "success": true,
+      "id_counts": {},
+      "expected_pattern": {
+        "0": 17,
+        "12": 15,
+        "32": 26
+      },
+      "pattern_match": false,
+      "errors": []
+    }
+  },
+  "recommendations": [
+    "FAILED - Some tests failed - review error details",
+    "WARNING - No records were inserted - check file processing logic"
+  ]
+}

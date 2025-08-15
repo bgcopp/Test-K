@@ -1,0 +1,72 @@
+{
+  "test_name": "complete_end_to_end_test",
+  "timestamp": "2025-08-14T14:22:02.812068",
+  "flow_steps": {
+    "database_verification": {
+      "status": "PASSED",
+      "tables": {
+        "operator_data_sheets": true,
+        "operator_cellular_data": true,
+        "operator_call_data": true
+      },
+      "duration_ms": 0.0
+    },
+    "backend_call": {
+      "status": "PASSED",
+      "response": {
+        "success": true,
+        "statistics": {},
+        "totals": {
+          "total_files": 0,
+          "total_records": 0,
+          "total_failed": 0,
+          "total_bytes": 0,
+          "completed_files": 0,
+          "failed_files": 0,
+          "success_rate": 0
+        },
+        "mission_id": null
+      },
+      "duration_ms": 1340.662
+    },
+    "dashboard_processing": {
+      "status": "PASSED",
+      "extracted_values": {
+        "totalFiles": 0,
+        "totalRecords": 0,
+        "completedFiles": 0,
+        "successRate": 0
+      },
+      "duration_ms": 0.0
+    },
+    "jsx_rendering": {
+      "status": "PASSED",
+      "cards_rendered": [
+        [
+          "Total Archivos",
+          0
+        ],
+        [
+          "Total Registros Procesados",
+          "0"
+        ],
+        [
+          "Archivos Completados",
+          0
+        ],
+        [
+          "Tasa de Exito",
+          "0%"
+        ]
+      ],
+      "duration_ms": 0.0
+    }
+  },
+  "overall_status": "PASSED",
+  "errors": [],
+  "warnings": [],
+  "performance_metrics": {
+    "total_duration_ms": 1340.662,
+    "steps_completed": 4
+  }
+}

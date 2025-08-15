@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-14T09:35:03.126512",
+  "test_name": "WOM Multi-sheet Real Processing Test",
+  "tests": [
+    {
+      "test": "WOM Multi-sheet Processing",
+      "timestamp": "2025-08-14T09:35:03.126512",
+      "status": "ERROR",
+      "error": "NOT NULL constraint failed: operator_data_sheets.id",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\test_wom_multisheet_real.py\", line 112, in test_wom_multisheet_processing\n    cursor.execute(\"\"\"\nsqlite3.IntegrityError: NOT NULL constraint failed: operator_data_sheets.id\n"
+    }
+  ]
+}

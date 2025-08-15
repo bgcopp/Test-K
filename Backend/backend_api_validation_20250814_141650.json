@@ -1,0 +1,29 @@
+{
+  "test_name": "backend_api_validation",
+  "timestamp": "2025-08-14T14:16:49.511980",
+  "tests": {
+    "import_success": true,
+    "function_call_success": true,
+    "response_is_dict": true,
+    "required_fields_present": true,
+    "success_field_value": true,
+    "function_call_with_mission_success": true
+  },
+  "overall_status": "PASSED",
+  "errors": [],
+  "warnings": [],
+  "response_data": {
+    "success": true,
+    "statistics": {},
+    "totals": {
+      "total_files": 0,
+      "total_records": 0,
+      "total_failed": 0,
+      "total_bytes": 0,
+      "completed_files": 0,
+      "failed_files": 0,
+      "success_rate": 0
+    },
+    "mission_id": null
+  }
+}

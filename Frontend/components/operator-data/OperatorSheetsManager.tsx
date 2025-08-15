@@ -5,6 +5,7 @@ import Modal from '../ui/Modal';
 import { ICONS } from '../../constants';
 import type { OperatorSheet, OperatorCellularRecord } from '../../types';
 import { getOperatorSheetData } from '../../services/api';
+import { useConfirmation, confirmationPresets } from '../../hooks/useConfirmation';
 
 interface OperatorSheetsManagerProps {
     missionId: string;
@@ -19,6 +20,7 @@ const OperatorSheetsManager: React.FC<OperatorSheetsManagerProps> = ({
     onRefresh,
     onDeleteSheet
 }) => {
+    const { showConfirmation } = useConfirmation();
     const [filterOperator, setFilterOperator] = useState<string>('');
     const [filterDocumentType, setFilterDocumentType] = useState<string>('');
     const [selectedSheet, setSelectedSheet] = useState<OperatorSheet | null>(null);
@@ -89,9 +91,11 @@ const OperatorSheetsManager: React.FC<OperatorSheetsManagerProps> = ({
     };
 
     const handleDeleteSheet = async (sheet: OperatorSheet) => {
-        if (!window.confirm(`¿Estás seguro de que quieres eliminar el archivo "${sheet.filename}"? Esta acción no se puede deshacer.`)) {
-            return;
-        }
+        const confirmed = await showConfirmation(
+            confirmationPresets.deleteDataFile(sheet.filename)
+        );
+        
+        if (!confirmed) return;
         
         setIsDeletingSheet(sheet.id);
         try {
@@ -99,7 +103,7 @@ const OperatorSheetsManager: React.FC<OperatorSheetsManagerProps> = ({
             onRefresh();
         } catch (error) {
             console.error('Error al eliminar hoja:', error);
-            alert(`Error al eliminar: ${(error as Error).message}`);
+            // El error se mostrará a través del sistema de notificaciones
         } finally {
             setIsDeletingSheet(null);
         }

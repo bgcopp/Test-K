@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-14T09:34:35.300618",
+  "test_name": "WOM Multi-sheet Real Processing Test",
+  "tests": [
+    {
+      "test": "WOM Multi-sheet Processing",
+      "timestamp": "2025-08-14T09:34:35.300618",
+      "status": "ERROR",
+      "error": "table operator_data_sheets has no column named document_type",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\test_wom_multisheet_real.py\", line 112, in test_wom_multisheet_processing\n    cursor.execute(\"\"\"\nsqlite3.OperationalError: table operator_data_sheets has no column named document_type\n"
+    }
+  ]
+}

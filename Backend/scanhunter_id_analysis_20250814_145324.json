@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-08-14T14:53:24.939811",
+  "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\SCANHUNTER.xlsx",
+  "total_records": 58,
+  "total_columns": 13,
+  "unique_ids": [
+    0,
+    12,
+    32
+  ],
+  "id_counts": {
+    "0": 17,
+    "12": 15,
+    "32": 26
+  },
+  "null_count": 0,
+  "columns": [
+    "Id",
+    "Punto",
+    "Latitud",
+    "Longitud",
+    "MNC+MCC",
+    "OPERADOR",
+    "RSSI",
+    "TECNOLOGIA",
+    "CELLID",
+    "LAC o TAC",
+    "ENB",
+    "Comentario",
+    "CHANNEL"
+  ]
+}

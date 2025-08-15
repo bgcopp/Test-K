@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-14T10:34:00.631210",
+  "normalizer_test": false,
+  "files_processed": 2,
+  "files_ok": 2,
+  "overall_success": false,
+  "file_details": [
+    {
+      "file": "PUNTO 1 TRÁFICO DATOS WOM.xlsx",
+      "sheets_processed": 2,
+      "total_cell_ids": 2,
+      "clean_ids": 2,
+      "concatenated_ids": 0,
+      "sample_clean": [
+        "11648",
+        "2981895"
+      ],
+      "sample_concatenated": []
+    },
+    {
+      "file": "PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx",
+      "sheets_processed": 2,
+      "total_cell_ids": 2,
+      "clean_ids": 2,
+      "concatenated_ids": 0,
+      "sample_clean": [
+        "11648",
+        "2981895"
+      ],
+      "sample_concatenated": []
+    }
+  ]
+}

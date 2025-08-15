@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-14T09:36:13.724100",
+  "test_name": "WOM Multi-sheet Real Processing Test",
+  "tests": [
+    {
+      "test": "WOM Multi-sheet Processing",
+      "timestamp": "2025-08-14T09:36:13.724100",
+      "status": "ERROR",
+      "error": "no such table: wom_cellular_data",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\test_wom_multisheet_real.py\", line 165, in test_wom_multisheet_processing\n    cursor.execute(\"\"\"\nsqlite3.OperationalError: no such table: wom_cellular_data\n"
+    }
+  ]
+}

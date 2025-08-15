@@ -161,7 +161,7 @@ class Mission(Base, BaseModel):
     
     # Relaciones
     creator = relationship("User", back_populates="created_missions")
-    cellular_data = relationship("CellularData", back_populates="mission", cascade="all, delete-orphan")
+    cellular_data = relationship("CellularData", back_populates="mission", cascade="all, delete-orphan", order_by="CellularData.file_record_id")
     target_records = relationship("TargetRecord", back_populates="mission", cascade="all, delete-orphan")
     
     # Constraints
@@ -227,6 +227,7 @@ class CellularData(Base, BaseModel):
     # Identificación
     id = Column(Integer, primary_key=True, autoincrement=True)
     mission_id = Column(String, ForeignKey('missions.id'), nullable=False)
+    file_record_id = Column(Integer, nullable=True)  # ID original del registro en el archivo fuente (ej: SCANHUNTER)
     
     # Información del punto de medición
     punto = Column(String, nullable=False)           # Nombre o código del punto
@@ -293,6 +294,7 @@ class CellularData(Base, BaseModel):
         
         # Índices críticos para consultas frecuentes
         Index('idx_cellular_mission_id', 'mission_id'),
+        Index('idx_cellular_file_record_id', 'file_record_id'),  # Índice para ID del archivo original
         Index('idx_cellular_operator', 'operator'),
         Index('idx_cellular_tecnologia', 'tecnologia'),
         Index('idx_cellular_rssi', 'rssi'),
@@ -305,6 +307,7 @@ class CellularData(Base, BaseModel):
         # Índices compuestos para consultas específicas de KRONOS
         Index('idx_cellular_mission_operator', 'mission_id', 'operator'),
         Index('idx_cellular_mission_tech', 'mission_id', 'tecnologia'),
+        Index('idx_cellular_mission_file_record', 'mission_id', 'file_record_id'),  # Para ordenamiento por ID de archivo
         Index('idx_cellular_location', 'lat', 'lon'),
         Index('idx_cellular_geo_analysis', 'mission_id', 'operator', 'lat', 'lon', 'rssi'),
         Index('idx_cellular_coverage_analysis', 'mission_id', 'tecnologia', 'operator', 'rssi'),
@@ -344,6 +347,7 @@ class CellularData(Base, BaseModel):
         
         # Mapeo completo para compatibilidad con frontend (camelCase)
         mapping = {
+            'file_record_id': 'fileRecordId',  # ID original del archivo
             'mnc_mcc': 'mncMcc',
             'cell_id': 'cellId', 
             'lac_tac': 'lacTac',

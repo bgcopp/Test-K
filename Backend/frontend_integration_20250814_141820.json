@@ -1,0 +1,31 @@
+{
+  "test_name": "frontend_integration_test",
+  "timestamp": "2025-08-14T14:18:19.371892",
+  "tests": {
+    "import_success": true,
+    "api_call_success": true,
+    "response_success": true,
+    "totals_structure_valid": true,
+    "safe_values_extraction": true,
+    "dashboard_success_path": true,
+    "number_formatting": true,
+    "jsx_rendering_simulation": true
+  },
+  "overall_status": "PASSED",
+  "errors": [],
+  "warnings": [],
+  "response_data": {
+    "success": true,
+    "statistics": {},
+    "totals": {
+      "total_files": 0,
+      "total_records": 0,
+      "total_failed": 0,
+      "total_bytes": 0,
+      "completed_files": 0,
+      "failed_files": 0,
+      "success_rate": 0
+    },
+    "mission_id": null
+  }
+}

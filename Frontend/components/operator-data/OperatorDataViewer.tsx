@@ -3,6 +3,7 @@ import type { OperatorSheet, OperatorCellularRecord } from '../../types';
 import FileNavigationPanel from './FileNavigationPanel';
 import DataExplorationPanel from './DataExplorationPanel';
 import { getOperatorSheetData } from '../../services/api';
+import { useConfirmation, confirmationPresets } from '../../hooks/useConfirmation';
 
 interface OperatorDataViewerProps {
     missionId: string;
@@ -22,6 +23,7 @@ const OperatorDataViewer: React.FC<OperatorDataViewerProps> = ({
     const [currentPage, setCurrentPage] = useState(1);
     const [totalRecords, setTotalRecords] = useState(0);
     const [hasMore, setHasMore] = useState(false);
+    const { showConfirmation } = useConfirmation();
     const [isLoadingData, setIsLoadingData] = useState(false);
     const [columns, setColumns] = useState<string[]>([]);
     const [displayNames, setDisplayNames] = useState<{[key: string]: string}>({});
@@ -92,9 +94,11 @@ const OperatorDataViewer: React.FC<OperatorDataViewerProps> = ({
         const sheet = sheets.find(s => s.id === sheetId);
         if (!sheet) return;
 
-        if (!window.confirm(`¿Estás seguro de que quieres eliminar el archivo "${sheet.filename}"? Esta acción no se puede deshacer.`)) {
-            return;
-        }
+        const confirmed = await showConfirmation(
+            confirmationPresets.deleteDataFile(sheet.filename)
+        );
+        
+        if (!confirmed) return;
         
         try {
             await onDeleteSheet(sheetId);

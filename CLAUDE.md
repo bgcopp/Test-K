@@ -84,6 +84,34 @@ Frontend/
 
 ## Important Implementation Details
 
+### Reglas generales
+
+- Siempre contesta en español.
+- Siempre debes dirigirte hacia mi como "( Boris )"
+- No hagas suposiciones, siempre pregunta.
+- No te disculpes.
+- Preserva en lo posible las estructuras existentes.
+- Agrega comentarios para que los puedan ver otros desarrolladores.
+- Realiza primero todas la preguntas aclaratorias pertinenetes antes de dar respuestas detalladas.
+
+
+### Usted debe
+
+- Nunca romper el codigo o funcionalidades existentes.
+- Siempre debes agregar comentarios para que los puedan ver otros desarrolladores.
+- Siempre debes usar buenas practicas de seguridad.
+- Siempre debes usar buenas practicas de performance.
+- Siempre debes usar buenas practicas de usabilidad.
+- Siempre debes usar buenas practicas de mantenimiento.
+- Debe procurar que el codigo sea lo mas limpio y legible posible.
+- Debes procurar que el codigo sea lo mas optimo posible. 
+
+### PROFUNDIDAD DEL RAZONAMIENTO
+
+- Desglosar pensamientos complejos en pasos simples
+- Aceptar la incertidumbre y la revisión
+- Expresar pensamientos en una conversación natural
+
 ### Permission System
 - Granular permissions defined in `types.ts`
 - Role-based access control

@@ -8,6 +8,7 @@ import Input from '../components/ui/Input';
 import Checkbox from '../components/ui/Checkbox';
 import { ICONS } from '../constants';
 import { createRole, updateRole, deleteRole } from '../services/api';
+import { useConfirmation, confirmationPresets } from '../hooks/useConfirmation';
 
 interface RolesProps {
     roles: Role[];
@@ -19,6 +20,7 @@ const Roles: React.FC<RolesProps> = ({ roles, setRoles }) => {
     const [editingRole, setEditingRole] = useState<Role | null>(null);
     const [currentPermissions, setCurrentPermissions] = useState<Permissions>(permissionLabels as any);
     const [isLoading, setIsLoading] = useState(false);
+    const { showConfirmation } = useConfirmation();
 
     const getBlankPermissions = () => {
         return JSON.parse(JSON.stringify(Object.keys(permissionLabels).reduce((acc, key) => {
@@ -81,13 +83,20 @@ const Roles: React.FC<RolesProps> = ({ roles, setRoles }) => {
     };
 
     const handleDeleteRole = async (roleId: string) => {
-        if (window.confirm('¿Estás seguro de que quieres eliminar este rol? Esto podría afectar a los usuarios asignados a él.')) {
+        const role = roles.find(r => r.id === roleId);
+        if (!role) return;
+
+        const confirmed = await showConfirmation(
+            confirmationPresets.deleteRole(role.name)
+        );
+        
+        if (confirmed) {
             try {
                 await deleteRole(roleId);
                 setRoles(roles.filter(r => r.id !== roleId));
             } catch (error) {
                 console.error("Failed to delete role:", error);
-                alert(`Error al eliminar rol: ${(error as Error).message}`);
+                // El error se mostrará a través del sistema de notificaciones
             }
         }
     };

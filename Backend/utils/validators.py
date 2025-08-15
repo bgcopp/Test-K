@@ -431,6 +431,126 @@ def validate_signal_strength(signal: Union[str, int]) -> int:
     return signal_int
 
 
+def validate_duration_seconds(duration: Union[str, int, float], field_name: str) -> int:
+    """
+    Valida duración en segundos (debe ser >= 0)
+    
+    Args:
+        duration: Duración en segundos
+        field_name: Nombre del campo para mensajes de error
+        
+    Returns:
+        Duración como integer
+        
+    Raises:
+        ValidationError: Si la duración es inválida
+    """
+    try:
+        duration_int = int(float(duration))
+    except (ValueError, TypeError):
+        raise ValidationError(f"{field_name} debe ser un número")
+    
+    if duration_int < 0:
+        raise ValidationError(f"{field_name} debe ser mayor o igual a 0")
+    
+    return duration_int
+
+
+def validate_positive_integer(value: Union[str, int, float], field_name: str, allow_zero: bool = True) -> int:
+    """
+    Valida entero positivo (o cero si se permite)
+    
+    Args:
+        value: Valor a validar
+        field_name: Nombre del campo para mensajes de error
+        allow_zero: Si se permite cero como valor válido
+        
+    Returns:
+        Valor como integer
+        
+    Raises:
+        ValidationError: Si el valor es inválido
+    """
+    try:
+        int_value = int(float(value))
+    except (ValueError, TypeError):
+        raise ValidationError(f"{field_name} debe ser un número entero")
+    
+    min_value = 0 if allow_zero else 1
+    if int_value < min_value:
+        min_desc = "mayor o igual a 0" if allow_zero else "mayor que 0"
+        raise ValidationError(f"{field_name} debe ser {min_desc}")
+    
+    return int_value
+
+
+def validate_non_negative_integer(value: Union[str, int, float], field_name: str) -> int:
+    """
+    Valida entero no negativo (>= 0)
+    
+    Args:
+        value: Valor a validar
+        field_name: Nombre del campo para mensajes de error
+        
+    Returns:
+        Valor como integer
+        
+    Raises:
+        ValidationError: Si el valor es inválido
+    """
+    return validate_positive_integer(value, field_name, allow_zero=True)
+
+
+def validate_latitude(lat: Union[str, float], field_name: str) -> float:
+    """
+    Valida latitud (debe estar entre -90 y 90)
+    
+    Args:
+        lat: Latitud a validar
+        field_name: Nombre del campo para mensajes de error
+        
+    Returns:
+        Latitud como float
+        
+    Raises:
+        ValidationError: Si la latitud es inválida
+    """
+    try:
+        lat_float = float(lat)
+    except (ValueError, TypeError):
+        raise ValidationError(f"{field_name} debe ser un número")
+    
+    if lat_float < -90.0 or lat_float > 90.0:
+        raise ValidationError(f"{field_name} debe estar entre -90 y 90")
+    
+    return lat_float
+
+
+def validate_longitude(lon: Union[str, float], field_name: str) -> float:
+    """
+    Valida longitud (debe estar entre -180 y 180)
+    
+    Args:
+        lon: Longitud a validar
+        field_name: Nombre del campo para mensajes de error
+        
+    Returns:
+        Longitud como float
+        
+    Raises:
+        ValidationError: Si la longitud es inválida
+    """
+    try:
+        lon_float = float(lon)
+    except (ValueError, TypeError):
+        raise ValidationError(f"{field_name} debe ser un número")
+    
+    if lon_float < -180.0 or lon_float > 180.0:
+        raise ValidationError(f"{field_name} debe estar entre -180 y 180")
+    
+    return lon_float
+
+
 def validate_file_data(file_data: Dict[str, Any]) -> Dict[str, Any]:
     """
     Valida datos de archivo subido
@@ -492,6 +612,17 @@ def validate_cellular_data_record(record: Dict[str, Any]) -> Dict[str, Any]:
         ValidationError: Si los datos son inválidos
     """
     validated_record = {}
+    
+    # Validar file_record_id (opcional) - ID original del archivo
+    file_record_id = record.get('file_record_id')
+    if file_record_id is not None:
+        try:
+            validated_record['file_record_id'] = int(file_record_id)
+        except (ValueError, TypeError):
+            # Si no es convertible a int, establecer como None
+            validated_record['file_record_id'] = None
+    else:
+        validated_record['file_record_id'] = None
     
     # Validar punto de medición
     validated_record['punto'] = validate_required_string(

@@ -1,0 +1,12 @@
+{
+  "test_name": "backend_api_validation",
+  "timestamp": "2025-08-14T14:16:37.749649",
+  "tests": {
+    "import_success": false
+  },
+  "overall_status": "UNKNOWN",
+  "errors": [
+    "Error importando operator_data_service: No module named 'operator_data_service'"
+  ],
+  "warnings": []
+}

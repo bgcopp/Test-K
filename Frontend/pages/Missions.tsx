@@ -8,6 +8,7 @@ import Modal from '../components/ui/Modal';
 import Input from '../components/ui/Input';
 import { ICONS } from '../constants';
 import { createMission, updateMission, deleteMission } from '../services/api';
+import { useConfirmation, confirmationPresets } from '../hooks/useConfirmation';
 
 const statusColors: { [key in MissionStatus]: string } = {
     [MissionStatus.PLANNING]: 'bg-yellow-200 text-yellow-800',
@@ -26,6 +27,7 @@ const Missions: React.FC<MissionsProps> = ({ missions, setMissions }) => {
     const [editingMission, setEditingMission] = useState<Mission | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const { showConfirmation } = useConfirmation();
 
     const openModal = (mission: Mission | null = null) => {
         setEditingMission(mission);
@@ -68,13 +70,20 @@ const Missions: React.FC<MissionsProps> = ({ missions, setMissions }) => {
     };
 
     const handleDeleteMission = async (missionId: string) => {
-        if (window.confirm('¿Estás seguro de que quieres eliminar esta misión?')) {
+        const mission = missions.find(m => m.id === missionId);
+        if (!mission) return;
+
+        const confirmed = await showConfirmation(
+            confirmationPresets.deleteMission(mission.name)
+        );
+        
+        if (confirmed) {
             try {
                 await deleteMission(missionId);
                 setMissions(missions.filter(m => m.id !== missionId));
             } catch (error) {
                 console.error("Failed to delete mission:", error);
-                alert(`Error al eliminar misión: ${(error as Error).message}`);
+                // El error se mostrará a través del sistema de notificaciones
             }
         }
     };

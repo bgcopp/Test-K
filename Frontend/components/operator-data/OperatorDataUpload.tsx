@@ -415,16 +415,141 @@ const OperatorDataUpload: React.FC<OperatorDataUploadProps> = ({
                 </div>
             )}
 
-            {/* Botón de Carga */}
-            <div className="flex justify-end pt-4">
-                <Button
-                    onClick={handleUpload}
-                    disabled={!canUpload}
-                    icon={isUploading ? ICONS.loading : ICONS.upload}
-                    className="min-w-32"
-                >
-                    {isUploading ? 'Procesando...' : 'Cargar Datos'}
-                </Button>
+            {/* Sección de Carga Mejorada */}
+            <div className="pt-6 border-t border-secondary-light">
+                {/* Resumen de información previa al upload */}
+                {canUpload && !isUploading && (
+                    <div className="mb-6 p-4 bg-gradient-to-r from-blue-900/30 to-indigo-900/30 border border-blue-500/30 rounded-lg">
+                        <div className="flex items-center space-x-3 mb-3">
+                            <div className="p-2 bg-blue-500/20 rounded-lg">
+                                <span className="text-blue-400">{ICONS.info}</span>
+                            </div>
+                            <div>
+                                <h3 className="text-sm font-semibold text-blue-200">Resumen de Carga</h3>
+                                <p className="text-xs text-blue-300">Verificá los datos antes de procesar</p>
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <div className="flex items-center space-x-2">
+                                <span className="text-blue-400">{ICONS.database}</span>
+                                <span className="text-light font-medium">Operador:</span>
+                                <span className="text-blue-200">{OPERATORS[selectedOperator as keyof typeof OPERATORS]?.name}</span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <span className="text-blue-400">{ICONS.document}</span>
+                                <span className="text-light font-medium">Tipo:</span>
+                                <span className="text-blue-200">
+                                    {OPERATORS[selectedOperator as keyof typeof OPERATORS]?.documentTypes.find(dt => dt.id === selectedDocumentType)?.name?.split(' ')[0]}
+                                </span>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                                <span className="text-blue-400">{ICONS.upload}</span>
+                                <span className="text-light font-medium">Archivo:</span>
+                                <span className="text-blue-200 truncate">{selectedFile?.name}</span>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Botón de Carga Rediseñado */}
+                <div className="flex justify-center">
+                    <div className="relative group">
+                        {/* Efectos de fondo animados */}
+                        <div className={`absolute -inset-1 rounded-xl transition-all duration-500 ${
+                            canUpload && !isUploading 
+                                ? 'bg-gradient-to-r from-blue-500/50 via-indigo-500/50 to-purple-500/50 opacity-75 group-hover:opacity-100 blur-sm group-hover:blur-none'
+                                : 'bg-gray-600/20 opacity-30'
+                        }`}></div>
+                        
+                        {/* Botón principal */}
+                        <button
+                            onClick={handleUpload}
+                            disabled={!canUpload}
+                            className={`relative flex flex-col items-center justify-center px-12 py-6 rounded-xl font-semibold transition-all duration-300 transform ${
+                                canUpload && !isUploading
+                                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-2xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98]'
+                                    : 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                            }`}
+                            aria-label={`${isUploading ? 'Procesando' : 'Cargar'} datos de ${selectedOperator || 'operador'}`}
+                        >
+                            {/* Contenido del botón */}
+                            <div className="flex items-center space-x-3">
+                                {/* Icono con animaciones */}
+                                <div className={`transition-all duration-300 ${
+                                    isUploading ? 'text-blue-300' : canUpload ? 'text-white group-hover:text-blue-100' : 'text-gray-400'
+                                }`}>
+                                    {isUploading ? (
+                                        <div className="relative">
+                                            <span className="text-2xl">{ICONS.loading}</span>
+                                            <div className="absolute inset-0 bg-blue-400/20 rounded-full animate-pulse"></div>
+                                        </div>
+                                    ) : canUpload ? (
+                                        <div className="relative">
+                                            <span className="text-2xl transform group-hover:scale-110 transition-transform duration-200">
+                                                {ICONS.upload}
+                                            </span>
+                                            {/* Efecto de destello en hover */}
+                                            <div className="absolute inset-0 bg-white/0 group-hover:bg-white/20 rounded-full transition-all duration-300"></div>
+                                        </div>
+                                    ) : (
+                                        <span className="text-2xl">{ICONS.upload}</span>
+                                    )}
+                                </div>
+                                
+                                {/* Texto principal */}
+                                <div className="flex flex-col items-start">
+                                    <span className={`text-lg font-bold ${
+                                        isUploading ? 'text-blue-100' : canUpload ? 'text-white' : 'text-gray-400'
+                                    }`}>
+                                        {isUploading ? 'Procesando Archivo...' : 'Cargar Datos'}
+                                    </span>
+                                    <span className={`text-xs mt-1 ${
+                                        isUploading ? 'text-blue-200' : canUpload ? 'text-blue-100 group-hover:text-white' : 'text-gray-500'
+                                    }`}>
+                                        {isUploading ? 'No cierre la aplicación' : canUpload ? 'Iniciar procesamiento seguro' : 'Complete todos los campos requeridos'}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Indicador de progreso integrado */}
+                            {isUploading && (
+                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-800/50 rounded-b-xl overflow-hidden">
+                                    <div 
+                                        className="h-full bg-gradient-to-r from-blue-300 to-cyan-300 transition-all duration-300 shadow-lg shadow-blue-300/50"
+                                        style={{ width: `${uploadProgress}%` }}
+                                    ></div>
+                                </div>
+                            )}
+
+                            {/* Efecto de éxito */}
+                            {canUpload && !isUploading && (
+                                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                </div>
+                            )}
+                        </button>
+
+                        {/* Información adicional en estado de carga */}
+                        {isUploading && (
+                            <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+                                <div className="flex items-center space-x-2 text-xs text-blue-300">
+                                    <span className="w-1 h-1 bg-blue-400 rounded-full animate-bounce"></span>
+                                    <span className="w-1 h-1 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></span>
+                                    <span className="w-1 h-1 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></span>
+                                </div>
+                                <p className="text-xs text-medium mt-1">Validando y procesando datos...</p>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Mensaje de seguridad */}
+                {canUpload && !isUploading && (
+                    <div className="mt-6 flex items-center justify-center space-x-2 text-xs text-medium">
+                        <span className="text-green-400">{ICONS.shield}</span>
+                        <span>Procesamiento seguro y confidencial de datos</span>
+                    </div>
+                )}
             </div>
         </div>
     );

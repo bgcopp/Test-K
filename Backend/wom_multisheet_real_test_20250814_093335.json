@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-08-14T09:33:35.527275",
+  "test_name": "WOM Multi-sheet Real Processing Test",
+  "tests": [
+    {
+      "test": "WOM Multi-sheet Processing",
+      "timestamp": "2025-08-14T09:33:35.527803",
+      "status": "ERROR",
+      "error": "No se pudo configurar datos de prueba"
+    }
+  ]
+}

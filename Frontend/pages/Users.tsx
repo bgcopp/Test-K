@@ -6,6 +6,7 @@ import Modal from '../components/ui/Modal';
 import Input from '../components/ui/Input';
 import { ICONS } from '../constants';
 import { createUser, updateUser, deleteUser } from '../services/api';
+import { useConfirmation, confirmationPresets } from '../hooks/useConfirmation';
 
 interface UsersProps {
     users: User[];
@@ -18,6 +19,7 @@ const Users: React.FC<UsersProps> = ({ users, setUsers, roles }) => {
     const [editingUser, setEditingUser] = useState<User | null>(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const { showConfirmation } = useConfirmation();
 
     const openModal = (user: User | null = null) => {
         setEditingUser(user);
@@ -58,13 +60,20 @@ const Users: React.FC<UsersProps> = ({ users, setUsers, roles }) => {
     };
     
     const handleDeleteUser = async (userId: string) => {
-        if (window.confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+        const user = users.find(u => u.id === userId);
+        if (!user) return;
+
+        const confirmed = await showConfirmation(
+            confirmationPresets.deleteUser(user.name)
+        );
+        
+        if (confirmed) {
             try {
                 await deleteUser(userId);
                 setUsers(users.filter(u => u.id !== userId));
             } catch (error) {
                 console.error("Failed to delete user:", error);
-                alert(`Error al eliminar usuario: ${(error as Error).message}`);
+                // El error se mostrará a través del sistema de notificaciones
             }
         }
     };

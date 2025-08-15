@@ -1,0 +1,171 @@
+{
+  "timestamp": "2025-08-14T10:51:14.800936",
+  "overall_passed": true,
+  "test_results": {
+    "COLUMN_CONFIGURATION": {
+      "results": [
+        {
+          "operator": "CLARO",
+          "file_type": "CELLULAR_DATA",
+          "has_id_column": true,
+          "id_first_column": true,
+          "has_id_display_name": true,
+          "id_display_name": "ID",
+          "columns_count": 6,
+          "select_query_contains_id": true
+        },
+        {
+          "operator": "CLARO",
+          "file_type": "CALL_DATA",
+          "has_id_column": true,
+          "id_first_column": true,
+          "has_id_display_name": true,
+          "id_display_name": "ID",
+          "columns_count": 8,
+          "select_query_contains_id": true
+        },
+        {
+          "operator": "MOVISTAR",
+          "file_type": "CELLULAR_DATA",
+          "has_id_column": true,
+          "id_first_column": true,
+          "has_id_display_name": true,
+          "id_display_name": "ID",
+          "columns_count": 10,
+          "select_query_contains_id": true
+        },
+        {
+          "operator": "MOVISTAR",
+          "file_type": "CALL_DATA",
+          "has_id_column": true,
+          "id_first_column": true,
+          "has_id_display_name": true,
+          "id_display_name": "ID",
+          "columns_count": 7,
+          "select_query_contains_id": true
+        },
+        {
+          "operator": "TIGO",
+          "file_type": "CALL_DATA",
+          "has_id_column": true,
+          "id_first_column": true,
+          "has_id_display_name": true,
+          "id_display_name": "ID",
+          "columns_count": 10,
+          "select_query_contains_id": true
+        },
+        {
+          "operator": "WOM",
+          "file_type": "CELLULAR_DATA",
+          "has_id_column": true,
+          "id_first_column": true,
+          "has_id_display_name": true,
+          "id_display_name": "ID",
+          "columns_count": 6,
+          "select_query_contains_id": true
+        },
+        {
+          "operator": "WOM",
+          "file_type": "CALL_DATA",
+          "has_id_column": true,
+          "id_first_column": true,
+          "has_id_display_name": true,
+          "id_display_name": "ID",
+          "columns_count": 7,
+          "select_query_contains_id": true
+        }
+      ],
+      "passed": true
+    },
+    "DATABASE_SORTING": {
+      "results": [
+        {
+          "test": "CELLULAR_DATA_ORDER",
+          "passed": true,
+          "first_ids": [
+            316,
+            317,
+            318,
+            319,
+            320,
+            321,
+            322,
+            323,
+            324,
+            325
+          ],
+          "total_records": 10
+        },
+        {
+          "test": "CALL_DATA_ORDER",
+          "passed": true,
+          "first_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "total_records": 10
+        }
+      ],
+      "passed": true
+    },
+    "API_RESPONSE": {
+      "results": [
+        {
+          "test": "API_RESPONSE_STRUCTURE",
+          "file_id": "c5e54945-a914-43b1-834d-ca80c8452328",
+          "operator": "CLARO",
+          "file_type": "CELLULAR_DATA",
+          "success": true,
+          "has_data": true,
+          "data_count": 5,
+          "has_columns": true,
+          "has_display_names": true,
+          "id_in_columns": true,
+          "id_in_display_names": true,
+          "first_record_has_id": true,
+          "ids_ascending": true
+        }
+      ],
+      "passed": true
+    },
+    "SQL_QUERY_VERIFICATION": {
+      "results": [
+        {
+          "test": "CELLULAR_QUERY_ASC",
+          "passed": true,
+          "ids": []
+        },
+        {
+          "test": "CALL_QUERY_ASC",
+          "passed": true,
+          "ids": [
+            31,
+            32,
+            33,
+            34
+          ]
+        }
+      ],
+      "passed": true
+    }
+  },
+  "summary": {
+    "total_tests": 4,
+    "passed_tests": 4,
+    "failed_tests": 0
+  },
+  "changes_validated": {
+    "line_1167_cellular_order_by_id_asc": true,
+    "line_1183_call_order_by_id_asc": true,
+    "id_column_configuration": true,
+    "id_display_names": true
+  }
+}

@@ -106,14 +106,14 @@ class OperatorDataService:
                 return {
                     'columns': [
                         'id', 'numero_origen', 'numero_destino', 'fecha_hora_llamada', 
-                        'duracion_segundos', 'celda_origen', 'tecnologia', 'tipo_llamada',
-                        'latitud_origen', 'longitud_origen'
+                        'duracion_segundos', 'celda_origen', 'cellid_decimal', 'lac_decimal', 
+                        'tecnologia', 'tipo_llamada', 'latitud_origen', 'longitud_origen'
                     ],
                     'select_query': """
                         SELECT 
                             id, numero_origen, numero_destino, fecha_hora_llamada,
-                            duracion_segundos, celda_origen, tecnologia, tipo_llamada,
-                            latitud_origen, longitud_origen, created_at
+                            duracion_segundos, celda_origen, cellid_decimal, lac_decimal,
+                            tecnologia, tipo_llamada, latitud_origen, longitud_origen, created_at
                         FROM operator_call_data
                     """,
                     'display_names': {
@@ -122,7 +122,9 @@ class OperatorDataService:
                         'numero_destino': 'Número Marcado', 
                         'fecha_hora_llamada': 'Fecha/Hora',
                         'duracion_segundos': 'Duración (seg)',
-                        'celda_origen': 'Celda',
+                        'celda_origen': 'Celda Origen',
+                        'cellid_decimal': 'Cell ID (Dec)',
+                        'lac_decimal': 'LAC (Dec)',
                         'tecnologia': 'Tecnología',
                         'tipo_llamada': 'Dirección',
                         'latitud_origen': 'Latitud',
@@ -159,12 +161,12 @@ class OperatorDataService:
                 return {
                     'columns': [
                         'id', 'numero_origen', 'numero_destino', 'fecha_hora_llamada',
-                        'duracion_segundos', 'celda_origen', 'tipo_llamada'
+                        'duracion_segundos', 'celda_origen', 'cellid_decimal', 'lac_decimal', 'tipo_llamada'
                     ],
                     'select_query': """
                         SELECT 
                             id, numero_origen, numero_destino, fecha_hora_llamada,
-                            duracion_segundos, celda_origen, tipo_llamada, created_at
+                            duracion_segundos, celda_origen, cellid_decimal, lac_decimal, tipo_llamada, created_at
                         FROM operator_call_data
                     """,
                     'display_names': {
@@ -173,7 +175,9 @@ class OperatorDataService:
                         'numero_destino': 'Número que Marca',
                         'fecha_hora_llamada': 'Fecha/Hora',
                         'duracion_segundos': 'Duración (seg)',
-                        'celda_origen': 'Celda',
+                        'celda_origen': 'Celda Origen',
+                        'cellid_decimal': 'Cell ID (Dec)',
+                        'lac_decimal': 'LAC (Dec)',
                         'tipo_llamada': 'Tipo'
                     }
                 }
@@ -234,12 +238,12 @@ class OperatorDataService:
             return {
                 'columns': [
                     'id', 'numero_origen', 'numero_destino', 'fecha_hora_llamada',
-                    'duracion_segundos', 'celda_origen', 'tipo_llamada'
+                    'duracion_segundos', 'celda_origen', 'cellid_decimal', 'lac_decimal', 'tipo_llamada'
                 ],
                 'select_query': """
                     SELECT 
                         id, numero_origen, numero_destino, fecha_hora_llamada,
-                        duracion_segundos, celda_origen, tipo_llamada, created_at
+                        duracion_segundos, celda_origen, cellid_decimal, lac_decimal, tipo_llamada, created_at
                     FROM operator_call_data
                 """,
                 'display_names': {
@@ -249,6 +253,8 @@ class OperatorDataService:
                     'fecha_hora_llamada': 'Fecha/Hora',
                     'duracion_segundos': 'Duración (seg)',
                     'celda_origen': 'Celda',
+                    'cellid_decimal': 'Cell ID (Dec)',
+                    'lac_decimal': 'LAC (Dec)',
                     'tipo_llamada': 'Tipo'
                 }
             }
@@ -397,26 +403,51 @@ class OperatorDataService:
     
     def _check_file_duplicate(self, checksum: str, mission_id: str) -> bool:
         """
-        Verifica si un archivo con el mismo checksum ya existe en la misma misión.
+        Verifica si un archivo con el mismo checksum ya existe exitosamente en la misma misión.
+        Permite reprocesamiento de archivos que fallaron anteriormente.
         
         Args:
             checksum: SHA256 checksum del archivo
             mission_id: ID de la misión donde se quiere cargar el archivo
             
         Returns:
-            bool: True si el archivo ya existe en esta misión, False en caso contrario
+            bool: True si el archivo ya existe exitosamente en esta misión, False en caso contrario
         """
         try:
             with get_db_connection() as conn:
                 cursor = conn.cursor()
                 cursor.execute(
-                    "SELECT id FROM operator_data_sheets WHERE file_checksum = ? AND mission_id = ?",
+                    "SELECT id, processing_status FROM operator_data_sheets WHERE file_checksum = ? AND mission_id = ?",
                     (checksum, mission_id)
                 )
-                result = cursor.fetchone() is not None
+                result = cursor.fetchone()
+                
                 if result:
-                    self.logger.warning(f"Archivo duplicado detectado en misión {mission_id}: checksum {checksum[:8]}...")
-                return result
+                    existing_id, existing_status = result
+                    
+                    # Solo bloquear si el procesamiento fue exitoso o está en progreso
+                    if existing_status in ['COMPLETED', 'PROCESSING']:
+                        self.logger.warning(f"Archivo duplicado detectado en misión {mission_id}: checksum {checksum[:8]}... (estado: {existing_status})")
+                        return True
+                    
+                    # Si el archivo falló anteriormente, permitir reprocesamiento
+                    elif existing_status in ['FAILED', 'ERROR']:
+                        self.logger.info(f"Archivo falló anteriormente ({existing_status}), eliminando registro para reprocesar: {existing_id}")
+                        
+                        # Eliminar datos asociados al procesamiento anterior
+                        cursor.execute("DELETE FROM operator_call_data WHERE file_upload_id = ?", (existing_id,))
+                        deleted_calls = cursor.rowcount
+                        
+                        cursor.execute("DELETE FROM operator_data_sheets WHERE id = ?", (existing_id,))
+                        deleted_sheet = cursor.rowcount
+                        
+                        conn.commit()
+                        
+                        self.logger.info(f"Limpieza completada: {deleted_calls} llamadas, {deleted_sheet} hoja eliminadas")
+                        return False  # Permitir reprocesamiento
+                
+                return False  # No existe, permitir procesamiento
+                
         except Exception as e:
             self.logger.error(f"Error verificando duplicado: {str(e)}")
             return False
@@ -1164,7 +1195,7 @@ def get_operator_sheet_data(file_upload_id: str, page: int = 1,
                 # Construir query dinámico basado en configuración
                 select_query = column_config['select_query'] + """
                     WHERE file_upload_id = ?
-                    ORDER BY fecha_hora_inicio DESC
+                    ORDER BY id ASC
                     LIMIT ? OFFSET ?
                 """
                 cursor.execute(select_query, (file_upload_id, limit, offset))
@@ -1180,7 +1211,7 @@ def get_operator_sheet_data(file_upload_id: str, page: int = 1,
                 # Construir query dinámico basado en configuración
                 select_query = column_config['select_query'] + """
                     WHERE file_upload_id = ?
-                    ORDER BY fecha_hora_llamada DESC
+                    ORDER BY id ASC
                     LIMIT ? OFFSET ?
                 """
                 cursor.execute(select_query, (file_upload_id, limit, offset))

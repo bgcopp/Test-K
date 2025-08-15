@@ -38,7 +38,8 @@ export enum MissionStatus {
 }
 
 export interface CellularDataRecord {
-    id: number;
+    id?: number; // ID autoincremental de la BD (interno, opcional para display)
+    fileRecordId?: number; // ID original del archivo (ej: columna "Id" de SCANHUNTER.xlsx)
     punto: string; // punto de medición
     lat: string;
     lon: string;
@@ -127,4 +128,51 @@ export interface Mission {
     operatorSheets?: OperatorSheet[];
 }
 
+// Tipos para el sistema de notificaciones profesional
+export type NotificationType = 'success' | 'error' | 'warning' | 'info';
 
+export interface NotificationData {
+    id: string;
+    type: NotificationType;
+    title: string;
+    message: string;
+    details?: string[];
+    autoClose?: boolean;
+    duration?: number; // en milisegundos
+    timestamp: Date;
+}
+
+export interface FileProcessingResult {
+    fileName: string;
+    fileType: string; // 'SCANHUNTER', 'CLARO', 'MOVISTAR', 'TIGO', 'WOM', etc.
+    processedRecords: number;
+    failedRecords?: number;
+    totalRecords?: number;
+    processingTime?: number; // en milisegundos
+    warnings?: string[];
+    errors?: string[];
+    additionalInfo?: Record<string, any>;
+}
+
+// Tipos para el sistema de confirmación modal
+export type ConfirmationType = 'destructive' | 'warning' | 'info' | 'danger';
+
+export interface ConfirmationConfig {
+    type: ConfirmationType;
+    title: string;
+    message: string;
+    details?: string;
+    confirmText?: string;
+    cancelText?: string;
+    confirmButtonVariant?: 'danger' | 'warning' | 'primary' | 'secondary';
+    showIcon?: boolean;
+    allowBackdropClick?: boolean;
+    onConfirm?: () => void | Promise<void>;
+    onCancel?: () => void;
+}
+
+export interface ConfirmationContextType {
+    showConfirmation: (config: ConfirmationConfig) => Promise<boolean>;
+    hideConfirmation: () => void;
+    isVisible: boolean;
+}

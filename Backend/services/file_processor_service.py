@@ -2364,6 +2364,12 @@ class FileProcessorService:
                             })
                             continue
                         
+                        # Extraer cellid_decimal y lac_decimal desde celda_origen
+                        from utils.cell_id_converter import extract_cellid_lac_from_celda_origen
+                        cell_data = extract_cellid_lac_from_celda_origen(normalized_data.get('celda_origen', ''))
+                        normalized_data['cellid_decimal'] = cell_data['cellid_decimal']
+                        normalized_data['lac_decimal'] = cell_data['lac_decimal']
+                        
                         # Insertar en base de datos
                         cursor.execute("""
                             INSERT INTO operator_call_data (
@@ -2373,8 +2379,9 @@ class FileProcessorService:
                                 celda_origen, celda_destino, celda_objetivo,
                                 latitud_origen, longitud_origen, latitud_destino, longitud_destino,
                                 tecnologia, tipo_trafico, estado_llamada,
-                                operator_specific_data, record_hash
-                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                operator_specific_data, record_hash,
+                                cellid_decimal, lac_decimal
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """, (
                             normalized_data['file_upload_id'],
                             normalized_data['mission_id'],
@@ -2396,7 +2403,9 @@ class FileProcessorService:
                             normalized_data['tipo_trafico'],
                             normalized_data['estado_llamada'],
                             normalized_data['operator_specific_data'],
-                            normalized_data['record_hash']
+                            normalized_data['record_hash'],
+                            normalized_data['cellid_decimal'],
+                            normalized_data['lac_decimal']
                         ))
                         
                         records_processed += 1
@@ -2475,46 +2484,14 @@ class FileProcessorService:
             with get_db_connection() as conn:
                 cursor = conn.cursor()
                 
-                # Verificar si el archivo ya fue procesado
-                cursor.execute("""
-                    SELECT id FROM operator_data_sheets 
-                    WHERE file_checksum = ? AND mission_id = ?
-                """, (file_checksum, mission_id))
+                # Nota: La verificación de duplicados se maneja en operator_data_service.py
+                # Si llegamos aquí, significa que ya se validó que no hay duplicados
+                # o se limpiaron los registros fallidos anteriores
                 
-                existing_upload = cursor.fetchone()
+                # Nota: El registro en operator_data_sheets ya fue creado por operator_data_service.py
+                # Solo necesitamos usar el file_upload_id proporcionado
                 
-                if existing_upload:
-                    self.logger.warning(f"Archivo TIGO ya fue procesado anteriormente: {existing_upload[0]}")
-                    return {
-                        'success': False,
-                        'error': f'Archivo duplicado. Ya fue procesado con ID: {existing_upload[0]}',
-                        'records_processed': 0,
-                        'records_failed': 0
-                    }
-                
-                # Crear registro en operator_data_sheets
-                cursor.execute("""
-                    INSERT INTO operator_data_sheets (
-                        id, mission_id, file_name, file_size_bytes, 
-                        file_checksum, file_type, operator, operator_file_format,
-                        processing_status, uploaded_by
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """, (
-                    file_upload_id,
-                    mission_id,
-                    file_name,
-                    len(file_bytes),
-                    file_checksum,
-                    'CALL_DATA',
-                    'TIGO',
-                    'llamadas_unificadas',
-                    'PROCESSING',
-                    'SYSTEM'
-                ))
-                
-                conn.commit()
-                
-                self.logger.info(f"Registro en operator_data_sheets creado para TIGO: {file_upload_id}")
+                self.logger.info(f"Procesando archivo TIGO con ID existente: {file_upload_id}")
             
             # === LECTURA DEL ARCHIVO ===
             
@@ -2961,8 +2938,9 @@ class FileProcessorService:
                                 numero_destino, numero_objetivo, fecha_hora_llamada, duracion_segundos,
                                 celda_origen, celda_destino, celda_objetivo, latitud_origen, 
                                 longitud_origen, latitud_destino, longitud_destino, tecnologia,
-                                tipo_trafico, estado_llamada, operator_specific_data, record_hash
-                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                tipo_trafico, estado_llamada, operator_specific_data, record_hash,
+                                cellid_decimal, lac_decimal
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """, (
                             normalized_data['file_upload_id'],
                             normalized_data['mission_id'],
@@ -2984,7 +2962,9 @@ class FileProcessorService:
                             normalized_data['tipo_trafico'],
                             normalized_data['estado_llamada'],
                             normalized_data['operator_specific_data'],
-                            normalized_data['record_hash']
+                            normalized_data['record_hash'],
+                            normalized_data['cellid_decimal'],
+                            normalized_data['lac_decimal']
                         ))
                         
                         records_processed += 1
@@ -3069,7 +3049,7 @@ class FileProcessorService:
             if file_name.lower().endswith('.xlsx'):
                 # WOM usa archivos multi-pestaña: leer todas las pestañas
                 try:
-                    excel_file = pd.ExcelFile(BytesIO(file_bytes))
+                    excel_file = pd.ExcelFile(io.BytesIO(file_bytes))
                     self.logger.info(f"Pestañas encontradas en {file_name}: {excel_file.sheet_names}")
                     
                     for sheet_name in excel_file.sheet_names:
@@ -3297,7 +3277,7 @@ class FileProcessorService:
             if file_name.lower().endswith('.xlsx'):
                 # WOM usa archivos multi-pestaña: leer todas las pestañas
                 try:
-                    excel_file = pd.ExcelFile(BytesIO(file_bytes))
+                    excel_file = pd.ExcelFile(io.BytesIO(file_bytes))
                     self.logger.info(f"Pestañas encontradas en {file_name}: {excel_file.sheet_names}")
                     
                     for sheet_name in excel_file.sheet_names:
@@ -3564,13 +3544,13 @@ class FileProcessorService:
                             normalized_data['fecha_hora_inicio'],
                             normalized_data['fecha_hora_fin'],
                             normalized_data['duracion_seg'],
-                            f"WOM_{normalized_data.get('cell_id_voz', '')}_{normalized_data.get('sector', '')}",
+                            str(normalized_data.get('cell_id_voz', '')),
                             str(normalized_data.get('tac', '')),
                             normalized_data.get('up_data_bytes', 0),
                             normalized_data.get('down_data_bytes', 0),
                             normalized_data.get('latitud'),
                             normalized_data.get('longitud'),
-                            normalized_data.get('operator_technology', 'WOM'),
+                            self._map_wom_technology(normalized_data.get('operator_technology', 'WOM')),
                             'DATOS',
                             json.dumps({
                                 'bts_id': normalized_data.get('bts_id'),
@@ -3682,15 +3662,15 @@ class FileProcessorService:
                             normalized_data['numero_destino'] if call_direction == 'SALIENTE' else normalized_data['numero_origen'],
                             normalized_data['fecha_hora_inicio'],
                             normalized_data['duracion_seg'],
-                            f"WOM_{normalized_data.get('cell_id_voz', '')}_{normalized_data.get('sector', '')}",
+                            str(normalized_data.get('cell_id_voz', '')),
                             None,  # celda_destino no disponible en WOM
-                            f"WOM_{normalized_data.get('cell_id_voz', '')}_{normalized_data.get('sector', '')}",
+                            str(normalized_data.get('cell_id_voz', '')),
                             normalized_data.get('latitud'),
                             normalized_data.get('longitud'),
                             None,  # latitud_destino no disponible
                             None,  # longitud_destino no disponible
                             None,  # calidad_senal no disponible en WOM
-                            normalized_data.get('operator_technology', 'WOM'),
+                            self._map_wom_technology(normalized_data.get('operator_technology', 'WOM')),
                             json.dumps({
                                 'bts_id': normalized_data.get('bts_id'),
                                 'tac': normalized_data.get('tac'),
@@ -3743,6 +3723,546 @@ class FileProcessorService:
                 'records_processed': records_processed,
                 'records_failed': records_failed
             }
+            
+    def _map_wom_technology(self, technology_value: str) -> str:
+        """
+        Mapea tecnologías WOM a valores estándar para BD.
+        """
+        if not technology_value or not isinstance(technology_value, str):
+            return 'UNKNOWN'
+        
+        tech_upper = technology_value.upper().strip()
+        
+        # Mapeo directo
+        mapping = {
+            'WOM 3G': '3G',
+            'WOM 4G': '4G',
+            'WOM 5G': '5G',
+            'WOM LTE': 'LTE',
+            'WOM GSM': 'GSM',
+            'WOM 2G': '2G'
+        }
+        
+        if tech_upper in mapping:
+            return mapping[tech_upper]
+        
+        # Busqueda parcial
+        if '3G' in tech_upper:
+            return '3G'
+        elif '4G' in tech_upper:
+            return '4G' 
+        elif '5G' in tech_upper:
+            return '5G'
+        elif 'LTE' in tech_upper:
+            return 'LTE'
+        elif 'GSM' in tech_upper:
+            return 'GSM'
+        elif '2G' in tech_upper:
+            return '2G'
+        
+        return 'UNKNOWN'
+
+    def process_scanhunter_data(self, file_bytes: bytes, file_name: str,
+                               file_upload_id: str, mission_id: str) -> Dict[str, Any]:
+        """
+        Procesa un archivo de datos SCANHUNTER para mediciones de scanner celular.
+        
+        SCANHUNTER es un formato específico para datos de scanner celular con columnas:
+        ['Id', 'Punto', 'Latitud', 'Longitud', 'MNC+MCC', 'OPERADOR', 'RSSI', 
+         'TECNOLOGIA', 'CELLID', 'LAC o TAC', 'ENB', 'Comentario', 'CHANNEL']
+        
+        Args:
+            file_bytes (bytes): Contenido del archivo
+            file_name (str): Nombre del archivo
+            file_upload_id (str): ID único del archivo
+            mission_id (str): ID de la misión
+            
+        Returns:
+            Dict[str, Any]: Resultado del procesamiento
+        """
+        start_time = datetime.now()
+        
+        self.logger.info(
+            f"Iniciando procesamiento SCANHUNTER: {file_name}",
+            extra={'file_size': len(file_bytes), 'file_upload_id': file_upload_id}
+        )
+        
+        try:
+            # === ETAPA 1: LECTURA DEL ARCHIVO ===
+            
+            # Determinar tipo de archivo
+            file_extension = Path(file_name).suffix.lower()
+            
+            if file_extension == '.xlsx':
+                df = self._read_excel_robust(file_bytes)
+            elif file_extension == '.csv':
+                df = self._read_csv_robust(file_bytes, delimiter=',')  # SCANHUNTER típicamente usa comas
+            else:
+                return {
+                    'success': False,
+                    'error': f'Formato de archivo no soportado para SCANHUNTER: {file_extension}'
+                }
+            
+            self.logger.info(f"Archivo SCANHUNTER leído: {len(df)} registros, {len(df.columns)} columnas")
+            
+            # === ETAPA 2: VALIDACIÓN DE ESTRUCTURA ===
+            
+            is_valid_structure, structure_errors = self._validate_scanhunter_columns(df)
+            if not is_valid_structure:
+                return {
+                    'success': False,
+                    'error': f'Estructura de archivo SCANHUNTER inválida: {"; ".join(structure_errors)}'
+                }
+            
+            # === ETAPA 3: LIMPIEZA DE DATOS ===
+            
+            original_count = len(df)
+            df = self._clean_scanhunter_data(df)
+            cleaned_count = len(df)
+            
+            if cleaned_count == 0:
+                return {
+                    'success': False,
+                    'error': 'No quedaron registros válidos después de la limpieza'
+                }
+            
+            if cleaned_count < original_count:
+                self.logger.warning(
+                    f"Se descartaron {original_count - cleaned_count} registros durante la limpieza SCANHUNTER"
+                )
+            
+            # === ETAPA 4: PROCESAMIENTO POR CHUNKS ===
+            
+            total_processed = 0
+            total_failed = 0
+            chunk_number = 0
+            processing_errors = []
+            
+            # Procesar en chunks para manejar archivos grandes
+            for start_idx in range(0, len(df), self.CHUNK_SIZE):
+                chunk_number += 1
+                end_idx = min(start_idx + self.CHUNK_SIZE, len(df))
+                chunk_df = df.iloc[start_idx:end_idx]
+                
+                self.logger.debug(f"Procesando chunk SCANHUNTER {chunk_number}: registros {start_idx+1} a {end_idx}")
+                
+                chunk_result = self._process_scanhunter_chunk(
+                    chunk_df, file_upload_id, mission_id, chunk_number
+                )
+                
+                if chunk_result.get('success', False):
+                    total_processed += chunk_result.get('records_processed', 0)
+                    total_failed += chunk_result.get('records_failed', 0)
+                    
+                    # Acumular errores detallados (limitado)
+                    if chunk_result.get('failed_records'):
+                        processing_errors.extend(chunk_result['failed_records'][:5])
+                        if len(processing_errors) > 20:  # Límite total de errores detallados
+                            processing_errors = processing_errors[:20]
+                
+                else:
+                    # Error crítico en el chunk
+                    error_msg = chunk_result.get('error', 'Error desconocido en chunk')
+                    self.logger.error(f"Error crítico en chunk SCANHUNTER {chunk_number}: {error_msg}")
+                    
+                    return {
+                        'success': False,
+                        'error': f'Error crítico en procesamiento chunk {chunk_number}: {error_msg}',
+                        'partial_results': {
+                            'records_processed': total_processed,
+                            'records_failed': total_failed,
+                            'chunks_completed': chunk_number - 1
+                        }
+                    }
+                
+                # Verificar si hay demasiados errores
+                if total_failed > self.MAX_ERRORS_PER_FILE:
+                    self.logger.error(
+                        f"Demasiados errores en SCANHUNTER ({total_failed}), abortando procesamiento"
+                    )
+                    return {
+                        'success': False,
+                        'error': f'Demasiados errores: {total_failed} > {self.MAX_ERRORS_PER_FILE}',
+                        'partial_results': {
+                            'records_processed': total_processed,
+                            'records_failed': total_failed,
+                            'chunks_completed': chunk_number
+                        }
+                    }
+            
+            # === RESULTADO FINAL ===
+            
+            processing_time = (datetime.now() - start_time).total_seconds()
+            success_rate = (total_processed / (total_processed + total_failed)) * 100 if (total_processed + total_failed) > 0 else 0
+            
+            result = {
+                'success': True,
+                'records_processed': total_processed,
+                'records_failed': total_failed,
+                'success_rate': round(success_rate, 2),
+                'processing_time_seconds': round(processing_time, 2),
+                'chunks_processed': chunk_number,
+                'file_info': {
+                    'name': file_name,
+                    'size_bytes': len(file_bytes),
+                    'original_records': original_count,
+                    'cleaned_records': cleaned_count
+                }
+            }
+            
+            # Agregar errores detallados si los hay
+            if processing_errors:
+                result['processing_errors'] = processing_errors
+            
+            self.logger.info(
+                f"SCANHUNTER procesado exitosamente: {total_processed} registros, "
+                f"{success_rate:.2f}% éxito, {processing_time:.2f}s",
+                extra={
+                    'records_processed': total_processed,
+                    'records_failed': total_failed,
+                    'processing_time': processing_time,
+                    'file_upload_id': file_upload_id
+                }
+            )
+            
+            return result
+            
+        except Exception as e:
+            processing_time = (datetime.now() - start_time).total_seconds()
+            self.logger.error(
+                f"Error crítico procesando SCANHUNTER {file_name}: {str(e)}",
+                exc_info=True,
+                extra={'file_upload_id': file_upload_id, 'processing_time': processing_time}
+            )
+            
+            return {
+                'success': False,
+                'error': f'Error crítico: {str(e)}',
+                'processing_time_seconds': round(processing_time, 2)
+            }
+
+    def _validate_scanhunter_columns(self, df: pd.DataFrame) -> Tuple[bool, List[str]]:
+        """
+        Valida que el DataFrame tenga las columnas esperadas de SCANHUNTER.
+        
+        Args:
+            df (pd.DataFrame): DataFrame a validar
+            
+        Returns:
+            Tuple[bool, List[str]]: (es_válido, lista_de_errores)
+        """
+        errors = []
+        
+        # Columnas esperadas de SCANHUNTER
+        expected_columns = [
+            'Id', 'Punto', 'Latitud', 'Longitud', 'MNC+MCC', 'OPERADOR', 
+            'RSSI', 'TECNOLOGIA', 'CELLID', 'LAC o TAC', 'ENB', 'Comentario', 'CHANNEL'
+        ]
+        
+        # Verificar que tenga todas las columnas requeridas
+        missing_columns = []
+        for col in expected_columns:
+            if col not in df.columns:
+                missing_columns.append(col)
+        
+        if missing_columns:
+            errors.append(f"Columnas faltantes: {', '.join(missing_columns)}")
+        
+        # Verificar que no esté vacío
+        if len(df) == 0:
+            errors.append("El archivo está vacío")
+        
+        # Verificar tipos de datos básicos
+        if len(df) > 0:
+            try:
+                # Verificar que latitud y longitud sean numéricos
+                if 'Latitud' in df.columns:
+                    pd.to_numeric(df['Latitud'], errors='coerce')
+                if 'Longitud' in df.columns:
+                    pd.to_numeric(df['Longitud'], errors='coerce')
+                if 'RSSI' in df.columns:
+                    pd.to_numeric(df['RSSI'], errors='coerce')
+            except Exception as e:
+                errors.append(f"Error validando tipos de datos: {str(e)}")
+        
+        is_valid = len(errors) == 0
+        
+        if is_valid:
+            self.logger.info(f"Estructura SCANHUNTER válida: {len(df)} registros, {len(df.columns)} columnas")
+        else:
+            self.logger.error(f"Estructura SCANHUNTER inválida: {'; '.join(errors)}")
+        
+        return is_valid, errors
+
+    def _clean_scanhunter_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Limpia y prepara datos SCANHUNTER para procesamiento.
+        
+        Args:
+            df (pd.DataFrame): DataFrame bruto
+            
+        Returns:
+            pd.DataFrame: DataFrame limpio
+        """
+        df_clean = df.copy()
+        original_count = len(df_clean)
+        
+        try:
+            # === LIMPIEZA DE COORDENADAS ===
+            
+            # Convertir coordenadas a numérico, eliminando registros inválidos
+            df_clean['Latitud'] = pd.to_numeric(df_clean['Latitud'], errors='coerce')
+            df_clean['Longitud'] = pd.to_numeric(df_clean['Longitud'], errors='coerce')
+            
+            # Eliminar registros con coordenadas inválidas
+            df_clean = df_clean.dropna(subset=['Latitud', 'Longitud'])
+            
+            # Validar rangos de coordenadas
+            df_clean = df_clean[
+                (df_clean['Latitud'] >= -90) & (df_clean['Latitud'] <= 90) &
+                (df_clean['Longitud'] >= -180) & (df_clean['Longitud'] <= 180)
+            ]
+            
+            # === LIMPIEZA DE RSSI ===
+            
+            # Convertir RSSI a numérico
+            df_clean['RSSI'] = pd.to_numeric(df_clean['RSSI'], errors='coerce')
+            df_clean = df_clean.dropna(subset=['RSSI'])
+            
+            # Validar rango de RSSI (debe ser negativo, típicamente entre -150 y 0)
+            df_clean = df_clean[
+                (df_clean['RSSI'] <= 0) & (df_clean['RSSI'] >= -150)
+            ]
+            
+            # === LIMPIEZA DE CAMPOS DE TEXTO ===
+            
+            # Limpiar y validar campos obligatorios de texto
+            text_fields = ['Punto', 'OPERADOR', 'TECNOLOGIA']
+            for field in text_fields:
+                if field in df_clean.columns:
+                    # Convertir a string y limpiar
+                    df_clean[field] = df_clean[field].astype(str).str.strip()
+                    # Eliminar registros con valores vacíos o 'nan'
+                    df_clean = df_clean[
+                        (df_clean[field] != '') & 
+                        (df_clean[field] != 'nan') & 
+                        (df_clean[field] != 'None')
+                    ]
+            
+            # === LIMPIEZA DE CAMPOS TÉCNICOS ===
+            
+            # Limpiar CELLID, LAC o TAC, ENB
+            numeric_fields = ['CELLID', 'LAC o TAC', 'ENB', 'CHANNEL']
+            for field in numeric_fields:
+                if field in df_clean.columns:
+                    df_clean[field] = pd.to_numeric(df_clean[field], errors='coerce')
+                    # No eliminar registros por estos campos, solo convertir
+            
+            # Limpiar MNC+MCC (debe ser numérico y positivo)
+            if 'MNC+MCC' in df_clean.columns:
+                df_clean['MNC+MCC'] = pd.to_numeric(df_clean['MNC+MCC'], errors='coerce')
+                df_clean = df_clean.dropna(subset=['MNC+MCC'])
+                df_clean = df_clean[df_clean['MNC+MCC'] > 0]
+            
+            # === NORMALIZACIÓN DE TECNOLOGÍA ===
+            
+            if 'TECNOLOGIA' in df_clean.columns:
+                df_clean['TECNOLOGIA'] = df_clean['TECNOLOGIA'].str.upper().str.strip()
+                # Mapear tecnologías conocidas
+                tech_mapping = {
+                    'LTE': '4G',
+                    'UMTS': '3G',
+                    'WCDMA': '3G',
+                    'EDGE': '2G',
+                    'GPRS': '2G'
+                }
+                df_clean['TECNOLOGIA'] = df_clean['TECNOLOGIA'].replace(tech_mapping)
+            
+            cleaned_count = len(df_clean)
+            
+            self.logger.info(
+                f"Limpieza SCANHUNTER completada: {original_count} -> {cleaned_count} registros "
+                f"({((original_count - cleaned_count) / original_count) * 100:.1f}% descartados)"
+            )
+            
+            return df_clean
+            
+        except Exception as e:
+            self.logger.error(f"Error en limpieza SCANHUNTER: {str(e)}", exc_info=True)
+            # Devolver DataFrame original en caso de error
+            return df
+
+    def _process_scanhunter_chunk(self, chunk_df: pd.DataFrame, file_upload_id: str,
+                                 mission_id: str, chunk_number: int) -> Dict[str, Any]:
+        """
+        Procesa un chunk de datos SCANHUNTER.
+        
+        Args:
+            chunk_df (pd.DataFrame): Chunk de datos a procesar
+            file_upload_id (str): ID del archivo
+            mission_id (str): ID de la misión
+            chunk_number (int): Número del chunk para logging
+            
+        Returns:
+            Dict[str, Any]: Resultado del procesamiento del chunk
+        """
+        records_processed = 0
+        records_failed = 0
+        failed_records = []
+        
+        try:
+            with get_db_connection() as conn:
+                cursor = conn.cursor()
+                
+                for index, row in chunk_df.iterrows():
+                    try:
+                        # Convertir fila a diccionario
+                        record = row.to_dict()
+                        
+                        # Validar registro
+                        is_valid, errors = self._validate_scanhunter_record(record)
+                        if not is_valid:
+                            records_failed += 1
+                            failed_records.append({
+                                'row': index + 1,
+                                'errors': errors,
+                                'record': record
+                            })
+                            
+                            if len(failed_records) > 10:  # Limitar detalle de errores
+                                break
+                            continue
+                        
+                        # Normalizar datos usando DataNormalizerService
+                        normalized_data = self.data_normalizer.normalize_scanhunter_data(
+                            record, file_upload_id, mission_id
+                        )
+                        
+                        if not normalized_data:
+                            records_failed += 1
+                            failed_records.append({
+                                'row': index + 1,
+                                'errors': ['Error en normalización'],
+                                'record': record
+                            })
+                            continue
+                        
+                        # Insertar en tabla cellular_data (que ya tiene los campos expandidos)
+                        cursor.execute("""
+                            INSERT INTO cellular_data (
+                                mission_id, file_record_id, punto, lat, lon, mnc_mcc, operator,
+                                rssi, tecnologia, cell_id, lac_tac, enb, 
+                                comentario, channel, created_at
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+                        """, (
+                            normalized_data['mission_id'],
+                            normalized_data.get('file_record_id'),
+                            normalized_data['punto'],
+                            normalized_data['lat'],
+                            normalized_data['lon'],
+                            normalized_data['mnc_mcc'],
+                            normalized_data['operator'],
+                            normalized_data['rssi'],
+                            normalized_data['tecnologia'],
+                            normalized_data['cell_id'],
+                            normalized_data['lac_tac'],
+                            normalized_data['enb'],
+                            normalized_data['comentario'],
+                            normalized_data['channel']
+                        ))
+                        
+                        records_processed += 1
+                        
+                    except Exception as e:
+                        records_failed += 1
+                        failed_records.append({
+                            'row': index + 1,
+                            'errors': [f'Error procesando registro: {str(e)}'],
+                            'record': record if 'record' in locals() else {}
+                        })
+                        
+                        self.logger.error(
+                            f"Error procesando registro SCANHUNTER {index + 1}: {str(e)}",
+                            extra={'chunk_number': chunk_number, 'row_index': index}
+                        )
+                        
+                        if len(failed_records) > 10:
+                            break
+                
+                # Commit del chunk
+                conn.commit()
+                
+            self.logger.info(
+                f"Chunk SCANHUNTER {chunk_number} procesado: "
+                f"{records_processed} exitosos, {records_failed} fallidos"
+            )
+            
+            return {
+                'success': True,
+                'records_processed': records_processed,
+                'records_failed': records_failed,
+                'failed_records': failed_records if failed_records else None
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error crítico en chunk SCANHUNTER {chunk_number}: {str(e)}", exc_info=True)
+            return {
+                'success': False,
+                'error': str(e),
+                'records_processed': records_processed,
+                'records_failed': records_failed
+            }
+
+    def _validate_scanhunter_record(self, record: Dict[str, Any]) -> Tuple[bool, List[str]]:
+        """
+        Valida un registro individual de SCANHUNTER.
+        
+        Args:
+            record (Dict[str, Any]): Registro a validar
+            
+        Returns:
+            Tuple[bool, List[str]]: (es_válido, lista_de_errores)
+        """
+        errors = []
+        
+        # Campos obligatorios
+        required_fields = ['Punto', 'Latitud', 'Longitud', 'OPERADOR', 'RSSI', 'TECNOLOGIA', 'CELLID']
+        
+        for field in required_fields:
+            if field not in record or record[field] is None:
+                errors.append(f"Campo obligatorio faltante: {field}")
+            elif field in ['Punto', 'OPERADOR', 'TECNOLOGIA'] and str(record[field]).strip() == '':
+                errors.append(f"Campo obligatorio vacío: {field}")
+        
+        # Validaciones específicas si los campos están presentes
+        try:
+            # Coordenadas
+            if 'Latitud' in record and record['Latitud'] is not None:
+                lat = float(record['Latitud'])
+                if lat < -90 or lat > 90:
+                    errors.append(f"Latitud fuera de rango: {lat}")
+            
+            if 'Longitud' in record and record['Longitud'] is not None:
+                lon = float(record['Longitud'])
+                if lon < -180 or lon > 180:
+                    errors.append(f"Longitud fuera de rango: {lon}")
+            
+            # RSSI
+            if 'RSSI' in record and record['RSSI'] is not None:
+                rssi = int(record['RSSI'])
+                if rssi > 0 or rssi < -150:
+                    errors.append(f"RSSI fuera de rango esperado: {rssi} (debe estar entre -150 y 0)")
+            
+            # MNC+MCC
+            if 'MNC+MCC' in record and record['MNC+MCC'] is not None:
+                mnc_mcc = int(record['MNC+MCC'])
+                if mnc_mcc <= 0:
+                    errors.append(f"MNC+MCC inválido: {mnc_mcc}")
+            
+        except (ValueError, TypeError) as e:
+            errors.append(f"Error de tipo de dato: {str(e)}")
+        
+        return len(errors) == 0, errors
 
 
 # ==============================================================================
@@ -3786,3 +4306,4 @@ if __name__ == "__main__":
     test_data = "número,fecha_trafico,tipo_cdr\n573123456789,20240419080000,DATOS\n".encode('utf-8')
     encoding = service._detect_encoding(test_data)
     print(f"Encoding detectado: {encoding}")
+

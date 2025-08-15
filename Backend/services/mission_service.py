@@ -422,6 +422,7 @@ class MissionService:
                 for record in cellular_records:
                     cellular_data = CellularData(
                         mission_id=mission_id,
+                        file_record_id=record.get('file_record_id'),  # ID original del archivo SCANHUNTER
                         punto=record['punto'],
                         lat=record['lat'],
                         lon=record['lon'],

@@ -54,31 +54,38 @@ class FileProcessor:
     CELLULAR_COLUMN_MAPPING = {
         # Identificación (case-insensitive)
         'id': 'id',
+        'Id': 'id',  # SCANHUNTER usa 'Id' con mayúscula
         'punto': 'punto',
+        'Punto': 'punto',  # SCANHUNTER usa 'Punto' con mayúscula
         'punto_medicion': 'punto',
         'location': 'punto',
         
         # Coordenadas geográficas
         'latitud': 'lat',
+        'Latitud': 'lat',  # SCANHUNTER usa 'Latitud' con mayúscula
         'latitude': 'lat',
         'lat': 'lat',
         'longitud': 'lon',
+        'Longitud': 'lon',  # SCANHUNTER usa 'Longitud' con mayúscula
         'longitude': 'lon',
         'lng': 'lon',
         'lon': 'lon',
         
         # Información de red
         'mnc+mcc': 'mnc_mcc',
+        'MNC+MCC': 'mnc_mcc',  # SCANHUNTER usa 'MNC+MCC' con mayúsculas
         'mncmcc': 'mnc_mcc',
         'mnc_mcc': 'mnc_mcc',
         'plmn': 'mnc_mcc',
         'operador': 'operator',
+        'OPERADOR': 'operator',  # SCANHUNTER usa 'OPERADOR' con mayúsculas
         'operator': 'operator',
         'carrier': 'operator',
         'provider': 'operator',
         
         # Métricas de señal
         'rssi': 'rssi',
+        'RSSI': 'rssi',  # SCANHUNTER usa 'RSSI' con mayúsculas
         'señal': 'rssi',
         'signal': 'rssi',
         'signal_strength': 'rssi',
@@ -86,24 +93,30 @@ class FileProcessor:
         
         # Información técnica celular
         'tecnologia': 'tecnologia',
+        'TECNOLOGIA': 'tecnologia',  # SCANHUNTER usa 'TECNOLOGIA' con mayúsculas
         'technology': 'tecnologia',
         'tech': 'tecnologia',
         'cellid': 'cell_id',
+        'CELLID': 'cell_id',  # SCANHUNTER usa 'CELLID' con mayúsculas
         'cell_id': 'cell_id',
         'celda': 'cell_id',
         'lac o tac': 'lac_tac',
+        'LAC o TAC': 'lac_tac',  # SCANHUNTER usa 'LAC o TAC' con mayúsculas
         'lac_o_tac': 'lac_tac',
         'lac_tac': 'lac_tac',
         'lac': 'lac_tac',
         'tac': 'lac_tac',
         'enb': 'enb',
+        'ENB': 'enb',  # SCANHUNTER usa 'ENB' con mayúsculas
         'enodeb': 'enb',
         'channel': 'channel',
+        'CHANNEL': 'channel',  # SCANHUNTER usa 'CHANNEL' con mayúsculas
         'canal': 'channel',
         'arfcn': 'channel',
         
         # Información adicional
         'comentario': 'comentario',
+        'Comentario': 'comentario',  # SCANHUNTER usa 'Comentario' con mayúscula inicial
         'comment': 'comentario',
         'observaciones': 'comentario',
         'notes': 'comentario'
@@ -568,6 +581,7 @@ class FileProcessor:
             try:
                 # Construir registro con todos los campos SCANHUNTER
                 record_data = {
+                    'file_record_id': int(row['id']) if pd.notna(row.get('id')) else None,  # ID original del archivo
                     'punto': row['punto'],
                     'lat': float(row['lat']),
                     'lon': float(row['lon']),

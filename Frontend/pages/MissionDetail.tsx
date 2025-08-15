@@ -1,12 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import type { Mission, TargetRecord, OperatorSheet, OperatorUploadResponse } from '../types';
+import type { Mission, TargetRecord, OperatorSheet, OperatorUploadResponse, FileProcessingResult } from '../types';
 import Button from '../components/ui/Button';
 import Table from '../components/ui/Table';
 import FileUpload from '../components/ui/FileUpload';
+import CellularDataStats from '../components/ui/CellularDataStats';
 import { OperatorDataUpload, OperatorSheetsManager, OperatorDataViewer } from '../components/operator-data';
 import { ICONS } from '../constants';
 import { uploadCellularData, clearCellularDataApi, runAnalysis, getOperatorSheets, deleteOperatorSheet } from '../services/api';
+import { useNotification } from '../hooks/useNotification';
+import { useConfirmation, confirmationPresets } from '../hooks/useConfirmation';
 
 interface MissionDetailProps {
     missions: Mission[];
@@ -20,6 +23,9 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
     const [isAnalysisRunning, setIsAnalysisRunning] = useState(false);
     const [operatorSheets, setOperatorSheets] = useState<OperatorSheet[]>([]);
     const [isLoadingOperatorSheets, setIsLoadingOperatorSheets] = useState(false);
+    
+    const { showFileProcessingResult, showError, showSuccess } = useNotification();
+    const { showConfirmation } = useConfirmation();
 
     const mission = useMemo(() => missions.find(m => m.id === missionId), [missions, missionId]);
 
@@ -52,25 +58,57 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
 
     const handleCellularUpload = async (file: File) => {
         if (mission) {
+            const startTime = Date.now();
             try {
                 const updatedMission = await uploadCellularData(mission.id, file);
+                const processingTime = Date.now() - startTime;
+                
+                // Crear resultado del procesamiento para la notificación
+                const result: FileProcessingResult = {
+                    fileName: file.name,
+                    fileType: 'SCANHUNTER',
+                    processedRecords: updatedMission.cellularData?.length || 0,
+                    failedRecords: 0,
+                    processingTime
+                };
+                
+                showFileProcessingResult(result, true);
                 updateMissionState(updatedMission);
             } catch (error) {
+                const processingTime = Date.now() - startTime;
                 console.error('Error al subir datos celulares:', error);
-                alert(`Error al subir: ${(error as Error).message}`);
+                
+                const result: FileProcessingResult = {
+                    fileName: file.name,
+                    fileType: 'SCANHUNTER',
+                    processedRecords: 0,
+                    failedRecords: 0,
+                    processingTime,
+                    errors: [(error as Error).message]
+                };
+                
+                showFileProcessingResult(result, false);
             }
         }
     };
     
 
     const handleClearCellularData = async () => {
-        if(mission && window.confirm(`¿Estás seguro de que quieres borrar todos los datos celulares de esta misión? Esta acción no se puede deshacer.`)){
+        if (!mission) return;
+        
+        const recordCount = mission.cellularData?.length || 0;
+        const confirmed = await showConfirmation(
+            confirmationPresets.clearCellularData(recordCount)
+        );
+        
+        if (confirmed) {
             try {
                 const updatedMission = await clearCellularDataApi(mission.id);
                 updateMissionState(updatedMission);
+                showSuccess("Datos Eliminados", "Los datos celulares han sido eliminados exitosamente");
             } catch (error) {
                 console.error('Error al limpiar datos celulares:', error);
-                alert(`Error al limpiar: ${(error as Error).message}`);
+                showError("Error al Limpiar", `Error al limpiar datos: ${(error as Error).message}`);
             }
         }
     };
@@ -79,11 +117,27 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
         if (!mission.id) return;
         
         setIsAnalysisRunning(true);
+        const startTime = Date.now();
+        
         try {
             const results = await runAnalysis(mission.id);
+            const processingTime = Date.now() - startTime;
+            
             setAnalysisResults(results);
+            
+            if (results.length > 0) {
+                showSuccess(
+                    "Análisis Completado", 
+                    `Se encontraron ${results.length} posible(s) objetivo(s) en ${(processingTime / 1000).toFixed(1)}s`
+                );
+            } else {
+                showSuccess(
+                    "Análisis Completado", 
+                    `No se encontraron objetivos potenciales. Tiempo: ${(processingTime / 1000).toFixed(1)}s`
+                );
+            }
         } catch (error) {
-            alert(`Error en análisis: ${(error as Error).message}`);
+            showError("Error en Análisis", `Error al ejecutar análisis: ${(error as Error).message}`);
         } finally {
             setIsAnalysisRunning(false);
         }
@@ -93,22 +147,30 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
     const handleOperatorUploadSuccess = (response: OperatorUploadResponse) => {
         console.log('🎉 MISSION DETAIL: handleOperatorUploadSuccess llamado');
         console.log('📥 MISSION DETAIL: Response completa:', response);
-        console.log('📊 MISSION DETAIL: processedRecords value:', response.processedRecords);
-        console.log('📊 MISSION DETAIL: processedRecords type:', typeof response.processedRecords);
-        console.log('📊 MISSION DETAIL: response.success:', response.success);
-        console.log('📊 MISSION DETAIL: response.message:', response.message);
-        console.log('📊 MISSION DETAIL: response.error:', response.error);
         
-        // Usar el mensaje apropiado según el estado de la respuesta
-        const message = response.success ? response.message : response.error;
-        const icon = response.success ? '✅' : '❌';
+        // Extraer información para crear el resultado
+        const fileName = response.sheetId || 'archivo_operador';
+        const processedRecords = response.processedRecords || 0;
+        const failedRecords = response.errors?.length || 0;
+        const warnings = response.warnings || [];
+        const errors = response.errors || [];
         
-        alert(`${icon} ${message}\nRegistros procesados: ${response.processedRecords || 0}`);
+        const result: FileProcessingResult = {
+            fileName,
+            fileType: 'OPERADOR',
+            processedRecords,
+            failedRecords,
+            processingTime: 0, // No tenemos tiempo en la respuesta
+            warnings: warnings.length > 0 ? warnings : undefined,
+            errors: errors.length > 0 ? errors : undefined
+        };
+        
+        showFileProcessingResult(result, response.success);
         loadOperatorSheets(); // Recargar la lista de hojas
     };
 
     const handleOperatorUploadError = (error: string) => {
-        alert(`❌ Error en la carga: ${error}`);
+        showError("Error de Carga de Operador", error);
     };
 
     const handleDeleteOperatorSheet = async (sheetId: string) => {
@@ -137,11 +199,17 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
                     <h3 className="text-xl font-semibold text-light">Datos de Recorrido de Red Celular</h3>
                     {hasData && <Button variant="danger" icon={ICONS.trash} onClick={handleClearCellularData}>Limpiar Datos</Button>}
                 </div>
+                
+                {/* Indicadores estadísticos */}
+                <CellularDataStats data={mission.cellularData || []} />
+                
                 {hasData ? (
                     <div className="overflow-x-auto">
-                        <Table headers={['Punto', 'Coordenadas', 'MNC/MCC', 'Operador', 'RSSI', 'Tecnología', 'Cell ID', 'LAC/TAC', 'eNB', 'Canal', 'Comentario']}>
+                        <Table headers={['ID BD', 'ID Archivo', 'Punto', 'Coordenadas', 'MNC/MCC', 'Operador', 'RSSI', 'Tecnología', 'Cell ID', 'LAC/TAC', 'eNB', 'Canal', 'Comentario']}>
                             {mission.cellularData!.map(d => (
-                                <tr key={d.id} className="hover:bg-secondary-light">
+                                <tr key={d.id || d.fileRecordId} className="hover:bg-secondary-light">
+                                    <td className="px-4 py-3 text-sm text-medium font-mono whitespace-nowrap">{d.id}</td>
+                                    <td className="px-4 py-3 text-sm text-light font-medium whitespace-nowrap">{d.fileRecordId ?? '-'}</td>
                                     <td className="px-4 py-3 text-sm text-light font-medium whitespace-nowrap">{d.punto}</td>
                                     <td className="px-4 py-3 text-sm text-light">
                                         <div className="flex flex-col">

@@ -1,0 +1,91 @@
+{
+  "test_name": "database_tables_validation",
+  "timestamp": "2025-08-14T14:15:32.608510",
+  "database_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\kronos.db",
+  "database_exists": true,
+  "tables_validation": {
+    "operator_data_sheets": {
+      "exists": true,
+      "row_count": 0,
+      "columns": [
+        "id",
+        "mission_id",
+        "file_name",
+        "file_size_bytes",
+        "file_checksum",
+        "file_type",
+        "operator",
+        "operator_file_format",
+        "processing_status",
+        "records_processed",
+        "records_failed",
+        "processing_start_time",
+        "processing_end_time",
+        "processing_duration_seconds",
+        "error_details",
+        "uploaded_by",
+        "uploaded_at",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "operator_cellular_data": {
+      "exists": true,
+      "row_count": 0,
+      "columns": [
+        "id",
+        "file_upload_id",
+        "mission_id",
+        "operator",
+        "numero_telefono",
+        "fecha_hora_inicio",
+        "fecha_hora_fin",
+        "duracion_segundos",
+        "celda_id",
+        "lac_tac",
+        "trafico_subida_bytes",
+        "trafico_bajada_bytes",
+        "latitud",
+        "longitud",
+        "tecnologia",
+        "tipo_conexion",
+        "calidad_senal",
+        "operator_specific_data",
+        "record_hash",
+        "created_at"
+      ]
+    },
+    "operator_call_data": {
+      "exists": true,
+      "row_count": 0,
+      "columns": [
+        "id",
+        "file_upload_id",
+        "mission_id",
+        "operator",
+        "tipo_llamada",
+        "numero_origen",
+        "numero_destino",
+        "numero_objetivo",
+        "fecha_hora_llamada",
+        "duracion_segundos",
+        "celda_origen",
+        "celda_destino",
+        "celda_objetivo",
+        "latitud_origen",
+        "longitud_origen",
+        "latitud_destino",
+        "longitud_destino",
+        "tecnologia",
+        "tipo_trafico",
+        "estado_llamada",
+        "operator_specific_data",
+        "record_hash",
+        "created_at"
+      ]
+    }
+  },
+  "overall_status": "PASSED",
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-14T09:43:40.589004",
+  "test_name": "WOM Voz Multi-sheet Real Processing Test",
+  "tests": [
+    {
+      "test": "WOM Voz Multi-sheet Processing",
+      "timestamp": "2025-08-14T09:43:40.589004",
+      "status": "ERROR",
+      "error": "\"Attempt to overwrite 'exc_info' in LogRecord\"",
+      "traceback": "Traceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\services\\file_processor_service.py\", line 3366, in process_wom_llamadas_entrantes\n    df_normalized = self.data_normalizer.normalize_wom_call_data_entrantes(df)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAttributeError: 'DataNormalizerService' object has no attribute 'normalize_wom_call_data_entrantes'\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\test_wom_voz_multisheet_real.py\", line 157, in test_wom_voz_multisheet_processing\n    result = self.file_processor.process_wom_llamadas_entrantes(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\services\\file_processor_service.py\", line 3503, in process_wom_llamadas_entrantes\n    self.logger.error(f\"Error crítico procesando archivo WOM llamadas {file_name}: {e}\", exc_info=True)\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\utils\\operator_logger.py\", line 411, in error\n    self._log_with_context(logging.ERROR, message, **kwargs)\n  File \"C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\utils\\operator_logger.py\", line 368, in _log_with_context\n    self.logger.log(level, message, extra=extra)\n  File \"C:\\Users\\Boris\\anaconda3\\Lib\\logging\\__init__.py\", line 1559, in log\n    self._log(level, msg, args, **kwargs)\n  File \"C:\\Users\\Boris\\anaconda3\\Lib\\logging\\__init__.py\", line 1632, in _log\n    record = self.makeRecord(self.name, level, fn, lno, msg, args,\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\Boris\\anaconda3\\Lib\\logging\\__init__.py\", line 1606, in makeRecord\n    raise KeyError(\"Attempt to overwrite %r in LogRecord\" % key)\nKeyError: \"Attempt to overwrite 'exc_info' in LogRecord\"\n"
+    }
+  ]
+}

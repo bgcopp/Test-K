@@ -1,0 +1,113 @@
+{
+  "timestamp": "2025-08-14T10:33:03.928076",
+  "tests_executed": 6,
+  "tests_passed": 1,
+  "tests_failed": 5,
+  "critical_issues": [
+    {
+      "test_name": "Cell ID Format Test - PUNTO 1 TRÁFICO DATOS WOM.xlsx",
+      "details": {
+        "error": "FileProcessorService.__init__() takes 1 positional argument but 2 were given",
+        "error_type": "TypeError",
+        "file_path": "C:/Soluciones/BGC/claude/KNSOft/datatest/wom/Formato excel/PUNTO 1 TRÁFICO DATOS WOM.xlsx"
+      },
+      "timestamp": "2025-08-14T10:33:03.955760"
+    },
+    {
+      "test_name": "Database Cell ID Storage - PUNTO 1 TRÁFICO DATOS WOM.xlsx",
+      "details": {
+        "error": "FileProcessorService.__init__() takes 1 positional argument but 2 were given",
+        "error_type": "TypeError",
+        "file_path": "C:/Soluciones/BGC/claude/KNSOft/datatest/wom/Formato excel/PUNTO 1 TRÁFICO DATOS WOM.xlsx"
+      },
+      "timestamp": "2025-08-14T10:33:03.955760"
+    },
+    {
+      "test_name": "Cell ID Format Test - PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx",
+      "details": {
+        "error": "FileProcessorService.__init__() takes 1 positional argument but 2 were given",
+        "error_type": "TypeError",
+        "file_path": "C:/Soluciones/BGC/claude/KNSOft/datatest/wom/Formato excel/PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx"
+      },
+      "timestamp": "2025-08-14T10:33:03.955760"
+    },
+    {
+      "test_name": "Database Cell ID Storage - PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx",
+      "details": {
+        "error": "FileProcessorService.__init__() takes 1 positional argument but 2 were given",
+        "error_type": "TypeError",
+        "file_path": "C:/Soluciones/BGC/claude/KNSOft/datatest/wom/Formato excel/PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx"
+      },
+      "timestamp": "2025-08-14T10:33:03.955760"
+    },
+    {
+      "test_name": "Expected Cell ID Values Validation",
+      "details": {
+        "error": "no such table: data_records",
+        "error_type": "OperationalError"
+      },
+      "timestamp": "2025-08-14T10:33:03.959506"
+    }
+  ],
+  "major_issues": [],
+  "minor_issues": [],
+  "test_details": [
+    {
+      "test_name": "File Availability Check",
+      "status": "PASS",
+      "details": {
+        "available_files": 2,
+        "missing_files": 0,
+        "available_list": [
+          "C:/Soluciones/BGC/claude/KNSOft/datatest/wom/Formato excel/PUNTO 1 TRÁFICO DATOS WOM.xlsx",
+          "C:/Soluciones/BGC/claude/KNSOft/datatest/wom/Formato excel/PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx"
+        ],
+        "missing_list": []
+      }
+    },
+    {
+      "test_name": "Cell ID Format Test - PUNTO 1 TRÁFICO DATOS WOM.xlsx",
+      "status": "FAIL",
+      "details": {
+        "error": "FileProcessorService.__init__() takes 1 positional argument but 2 were given",
+        "error_type": "TypeError",
+        "file_path": "C:/Soluciones/BGC/claude/KNSOft/datatest/wom/Formato excel/PUNTO 1 TRÁFICO DATOS WOM.xlsx"
+      }
+    },
+    {
+      "test_name": "Database Cell ID Storage - PUNTO 1 TRÁFICO DATOS WOM.xlsx",
+      "status": "FAIL",
+      "details": {
+        "error": "FileProcessorService.__init__() takes 1 positional argument but 2 were given",
+        "error_type": "TypeError",
+        "file_path": "C:/Soluciones/BGC/claude/KNSOft/datatest/wom/Formato excel/PUNTO 1 TRÁFICO DATOS WOM.xlsx"
+      }
+    },
+    {
+      "test_name": "Cell ID Format Test - PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx",
+      "status": "FAIL",
+      "details": {
+        "error": "FileProcessorService.__init__() takes 1 positional argument but 2 were given",
+        "error_type": "TypeError",
+        "file_path": "C:/Soluciones/BGC/claude/KNSOft/datatest/wom/Formato excel/PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx"
+      }
+    },
+    {
+      "test_name": "Database Cell ID Storage - PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx",
+      "status": "FAIL",
+      "details": {
+        "error": "FileProcessorService.__init__() takes 1 positional argument but 2 were given",
+        "error_type": "TypeError",
+        "file_path": "C:/Soluciones/BGC/claude/KNSOft/datatest/wom/Formato excel/PUNTO 1 TRÁFICO VOZ ENTRAN  SALIENT WOM.xlsx"
+      }
+    },
+    {
+      "test_name": "Expected Cell ID Values Validation",
+      "status": "FAIL",
+      "details": {
+        "error": "no such table: data_records",
+        "error_type": "OperationalError"
+      }
+    }
+  ]
+}

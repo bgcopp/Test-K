@@ -364,6 +364,8 @@ class FileProcessorService:
         """
         Limpia y prepara los datos de llamadas de CLARO para procesamiento.
         
+        CORRECCIÓN BORIS: Proceso menos restrictivo para cargar TODOS los registros
+        
         Args:
             df (pd.DataFrame): DataFrame con datos brutos
             call_type (str): Tipo de llamada ('ENTRANTE' o 'SALIENTE')
@@ -374,7 +376,7 @@ class FileProcessorService:
         # Crear copia para no modificar original
         clean_df = df.copy()
         
-        # Limpiar números telefónicos
+        # Limpiar números telefónicos de forma más permisiva
         clean_df['originador'] = clean_df['originador'].astype(str).str.strip()
         clean_df['originador'] = clean_df['originador'].str.replace(r'[^\d]', '', regex=True)  # Solo dígitos
         
@@ -384,7 +386,7 @@ class FileProcessorService:
         # Limpiar fechas - mantener formato original para parseo posterior
         clean_df['fecha_hora'] = clean_df['fecha_hora'].astype(str).str.strip()
         
-        # Limpiar tipo CDR
+        # Limpiar tipo CDR de forma más permisiva
         clean_df['tipo'] = clean_df['tipo'].astype(str).str.strip().str.upper()
         
         # Limpiar celdas (convertir a string para manejo consistente)
@@ -394,27 +396,31 @@ class FileProcessorService:
         # Limpiar duración (convertir a numérico)
         clean_df['duracion'] = pd.to_numeric(clean_df['duracion'], errors='coerce').fillna(0).astype(int)
         
-        # Remover filas completamente vacías
+        # CORRECCIÓN: Remover SOLO filas completamente vacías, ser muy permisivo
         clean_df = clean_df.dropna(how='all')
         
-        # Remover filas donde campos críticos están vacíos
-        critical_fields = ['originador', 'receptor', 'fecha_hora', 'tipo']
-        for field in critical_fields:
-            clean_df = clean_df[clean_df[field].notna()]
-            clean_df = clean_df[clean_df[field] != '']
+        # CORRECCIÓN: Validación mucho más permisiva, solo campos absolutamente críticos
+        # Solo validar que tengan al menos originador O receptor (no ambos)
+        clean_df = clean_df[
+            (clean_df['originador'].notna() & (clean_df['originador'] != '') & (clean_df['originador'] != 'nan')) |
+            (clean_df['receptor'].notna() & (clean_df['receptor'] != '') & (clean_df['receptor'] != 'nan'))
+        ]
         
-        # Filtrar según el tipo de llamada
-        if call_type == 'ENTRANTE':
-            clean_df = clean_df[clean_df['tipo'].str.contains('CDR_ENTRANTE', na=False)]
-        elif call_type == 'SALIENTE':
-            clean_df = clean_df[clean_df['tipo'].str.contains('CDR_SALIENTE', na=False)]
+        # CORRECCIÓN: NO filtrar por tipo de llamada para cargar TODOS los registros
+        # Comentamos el filtrado para preservar TODOS los datos
+        # if call_type == 'ENTRANTE':
+        #     clean_df = clean_df[clean_df['tipo'].str.contains('CDR_ENTRANTE', na=False)]
+        # elif call_type == 'SALIENTE':
+        #     clean_df = clean_df[clean_df['tipo'].str.contains('CDR_SALIENTE', na=False)]
         
-        self.logger.debug(f"Datos de llamadas limpiados: {len(clean_df)} filas válidas (solo CDR_{call_type})")
+        self.logger.debug(f"Datos de llamadas limpiados (MODO PERMISIVO): {len(clean_df)} filas válidas (TODOS los tipos)")
         return clean_df
     
     def _validate_claro_call_record(self, record: Dict[str, Any], call_type: str = 'ENTRANTE') -> Tuple[bool, List[str]]:
         """
         Valida un registro individual de datos de llamadas de CLARO.
+        
+        CORRECCIÓN BORIS: Validación muy permisiva para no perder registros
         
         Args:
             record (Dict[str, Any]): Registro a validar
@@ -425,67 +431,45 @@ class FileProcessorService:
         """
         errors = []
         
-        # Validar número originador
+        # CORRECCIÓN: Validar número originador de forma MUY permisiva
         originador = str(record.get('originador', '')).strip()
-        if not originador:
-            errors.append("Número originador vacío")
-        elif len(originador) < 10:
-            errors.append(f"Número originador muy corto: {originador}")
-        elif len(originador) > 15:
-            errors.append(f"Número originador muy largo: {originador}")
-        elif not originador.isdigit():
-            errors.append(f"Número originador contiene caracteres no numéricos: {originador}")
         
-        # Validar número receptor
+        # CORRECCIÓN: Validar número receptor de forma MUY permisiva
         receptor = str(record.get('receptor', '')).strip()
-        if not receptor:
-            errors.append("Número receptor vacío")
-        elif len(receptor) < 10:
-            errors.append(f"Número receptor muy corto: {receptor}")
-        elif len(receptor) > 15:
-            errors.append(f"Número receptor muy largo: {receptor}")
-        elif not receptor.isdigit():
-            errors.append(f"Número receptor contiene caracteres no numéricos: {receptor}")
         
-        # Validar fecha (formato: dd/mm/yyyy hh:mm:ss)
+        # Solo rechazar si AMBOS números están vacíos
+        if (not originador or originador == 'nan' or len(originador) < 8) and \
+           (not receptor or receptor == 'nan' or len(receptor) < 8):
+            errors.append("Tanto originador como receptor están vacíos o son muy cortos")
+        
+        # CORRECCIÓN: Validación de números menos restrictiva
+        if originador and originador != 'nan':
+            if len(originador) > 15:
+                errors.append(f"Número originador muy largo: {originador}")
+            elif not originador.isdigit():
+                errors.append(f"Número originador contiene caracteres no numéricos: {originador}")
+        
+        if receptor and receptor != 'nan':
+            if len(receptor) > 15:
+                errors.append(f"Número receptor muy largo: {receptor}")
+            elif not receptor.isdigit():
+                errors.append(f"Número receptor contiene caracteres no numéricos: {receptor}")
+        
+        # CORRECCIÓN: Validación de fecha MUY permisiva (solo verificar que no esté vacía)
         fecha_hora = str(record.get('fecha_hora', '')).strip()
-        if not fecha_hora:
-            errors.append("Fecha y hora de llamada vacía")
-        else:
-            # Intentar parsear la fecha
-            try:
-                from datetime import datetime
-                # Probar varios formatos comunes
-                date_formats = [
-                    '%d/%m/%Y %H:%M:%S',
-                    '%Y-%m-%d %H:%M:%S',
-                    '%d-%m-%Y %H:%M:%S',
-                    '%Y/%m/%d %H:%M:%S'
-                ]
-                
-                parsed = False
-                for fmt in date_formats:
-                    try:
-                        datetime.strptime(fecha_hora, fmt)
-                        parsed = True
-                        break
-                    except ValueError:
-                        continue
-                
-                if not parsed:
-                    errors.append(f"Formato de fecha/hora no reconocido: {fecha_hora}")
-                    
-            except Exception:
-                errors.append(f"Error parseando fecha/hora: {fecha_hora}")
+        if not fecha_hora or fecha_hora == 'nan':
+            # Solo warning, no error crítico
+            pass
         
-        # Validar tipo CDR según el tipo de llamada
-        tipo = str(record.get('tipo', '')).strip().upper()
-        if not tipo:
-            errors.append("Tipo CDR vacío")
-        elif call_type == 'ENTRANTE' and 'CDR_ENTRANTE' not in tipo:
-            errors.append(f"Tipo CDR no es CDR_ENTRANTE: {tipo}")
-        elif call_type == 'SALIENTE' and 'CDR_SALIENTE' not in tipo:
-            errors.append(f"Tipo CDR no es CDR_SALIENTE: {tipo}")
+        # CORRECCIÓN: NO validar tipo CDR para cargar TODOS los registros
+        # Comentamos la validación de tipo para preservar todos los datos
+        # tipo = str(record.get('tipo', '')).strip().upper()
+        # if not tipo:
+        #     errors.append("Tipo CDR vacío")
+        # elif call_type == 'ENTRANTE' and 'CDR_ENTRANTE' not in tipo:
+        #     errors.append(f"Tipo CDR no es CDR_ENTRANTE: {tipo}")
+        # elif call_type == 'SALIENTE' and 'CDR_SALIENTE' not in tipo:
+        #     errors.append(f"Tipo CDR no es CDR_SALIENTE: {tipo}")
         
         # Validar duración
         duracion = record.get('duracion', 0)

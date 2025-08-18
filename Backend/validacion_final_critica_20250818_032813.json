@@ -1,0 +1,28 @@
+{
+  "validationTimestamp": "2025-08-18T03:28:13.888913",
+  "totalExecutionTime": 0.016,
+  "finalStatus": "FALLÓ",
+  "targetNumbersRequired": [
+    "3214161903",
+    "3224274851",
+    "3102715509",
+    "3143534707",
+    "3104277553",
+    "3208611034"
+  ],
+  "targetNumbersCount": 6,
+  "dbIntegrityResults": {},
+  "correlationResults": {},
+  "performanceMetrics": {},
+  "regressionResults": {},
+  "criticalIssues": [
+    "❌ CRÍTICO: Error en prueba de integridad BD: DatabaseManager no ha sido inicializado",
+    "❌ CRÍTICO: Error en algoritmo de correlación: Error interno del servidor: DatabaseManager no ha sido inicializado",
+    "❌ CRÍTICO: CRÍTICO: 3104277553 NO ENCONTRADO en correlación",
+    "❌ CRÍTICO: CRÍTICO: 3143534707 NO ENCONTRADO en correlación",
+    "❌ CRÍTICO: Error en testing de regresión: Error interno del servidor: DatabaseManager no ha sido inicializado"
+  ],
+  "successConfirmations": [],
+  "testsPassed": 0,
+  "testsFailed": 5
+}

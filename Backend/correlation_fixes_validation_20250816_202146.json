@@ -1,0 +1,46 @@
+{
+  "test_info": {
+    "timestamp": "2025-08-16T20:21:46.565749",
+    "test_name": "correlation_fixes_validation",
+    "processing_time_seconds": 0.0,
+    "parameters": {
+      "mission_id": "1",
+      "start_date": "2024-01-01 00:00:00",
+      "end_date": "2024-12-31 23:59:59",
+      "min_coincidences": 1
+    }
+  },
+  "analysis_result": {
+    "success": true,
+    "mission_id": "1",
+    "algorithm": "correlacion_por_cell_ids",
+    "parameters": {
+      "start_date": "2024-01-01 00:00:00",
+      "end_date": "2024-12-31 23:59:59",
+      "min_coincidences": 1
+    },
+    "data": [],
+    "statistics": {
+      "total_numeros_correlacionados": 0,
+      "promedio_celdas_por_numero": 0,
+      "max_celdas_coincidentes": 0,
+      "total_cell_ids_hunter": 0,
+      "total_registros_operador": 0,
+      "numeros_objetivo_detectados": 0
+    },
+    "processing_time_seconds": 0.0,
+    "timestamp": "2025-08-16T20:21:46.565749"
+  },
+  "validation_results": {
+    "overall_success": false,
+    "analysis_success": true,
+    "targets_found": {},
+    "format_validation": {},
+    "critical_validations": {},
+    "warnings": [],
+    "errors": [
+      "No se encontraron correlaciones"
+    ]
+  },
+  "success": false
+}

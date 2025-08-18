@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-08-18T06:03:41.592747",
+  "test_name": "Corrected Algorithm Validation",
+  "numero_objetivo": "3143534707",
+  "mission_id": "mission_MPFRBNsb",
+  "periodo": "2021-05-01 - 2021-05-31",
+  "algoritmo_anterior": 3,
+  "algoritmo_corregido": 4,
+  "diferencia": 1,
+  "celdas_encontradas": [
+    "51203",
+    "56124",
+    "53591",
+    "51438"
+  ],
+  "detalle_por_tipo": {
+    "originador_destino": {
+      "celdas": 2,
+      "comunicaciones": 2
+    },
+    "originador_fisica": {
+      "celdas": 2,
+      "comunicaciones": 2
+    },
+    "receptor_destino": {
+      "celdas": 1,
+      "comunicaciones": 5
+    }
+  },
+  "status": "CORRECTED_SUCCESS",
+  "algorithm_improved": true
+}

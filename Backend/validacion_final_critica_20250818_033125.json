@@ -1,0 +1,309 @@
+{
+  "validationTimestamp": "2025-08-18T03:31:25.555006",
+  "totalExecutionTime": 0.054,
+  "finalStatus": "FALLÓ",
+  "targetNumbersRequired": [
+    "3208611034",
+    "3214161903",
+    "3224274851",
+    "3143534707",
+    "3104277553",
+    "3102715509"
+  ],
+  "targetNumbersCount": 6,
+  "dbIntegrityResults": {
+    "numbersFound": [
+      "3208611034",
+      "3214161903",
+      "3224274851",
+      "3143534707",
+      "3104277553",
+      "3102715509"
+    ],
+    "numbersMissing": [],
+    "numberDetails": {
+      "3208611034": {
+        "found": true,
+        "foundAs": "3208611034",
+        "callCount": 1,
+        "firstSeen": "2021-05-20 10:16:19",
+        "lastSeen": "2021-05-20 10:16:19",
+        "operatorCount": 1,
+        "missionCount": 1
+      },
+      "3214161903": {
+        "found": true,
+        "foundAs": "3214161903",
+        "callCount": 1,
+        "firstSeen": "2021-05-20 10:10:27",
+        "lastSeen": "2021-05-20 10:10:27",
+        "operatorCount": 1,
+        "missionCount": 1
+      },
+      "3224274851": {
+        "found": true,
+        "foundAs": "3224274851",
+        "callCount": 1,
+        "firstSeen": "2021-05-20 12:17:14",
+        "lastSeen": "2021-05-20 12:17:14",
+        "operatorCount": 1,
+        "missionCount": 1
+      },
+      "3143534707": {
+        "found": true,
+        "foundAs": "3143534707",
+        "callCount": 5,
+        "firstSeen": "2021-05-20 12:09:51",
+        "lastSeen": "2021-05-20 13:21:53",
+        "operatorCount": 1,
+        "missionCount": 1
+      },
+      "3104277553": {
+        "found": true,
+        "foundAs": "3104277553",
+        "callCount": 1,
+        "firstSeen": "2021-05-20 10:09:58",
+        "lastSeen": "2021-05-20 10:09:58",
+        "operatorCount": 1,
+        "missionCount": 1
+      },
+      "3102715509": {
+        "found": true,
+        "foundAs": "3102715509",
+        "callCount": 3,
+        "firstSeen": "2024-08-15 10:30:00",
+        "lastSeen": "2024-08-16 09:15:00",
+        "operatorCount": 1,
+        "missionCount": 1
+      }
+    },
+    "totalCalls": 12
+  },
+  "correlationResults": {
+    "executionTime": 0.02244400978088379,
+    "totalNumbersFound": 5,
+    "targetNumbersFound": 5,
+    "targetNumbersRequired": 6,
+    "foundTargetNumbers": [
+      "3214161903",
+      "3143534707",
+      "3102715509",
+      "3208611034",
+      "3224274851"
+    ],
+    "missingTargetNumbers": [
+      "3104277553"
+    ],
+    "correlationDetails": {
+      "3102715509": {
+        "strategy": "DirectTarget",
+        "confidence": 90.0,
+        "totalCalls": 3,
+        "uniqueHunterCells": 1,
+        "firstDetection": "2024-08-15 10:30:00",
+        "lastDetection": "2024-08-16 09:15:00"
+      },
+      "3143534707": {
+        "strategy": "Emergency",
+        "confidence": 60.0,
+        "totalCalls": 5,
+        "uniqueHunterCells": 1,
+        "firstDetection": "2021-05-20 12:09:51",
+        "lastDetection": "2021-05-20 13:21:53"
+      },
+      "3214161903": {
+        "strategy": "Emergency",
+        "confidence": 60.0,
+        "totalCalls": 1,
+        "uniqueHunterCells": 1,
+        "firstDetection": "2021-05-20 10:10:27",
+        "lastDetection": "2021-05-20 10:10:27"
+      },
+      "3208611034": {
+        "strategy": "Emergency",
+        "confidence": 60.0,
+        "totalCalls": 1,
+        "uniqueHunterCells": 1,
+        "firstDetection": "2021-05-20 10:16:19",
+        "lastDetection": "2021-05-20 10:16:19"
+      },
+      "3224274851": {
+        "strategy": "Emergency",
+        "confidence": 60.0,
+        "totalCalls": 1,
+        "uniqueHunterCells": 1,
+        "firstDetection": "2021-05-20 12:17:14",
+        "lastDetection": "2021-05-20 12:17:14"
+      }
+    },
+    "algorithmStatistics": {
+      "totalAnalyzed": 5,
+      "totalFound": 5,
+      "targetNumbersFound": 5,
+      "targetNumbersTotal": 6,
+      "processingTime": 0.022,
+      "strategiesUsed": {
+        "DirectTarget": 1,
+        "Emergency": 4
+      },
+      "analysisType": "correlation_fixed",
+      "timestamp": "2025-08-18T03:31:25.523117"
+    },
+    "fullResponse": {
+      "success": true,
+      "data": [
+        {
+          "targetNumber": "3102715509",
+          "originalNumber": "3102715509",
+          "operator": "CLARO",
+          "totalCalls": 3,
+          "uniqueHunterCells": 1,
+          "firstDetection": "2024-08-15 10:30:00",
+          "lastDetection": "2024-08-16 09:15:00",
+          "relatedCells": [
+            "16040",
+            "16041"
+          ],
+          "detectionStrategy": "DirectTarget",
+          "hunterCellsTotal": 0,
+          "confidence": 90.0
+        },
+        {
+          "targetNumber": "3143534707",
+          "originalNumber": "3143534707",
+          "operator": "CLARO",
+          "totalCalls": 5,
+          "uniqueHunterCells": 1,
+          "firstDetection": "2021-05-20 12:09:51",
+          "lastDetection": "2021-05-20 13:21:53",
+          "relatedCells": [],
+          "detectionStrategy": "Emergency",
+          "hunterCellsTotal": 0,
+          "confidence": 60.0
+        },
+        {
+          "targetNumber": "3214161903",
+          "originalNumber": "3214161903",
+          "operator": "CLARO",
+          "totalCalls": 1,
+          "uniqueHunterCells": 1,
+          "firstDetection": "2021-05-20 10:10:27",
+          "lastDetection": "2021-05-20 10:10:27",
+          "relatedCells": [],
+          "detectionStrategy": "Emergency",
+          "hunterCellsTotal": 0,
+          "confidence": 60.0
+        },
+        {
+          "targetNumber": "3208611034",
+          "originalNumber": "3208611034",
+          "operator": "CLARO",
+          "totalCalls": 1,
+          "uniqueHunterCells": 1,
+          "firstDetection": "2021-05-20 10:16:19",
+          "lastDetection": "2021-05-20 10:16:19",
+          "relatedCells": [],
+          "detectionStrategy": "Emergency",
+          "hunterCellsTotal": 0,
+          "confidence": 60.0
+        },
+        {
+          "targetNumber": "3224274851",
+          "originalNumber": "3224274851",
+          "operator": "CLARO",
+          "totalCalls": 1,
+          "uniqueHunterCells": 1,
+          "firstDetection": "2021-05-20 12:17:14",
+          "lastDetection": "2021-05-20 12:17:14",
+          "relatedCells": [],
+          "detectionStrategy": "Emergency",
+          "hunterCellsTotal": 0,
+          "confidence": 60.0
+        }
+      ],
+      "statistics": {
+        "totalAnalyzed": 5,
+        "totalFound": 5,
+        "targetNumbersFound": 5,
+        "targetNumbersTotal": 6,
+        "processingTime": 0.022,
+        "strategiesUsed": {
+          "DirectTarget": 1,
+          "Emergency": 4
+        },
+        "analysisType": "correlation_fixed",
+        "timestamp": "2025-08-18T03:31:25.523117"
+      }
+    }
+  },
+  "performanceMetrics": {
+    "correlationExecutionTime": 0.02244400978088379,
+    "numbersProcessed": 5,
+    "performanceRating": "EXCELENTE"
+  },
+  "regressionResults": {
+    "executionCount": 3,
+    "executionTimes": [
+      0.01596999168395996,
+      0.0,
+      0.015918731689453125
+    ],
+    "resultConsistency": true,
+    "executionDetails": [
+      {
+        "execution": 1,
+        "time": 0.01596999168395996,
+        "targetNumbersFound": 5,
+        "foundNumbers": [
+          "3214161903",
+          "3143534707",
+          "3102715509",
+          "3208611034",
+          "3224274851"
+        ]
+      },
+      {
+        "execution": 2,
+        "time": 0.0,
+        "targetNumbersFound": 5,
+        "foundNumbers": [
+          "3214161903",
+          "3143534707",
+          "3102715509",
+          "3208611034",
+          "3224274851"
+        ]
+      },
+      {
+        "execution": 3,
+        "time": 0.015918731689453125,
+        "targetNumbersFound": 5,
+        "foundNumbers": [
+          "3214161903",
+          "3143534707",
+          "3102715509",
+          "3208611034",
+          "3224274851"
+        ]
+      }
+    ]
+  },
+  "criticalIssues": [
+    "❌ CRÍTICO: CORRELACIÓN: Faltan 1 números objetivo: {'3104277553'}",
+    "❌ CRÍTICO: CRÍTICO: 3104277553 NO ENCONTRADO en correlación"
+  ],
+  "successConfirmations": [
+    "✅ ÉXITO: Número 3208611034 encontrado como 3208611034 con 1 llamadas",
+    "✅ ÉXITO: Número 3214161903 encontrado como 3214161903 con 1 llamadas",
+    "✅ ÉXITO: Número 3224274851 encontrado como 3224274851 con 1 llamadas",
+    "✅ ÉXITO: Número 3143534707 encontrado como 3143534707 con 5 llamadas",
+    "✅ ÉXITO: Número 3104277553 encontrado como 3104277553 con 1 llamadas",
+    "✅ ÉXITO: Número 3102715509 encontrado como 3102715509 con 3 llamadas",
+    "✅ ÉXITO: INTEGRIDAD BD: Todos los 6 números objetivo están en la base de datos",
+    "✅ ÉXITO: CRÍTICO: 3143534707 encontrado con estrategia Emergency y confianza 60.0%",
+    "✅ ÉXITO: REGRESIÓN: Resultados consistentes en 3 ejecuciones",
+    "✅ ÉXITO: RENDIMIENTO: Tiempo promedio 0.011s"
+  ],
+  "testsPassed": 10,
+  "testsFailed": 2
+}

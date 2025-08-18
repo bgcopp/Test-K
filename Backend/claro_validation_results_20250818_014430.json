@@ -1,0 +1,249 @@
+{
+  "validation_start_time": "2025-08-18T01:44:29.465777",
+  "validations_executed": [
+    {
+      "test_name": "source_files_availability",
+      "status": "PASS",
+      "files_analysis": {
+        "entrantes_1": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+          "records": 973,
+          "size_mb": 0
+        },
+        "salientes_1": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+          "records": 961,
+          "size_mb": 0
+        },
+        "entrantes_2": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+          "records": 1939,
+          "size_mb": 0
+        },
+        "salientes_2": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+          "records": 1738,
+          "size_mb": 0
+        }
+      },
+      "total_source_records": 5611,
+      "files_missing": [],
+      "target_numbers_in_source": {
+        "3224274851": [
+          {
+            "file": "entrantes_1",
+            "occurrences": 1
+          },
+          {
+            "file": "salientes_1",
+            "occurrences": 3
+          },
+          {
+            "file": "entrantes_2",
+            "occurrences": 3
+          },
+          {
+            "file": "salientes_2",
+            "occurrences": 2
+          }
+        ],
+        "3208611034": [
+          {
+            "file": "entrantes_1",
+            "occurrences": 1
+          },
+          {
+            "file": "salientes_1",
+            "occurrences": 1
+          },
+          {
+            "file": "entrantes_2",
+            "occurrences": 1
+          }
+        ],
+        "3104277553": [
+          {
+            "file": "salientes_1",
+            "occurrences": 1
+          }
+        ],
+        "3102715509": [
+          {
+            "file": "entrantes_2",
+            "occurrences": 1
+          },
+          {
+            "file": "salientes_2",
+            "occurrences": 3
+          }
+        ],
+        "3143534707": [
+          {
+            "file": "entrantes_1",
+            "occurrences": 1
+          },
+          {
+            "file": "salientes_1",
+            "occurrences": 1
+          },
+          {
+            "file": "entrantes_2",
+            "occurrences": 6
+          },
+          {
+            "file": "salientes_2",
+            "occurrences": 1
+          }
+        ],
+        "3214161903": [
+          {
+            "file": "entrantes_1",
+            "occurrences": 1
+          },
+          {
+            "file": "entrantes_2",
+            "occurrences": 1
+          }
+        ]
+      }
+    },
+    {
+      "test_name": "database_loading",
+      "status": "FAIL",
+      "database_analysis": {
+        "total_claro_records": 3160,
+        "tipo_distribution": {
+          "ENTRANTE": 2737,
+          "SALIENTE": 423
+        },
+        "unique_origins": 2784,
+        "unique_destinations": 2590
+      },
+      "target_numbers_in_db": {
+        "3224274851": {
+          "found": 1,
+          "total_occurrences": 9,
+          "occurrences_without_prefix": 5,
+          "occurrences_with_prefix": 4
+        },
+        "3208611034": {
+          "found": 1,
+          "total_occurrences": 4,
+          "occurrences_without_prefix": 2,
+          "occurrences_with_prefix": 2
+        },
+        "3104277553": {
+          "found": 1,
+          "total_occurrences": 1,
+          "occurrences_without_prefix": 1,
+          "occurrences_with_prefix": 0
+        },
+        "3102715509": {
+          "found": 1,
+          "total_occurrences": 2,
+          "occurrences_without_prefix": 1,
+          "occurrences_with_prefix": 1
+        },
+        "3143534707": {
+          "found": 1,
+          "total_occurrences": 14,
+          "occurrences_without_prefix": 7,
+          "occurrences_with_prefix": 7
+        },
+        "3214161903": {
+          "found": 1,
+          "total_occurrences": 4,
+          "occurrences_without_prefix": 2,
+          "occurrences_with_prefix": 2
+        }
+      },
+      "loading_completeness": {
+        "records_loaded": 3160,
+        "records_expected": 5611,
+        "completeness_percentage": 56,
+        "records_missing": 2451
+      }
+    },
+    {
+      "test_name": "phone_normalization",
+      "status": "FAIL",
+      "normalization_analysis": {
+        "numbers_with_57_prefix": 3159,
+        "length_distribution_origen": {
+          "10": 1,
+          "11": 13,
+          "12": 3141,
+          "13": 2,
+          "14": 3
+        },
+        "length_distribution_destino": {
+          "10": 22,
+          "12": 3118,
+          "13": 3,
+          "14": 3,
+          "15": 14
+        }
+      },
+      "prefix_removal_check": {
+        "3224274851": {
+          "found_normalized": 1,
+          "found_with_prefix": 1,
+          "normalization_correct": 0
+        },
+        "3208611034": {
+          "found_normalized": 0,
+          "found_with_prefix": 1,
+          "normalization_correct": 0
+        },
+        "3104277553": {
+          "found_normalized": 1,
+          "found_with_prefix": 0,
+          "normalization_correct": 1
+        },
+        "3102715509": {
+          "found_normalized": 0,
+          "found_with_prefix": 1,
+          "normalization_correct": 0
+        },
+        "3143534707": {
+          "found_normalized": 0,
+          "found_with_prefix": 1,
+          "normalization_correct": 0
+        },
+        "3214161903": {
+          "found_normalized": 0,
+          "found_with_prefix": 1,
+          "normalization_correct": 0
+        }
+      }
+    },
+    {
+      "test_name": "correlation_operator_filter",
+      "status": "PASS",
+      "hunter_claro_cells": 19,
+      "operator_distribution": {
+        "hunter_data": {
+          "CLARO": 19,
+          "MOVISTAR": 22,
+          "TIGO": 17
+        },
+        "call_data": {
+          "CLARO": 3160
+        }
+      }
+    }
+  ],
+  "validations_passed": 2,
+  "validations_failed": 2,
+  "validations_warnings": 0,
+  "overall_status": "FAIL",
+  "critical_issues": [],
+  "recommendations": [
+    "1. Verificar que todos los archivos CLARO estén disponibles",
+    "2. Re-ejecutar carga con algoritmo corregido",
+    "3. Validar que normalización de números funcione (sin prefijo 57)",
+    "4. Verificar filtrado por operador en correlación",
+    "5. Revisar logs de carga para identificar registros perdidos"
+  ],
+  "validation_end_time": "2025-08-18T01:44:30.309476"
+}

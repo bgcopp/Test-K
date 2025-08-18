@@ -1,0 +1,100 @@
+{
+  "validationTimestamp": "2025-08-18T03:29:02.473414",
+  "totalExecutionTime": 0.016,
+  "finalStatus": "FALLÓ",
+  "targetNumbersRequired": [
+    "3102715509",
+    "3143534707",
+    "3208611034",
+    "3214161903",
+    "3104277553",
+    "3224274851"
+  ],
+  "targetNumbersCount": 6,
+  "dbIntegrityResults": {
+    "numbersFound": [
+      "3143534707",
+      "3208611034",
+      "3214161903",
+      "3104277553",
+      "3224274851"
+    ],
+    "numbersMissing": [
+      "3102715509"
+    ],
+    "numberDetails": {
+      "3102715509": {
+        "found": false,
+        "foundAs": null,
+        "callCount": 0,
+        "reason": "No encontrado en base de datos"
+      },
+      "3143534707": {
+        "found": true,
+        "foundAs": "3143534707",
+        "callCount": 5,
+        "firstSeen": "2021-05-20 12:09:51",
+        "lastSeen": "2021-05-20 13:21:53",
+        "operatorCount": 1,
+        "missionCount": 1
+      },
+      "3208611034": {
+        "found": true,
+        "foundAs": "3208611034",
+        "callCount": 1,
+        "firstSeen": "2021-05-20 10:16:19",
+        "lastSeen": "2021-05-20 10:16:19",
+        "operatorCount": 1,
+        "missionCount": 1
+      },
+      "3214161903": {
+        "found": true,
+        "foundAs": "3214161903",
+        "callCount": 1,
+        "firstSeen": "2021-05-20 10:10:27",
+        "lastSeen": "2021-05-20 10:10:27",
+        "operatorCount": 1,
+        "missionCount": 1
+      },
+      "3104277553": {
+        "found": true,
+        "foundAs": "3104277553",
+        "callCount": 1,
+        "firstSeen": "2021-05-20 10:09:58",
+        "lastSeen": "2021-05-20 10:09:58",
+        "operatorCount": 1,
+        "missionCount": 1
+      },
+      "3224274851": {
+        "found": true,
+        "foundAs": "3224274851",
+        "callCount": 1,
+        "firstSeen": "2021-05-20 12:17:14",
+        "lastSeen": "2021-05-20 12:17:14",
+        "operatorCount": 1,
+        "missionCount": 1
+      }
+    },
+    "totalCalls": 9
+  },
+  "correlationResults": {},
+  "performanceMetrics": {},
+  "regressionResults": {},
+  "criticalIssues": [
+    "❌ CRÍTICO: Número 3102715509 NO ENCONTRADO en operator_call_data",
+    "❌ CRÍTICO: INTEGRIDAD BD: Faltan 1 números objetivo en la base de datos",
+    "❌ CRÍTICO: Error en algoritmo de correlación: Misión 1 no encontrada",
+    "❌ CRÍTICO: CRÍTICO: 3104277553 NO ENCONTRADO en correlación",
+    "❌ CRÍTICO: CRÍTICO: 3143534707 NO ENCONTRADO en correlación",
+    "❌ CRÍTICO: Error en testing de regresión: Misión 1 no encontrada"
+  ],
+  "successConfirmations": [
+    "✅ ÉXITO: Número 3143534707 encontrado como 3143534707 con 5 llamadas",
+    "✅ ÉXITO: Número 3208611034 encontrado como 3208611034 con 1 llamadas",
+    "✅ ÉXITO: Número 3214161903 encontrado como 3214161903 con 1 llamadas",
+    "✅ ÉXITO: Número 3104277553 encontrado como 3104277553 con 1 llamadas",
+    "✅ ÉXITO: Número 3224274851 encontrado como 3224274851 con 1 llamadas"
+  ],
+  "testsPassed": 5,
+  "testsFailed": 6
+}

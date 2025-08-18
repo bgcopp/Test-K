@@ -1,0 +1,35 @@
+{
+  "validation_start_time": "2025-08-18T01:44:13.299662",
+  "validations_executed": [
+    {
+      "test_name": "source_files_availability",
+      "status": "PASS",
+      "files_analysis": {
+        "entrantes_1": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+          "records": 973,
+          "size_mb": 0.05
+        },
+        "salientes_1": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+          "records": 961,
+          "size_mb": 0.05
+        },
+        "entrantes_2": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+          "records": 1939,
+          "size_mb": 0.09
+        },
+        "salientes_2": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+          "records": 1738,
+          "size_mb": 0.08
+        }
+      },
+      "total_source_records": 5611,
+      "files_missing": [],
+      "target_numbers_in_source": {
+        "3224274851": [
+          {
+            "file": "entrantes_1",
+            "occurrences": 

@@ -1,0 +1,152 @@
+{
+  "timestamp": "2025-08-18T03:02:10.828347",
+  "validation_status": "FAILED",
+  "success_rate": 66.66666666666666,
+  "target_numbers": {
+    "total": 6,
+    "found": 4,
+    "missing": 2,
+    "found_list": [
+      "3143534707",
+      "3208611034",
+      "3214161903",
+      "3224274851"
+    ],
+    "missing_list": [
+      "3104277553",
+      "3102715509"
+    ]
+  },
+  "analysis_time": 0.029288053512573242,
+  "correlation_results": {
+    "success": true,
+    "data": [
+      {
+        "targetNumber": "3143534707",
+        "originalNumber": "3143534707",
+        "operator": "CLARO",
+        "totalCalls": 5,
+        "uniqueHunterCells": 1,
+        "firstDetection": "2021-05-20 12:09:51",
+        "lastDetection": "2021-05-20 13:21:53",
+        "relatedCells": [],
+        "detectionStrategy": "Emergency",
+        "hunterCellsTotal": 0,
+        "confidence": 60.0
+      },
+      {
+        "targetNumber": "3224274851",
+        "originalNumber": "3224274851",
+        "operator": "CLARO",
+        "totalCalls": 1,
+        "uniqueHunterCells": 1,
+        "firstDetection": "2021-05-20 12:17:14",
+        "lastDetection": "2021-05-20 12:17:14",
+        "relatedCells": [],
+        "detectionStrategy": "Emergency",
+        "hunterCellsTotal": 0,
+        "confidence": 60.0
+      },
+      {
+        "targetNumber": "3208611034",
+        "originalNumber": "3208611034",
+        "operator": "CLARO",
+        "totalCalls": 1,
+        "uniqueHunterCells": 1,
+        "firstDetection": "2021-05-20 10:16:19",
+        "lastDetection": "2021-05-20 10:16:19",
+        "relatedCells": [],
+        "detectionStrategy": "Emergency",
+        "hunterCellsTotal": 0,
+        "confidence": 60.0
+      },
+      {
+        "targetNumber": "3214161903",
+        "originalNumber": "3214161903",
+        "operator": "CLARO",
+        "totalCalls": 1,
+        "uniqueHunterCells": 1,
+        "firstDetection": "2021-05-20 10:10:27",
+        "lastDetection": "2021-05-20 10:10:27",
+        "relatedCells": [],
+        "detectionStrategy": "Emergency",
+        "hunterCellsTotal": 0,
+        "confidence": 60.0
+      }
+    ],
+    "statistics": {
+      "totalAnalyzed": 4,
+      "totalFound": 4,
+      "targetNumbersFound": 4,
+      "targetNumbersTotal": 6,
+      "processingTime": 0.029,
+      "strategiesUsed": {
+        "Emergency": 4
+      },
+      "analysisType": "correlation_fixed",
+      "timestamp": "2025-08-18T03:02:10.828347"
+    }
+  },
+  "summary": {
+    "success": true,
+    "missionId": "mission_MPFRBNsb",
+    "hunterData": {
+      "totalRecords": 58,
+      "uniqueCells": 57,
+      "earliestRecord": "2025-08-18 07:41:52",
+      "latestRecord": "2025-08-18 07:41:52"
+    },
+    "operatorData": {
+      "totalCalls": 3391,
+      "uniqueNumbers": 2654,
+      "uniqueOperators": 1,
+      "earliestCall": "2021-05-20 10:00:00",
+      "latestCall": "2021-05-20 13:59:50"
+    },
+    "targetNumbers": {
+      "total": 6,
+      "available": 4,
+      "missing": 2,
+      "details": {
+        "3104277553": {
+          "foundAs": null,
+          "callCount": 0,
+          "firstSeen": null,
+          "status": "missing"
+        },
+        "3102715509": {
+          "foundAs": null,
+          "callCount": 0,
+          "firstSeen": null,
+          "status": "missing"
+        },
+        "3224274851": {
+          "foundAs": "3224274851",
+          "callCount": 1,
+          "firstSeen": "2021-05-20 12:17:14",
+          "status": "available"
+        },
+        "3143534707": {
+          "foundAs": "3143534707",
+          "callCount": 5,
+          "firstSeen": "2021-05-20 12:09:51",
+          "status": "available"
+        },
+        "3208611034": {
+          "foundAs": "3208611034",
+          "callCount": 1,
+          "firstSeen": "2021-05-20 10:16:19",
+          "status": "available"
+        },
+        "3214161903": {
+          "foundAs": "3214161903",
+          "callCount": 1,
+          "firstSeen": "2021-05-20 10:10:27",
+          "status": "available"
+        }
+      }
+    },
+    "correlationReady": true,
+    "serviceVersion": "correlation_fixed_v1.0"
+  }
+}

@@ -98,6 +98,8 @@ Frontend/
 ### Usted debe
 
 - Nunca romper el codigo o funcionalidades existentes.
+- Nunca debe utilizar git para recuperar cambios a menos que sea expresamente solicitado, ya que pueden no estar subidos en el repositorio
+- Siemprees para cualquier cambio solicitado se debe crear un archivo de seguimiento donde regsitres el paso paso y permita que se pueda recupoerar algun desarrollo que por error se haya borrado.
 - Siempre debes agregar comentarios para que los puedan ver otros desarrolladores.
 - Siempre debes usar buenas practicas de seguridad.
 - Siempre debes usar buenas practicas de performance.

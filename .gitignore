@@ -8,6 +8,7 @@ Frontend/build/
 archivos/*
 
 # Node.js
+node_modules
 Frontend/node_modules/
 Frontend/.npm/
 Frontend/.cache/

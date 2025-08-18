@@ -1,0 +1,109 @@
+{
+  "numero_analizado": "3143534707",
+  "periodo_analizado": "Mayo 2021",
+  "timestamp": "2025-08-18T05:56:37.665193",
+  "analisis_periodo": {
+    "registros_origen_mayo": [
+      {
+        "numero_origen": "3143534707",
+        "numero_destino": "3208611034",
+        "celda_origen": "53591",
+        "celda_destino": "51203",
+        "fecha_hora_llamada": "2021-05-20 10:16:19",
+        "operator": "CLARO",
+        "cantidad_registros": 1
+      },
+      {
+        "numero_origen": "3143534707",
+        "numero_destino": "3224274851",
+        "celda_origen": "51438",
+        "celda_destino": "51438",
+        "fecha_hora_llamada": "2021-05-20 12:17:14",
+        "operator": "CLARO",
+        "cantidad_registros": 1
+      }
+    ],
+    "registros_destino_mayo": [
+      {
+        "numero_origen": "3214161903",
+        "numero_destino": "3143534707",
+        "celda_origen": "2523",
+        "celda_destino": "56124",
+        "fecha_hora_llamada": "2021-05-20 12:09:51",
+        "operator": "CLARO",
+        "cantidad_registros": 1
+      },
+      {
+        "numero_origen": "3224274851",
+        "numero_destino": "3143534707",
+        "celda_origen": "56124",
+        "celda_destino": "56124",
+        "fecha_hora_llamada": "2021-05-20 13:00:35",
+        "operator": "CLARO",
+        "cantidad_registros": 1
+      },
+      {
+        "numero_origen": "3224274851",
+        "numero_destino": "3143534707",
+        "celda_origen": "63095",
+        "celda_destino": "56124",
+        "fecha_hora_llamada": "2021-05-20 13:02:43",
+        "operator": "CLARO",
+        "cantidad_registros": 1
+      },
+      {
+        "numero_origen": "3102715509",
+        "numero_destino": "3143534707",
+        "celda_origen": "56124",
+        "celda_destino": "56124",
+        "fecha_hora_llamada": "2021-05-20 13:11:40",
+        "operator": "CLARO",
+        "cantidad_registros": 1
+      },
+      {
+        "numero_origen": "3208611034",
+        "numero_destino": "3143534707",
+        "celda_origen": "63095",
+        "celda_destino": "56124",
+        "fecha_hora_llamada": "2021-05-20 13:21:53",
+        "operator": "CLARO",
+        "cantidad_registros": 1
+      }
+    ],
+    "registros_celda_51203": [
+      {
+        "numero_origen": "3143534707",
+        "numero_destino": "3208611034",
+        "celda_origen": "53591",
+        "celda_destino": "51203",
+        "fecha_hora_llamada": "2021-05-20 10:16:19",
+        "operator": "CLARO",
+        "relacion_numero": "NUMERO_ES_ORIGEN"
+      }
+    ],
+    "celdas_ubicacion_fisica_mayo": [
+      "51438",
+      "53591",
+      "56124"
+    ],
+    "todas_celdas_involucradas_mayo": [
+      "2523",
+      "51203",
+      "51438",
+      "53591",
+      "56124",
+      "63095"
+    ],
+    "celdas_esperadas_boris": [
+      "51203",
+      "51438",
+      "53591",
+      "56124"
+    ],
+    "match_ubicacion_fisica": false,
+    "match_cualquier_celda": false,
+    "recomendacion": "INVESTIGAR: Posible inconsistencia en datos o especificacion",
+    "justificacion": "Los datos de mayo 2021 no coinciden con ninguna interpretacion estandar",
+    "algoritmo_recomendado": "requiere_clarificacion"
+  }
+}

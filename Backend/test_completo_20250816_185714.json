@@ -1,0 +1,52 @@
+{
+  "test_date": "2025-08-16T18:57:14.517653",
+  "configuration": {
+    "mission_id": "mission_MPFRBNsb",
+    "start_date": "2021-05-20 10:00:00",
+    "end_date": "2021-05-20 15:00:00",
+    "min_coincidences": 1
+  },
+  "target_numbers": [
+    "3224274851",
+    "3208611034",
+    "3104277553",
+    "3102715509",
+    "3143534707",
+    "3214161903"
+  ],
+  "results": {
+    "total_correlations": 0,
+    "target_found": [],
+    "target_missing": [
+      "3224274851",
+      "3208611034",
+      "3104277553",
+      "3102715509",
+      "3143534707",
+      "3214161903"
+    ],
+    "success_rate": 0.0,
+    "processing_time": 0.153732
+  },
+  "statistics": {
+    "total_numeros_correlacionados": 3815,
+    "promedio_celdas_por_numero": 1.03,
+    "max_celdas_coincidentes": 4,
+    "min_celdas_coincidentes": 1,
+    "desviacion_estandar": 0.18,
+    "total_cell_ids_hunter": 46,
+    "total_registros_operador": 9477,
+    "operadores_mas_frecuentes": {
+      "CLARO": 3815
+    },
+    "numeros_objetivo_detectados": 4,
+    "algoritmo_utilizado": "correlacion_por_cell_ids"
+  },
+  "top_correlations": [],
+  "validation": {
+    "hunter_data": true,
+    "operator_data": true,
+    "algorithm_success": true,
+    "critical_numbers_found": false
+  }
+}

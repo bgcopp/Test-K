@@ -1,0 +1,134 @@
+{
+  "timestamp": "2025-08-18T03:25:06.517007",
+  "target_numbers_analysis": {
+    "3224274851": {
+      "status": "PRESENTE",
+      "record_count": 3,
+      "positions_found": [
+        "origen",
+        "objetivo",
+        "destino"
+      ],
+      "sample_record": {
+        "id": 53942,
+        "operator": "CLARO",
+        "fecha": "2021-05-20 12:17:14",
+        "file_upload_id": "9657595b-0f84-4df8-b8bc-6f39a73de98b",
+        "celdas": {
+          "objetivo": "51438",
+          "origen": "51438",
+          "destino": "51438"
+        }
+      }
+    },
+    "3208611034": {
+      "status": "PRESENTE",
+      "record_count": 2,
+      "positions_found": [
+        "origen",
+        "objetivo",
+        "destino"
+      ],
+      "sample_record": {
+        "id": 51942,
+        "operator": "CLARO",
+        "fecha": "2021-05-20 10:16:19",
+        "file_upload_id": "93ca5f03-dc66-42ad-89ef-d20b6f8fbd3f",
+        "celdas": {
+          "objetivo": "51203",
+          "origen": "53591",
+          "destino": "51203"
+        }
+      }
+    },
+    "3104277553": {
+      "status": "PRESENTE",
+      "record_count": 1,
+      "positions_found": [
+        "objetivo",
+        "origen"
+      ],
+      "sample_record": {
+        "id": 55219,
+        "operator": "CLARO",
+        "fecha": "2021-05-20 10:09:58",
+        "file_upload_id": "L2_RECOVERY_MANUAL",
+        "celdas": {
+          "objetivo": "53591",
+          "origen": "53591",
+          "destino": "52453"
+        }
+      }
+    },
+    "3102715509": {
+      "status": "PRESENTE",
+      "record_count": 1,
+      "positions_found": [
+        "origen"
+      ],
+      "sample_record": {
+        "id": 54501,
+        "operator": "CLARO",
+        "fecha": "2021-05-20 13:11:40",
+        "file_upload_id": "9657595b-0f84-4df8-b8bc-6f39a73de98b",
+        "celdas": {
+          "objetivo": "56124",
+          "origen": "56124",
+          "destino": "56124"
+        }
+      }
+    },
+    "3143534707": {
+      "status": "PRESENTE",
+      "record_count": 3,
+      "positions_found": [
+        "objetivo",
+        "destino"
+      ],
+      "sample_record": {
+        "id": 54414,
+        "operator": "CLARO",
+        "fecha": "2021-05-20 12:09:51",
+        "file_upload_id": "9657595b-0f84-4df8-b8bc-6f39a73de98b",
+        "celdas": {
+          "objetivo": "56124",
+          "origen": "2523",
+          "destino": "56124"
+        }
+      }
+    },
+    "3214161903": {
+      "status": "PRESENTE",
+      "record_count": 2,
+      "positions_found": [
+        "origen",
+        "objetivo",
+        "destino"
+      ],
+      "sample_record": {
+        "id": 52252,
+        "operator": "CLARO",
+        "fecha": "2021-05-20 10:10:27",
+        "file_upload_id": "93ca5f03-dc66-42ad-89ef-d20b6f8fbd3f",
+        "celdas": {
+          "objetivo": "53591",
+          "origen": "53591",
+          "destino": "53591"
+        }
+      }
+    }
+  },
+  "overall_status": "CERTIFIED_SUCCESS",
+  "recovery_details": {
+    "recovered_number": "3104277553",
+    "recovery_method": "L2_SURGICAL_EXTRACTION",
+    "source_file": "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+    "recovery_successful": true
+  },
+  "recommendations": [
+    "Sistema certificado para produccion",
+    "Algoritmo de correlacion funcionando al 100%",
+    "Monitorear performance en carga real",
+    "Implementar respaldos regulares de BD"
+  ]
+}

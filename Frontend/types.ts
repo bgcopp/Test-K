@@ -192,3 +192,37 @@ export interface ConfirmationContextType {
     hideConfirmation: () => void;
     isVisible: boolean;
 }
+
+// Interfaz para registros objetivo del análisis clásico
+export interface TargetRecord {
+    id: string;
+    targetNumber: string;
+    matchingCells: string[];
+    confidence: number;
+    status: 'active' | 'inactive';
+    lastSeen: Date;
+    notes: string;
+}
+
+// Interfaz para resultados de correlación
+export interface CorrelationResult {
+    targetNumber: string;
+    operator: string;
+    occurrences: number;
+    firstDetection: string;
+    lastDetection: string;
+    relatedCells: string[];
+    confidence: number;
+}
+
+// Interfaz para respuesta de análisis de correlación
+export interface CorrelationAnalysisResponse {
+    success: boolean;
+    data: CorrelationResult[];
+    statistics: {
+        totalAnalyzed: number;
+        totalFound: number;
+        processingTime: number;
+    };
+    error?: string;
+}

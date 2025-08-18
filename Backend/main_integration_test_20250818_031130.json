@@ -1,0 +1,114 @@
+{
+  "timestamp": "2025-08-18T03:11:29.503089",
+  "test_suite": "main_integration_validation",
+  "tests_performed": [
+    {
+      "test_id": "critical_imports",
+      "success": true,
+      "description": "Importaciones principales exitosas",
+      "modules_imported": [
+        "database.connection",
+        "services.correlation_service",
+        "services.correlation_service_fixed"
+      ]
+    },
+    {
+      "test_id": "factory_pattern",
+      "success": true,
+      "service_returned": "CorrelationServiceFixed",
+      "is_fixed_service": true,
+      "factory_working": true
+    },
+    {
+      "test_id": "database_access",
+      "success": true,
+      "missions_count": 1,
+      "cellular_data_count": 58,
+      "operator_data_count": 3391,
+      "database_healthy": true
+    },
+    {
+      "test_id": "correlation_service_functional",
+      "success": true,
+      "duration": 0.013,
+      "numbers_found": 4,
+      "critical_3143534707_found": true,
+      "performance_acceptable": true,
+      "statistics": {
+        "totalAnalyzed": 4,
+        "totalFound": 4,
+        "targetNumbersFound": 4,
+        "targetNumbersTotal": 6,
+        "processingTime": 0.013,
+        "strategiesUsed": {
+          "DirectTarget": 4
+        },
+        "analysisType": "correlation_fixed",
+        "timestamp": "2025-08-18T03:11:30.672816"
+      }
+    },
+    {
+      "test_id": "correlation_summary",
+      "success": true,
+      "duration": 0.003,
+      "correlation_ready": true,
+      "hunter_data": {
+        "totalRecords": 58,
+        "uniqueCells": 57,
+        "earliestRecord": "2025-08-18 07:41:52",
+        "latestRecord": "2025-08-18 07:41:52"
+      },
+      "operator_data": {
+        "totalCalls": 3391,
+        "uniqueNumbers": 2654,
+        "uniqueOperators": 1,
+        "earliestCall": "2021-05-20 10:00:00",
+        "latestCall": "2021-05-20 13:59:50"
+      },
+      "target_numbers_info": {
+        "total": 6,
+        "available": 4,
+        "missing": 2,
+        "details": {
+          "3102715509": {
+            "foundAs": null,
+            "callCount": 0,
+            "firstSeen": null,
+            "status": "missing"
+          },
+          "3208611034": {
+            "foundAs": "3208611034",
+            "callCount": 1,
+            "firstSeen": "2021-05-20 10:16:19",
+            "status": "available"
+          },
+          "3104277553": {
+            "foundAs": null,
+            "callCount": 0,
+            "firstSeen": null,
+            "status": "missing"
+          },
+          "3224274851": {
+            "foundAs": "3224274851",
+            "callCount": 1,
+            "firstSeen": "2021-05-20 12:17:14",
+            "status": "available"
+          },
+          "3143534707": {
+            "foundAs": "3143534707",
+            "callCount": 5,
+            "firstSeen": "2021-05-20 12:09:51",
+            "status": "available"
+          },
+          "3214161903": {
+            "foundAs": "3214161903",
+            "callCount": 1,
+            "firstSeen": "2021-05-20 10:10:27",
+            "status": "available"
+          }
+        }
+      }
+    }
+  ],
+  "integration_successful": true
+}

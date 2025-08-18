@@ -1,0 +1,368 @@
+{
+  "test_info": {
+    "timestamp": "2025-08-18T06:37:18.760959",
+    "mission_id": "mission_MPFRBNsb",
+    "period": "2021-05-20 00:00:00 - 2021-05-20 23:59:59",
+    "algorithm_version": "DynamicCorrected_v2.0"
+  },
+  "validation_summary": {
+    "total_correlations_found": 3523,
+    "target_numbers_tested": 3,
+    "all_validations_passed": true
+  },
+  "detailed_validations": {
+    "3243182028": {
+      "found": true,
+      "count_correct": true,
+      "cells_correct": true,
+      "actual_count": 5,
+      "actual_cells": [
+        "16478",
+        "22504",
+        "51438",
+        "6159",
+        "6578"
+      ],
+      "algorithm_strategy": "DynamicCorrected_v2.0"
+    },
+    "3009120093": {
+      "found": true,
+      "count_correct": true,
+      "cells_correct": true,
+      "actual_count": 4,
+      "actual_cells": [
+        "22504",
+        "51438",
+        "56121",
+        "56124"
+      ],
+      "algorithm_strategy": "DynamicCorrected_v2.0"
+    },
+    "3124390973": {
+      "found": true,
+      "count_correct": true,
+      "cells_correct": true,
+      "actual_count": 4,
+      "actual_cells": [
+        "22504",
+        "51438",
+        "52356",
+        "6578"
+      ],
+      "algorithm_strategy": "DynamicCorrected_v2.0"
+    }
+  },
+  "all_correlations": [
+    {
+      "numero_objetivo": "3243182028",
+      "operador": "CLARO",
+      "ocurrencias": 5,
+      "primera_deteccion": "2021-05-20 13:06:40",
+      "ultima_deteccion": "2021-05-20 13:36:03",
+      "celdas_relacionadas": [
+        "16478",
+        "22504",
+        "51438",
+        "6159",
+        "6578"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 5
+    },
+    {
+      "numero_objetivo": "3009120093",
+      "operador": "CLARO",
+      "ocurrencias": 4,
+      "primera_deteccion": "2021-05-20 12:40:10",
+      "ultima_deteccion": "2021-05-20 12:45:20",
+      "celdas_relacionadas": [
+        "22504",
+        "51438",
+        "56121",
+        "56124"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 4
+    },
+    {
+      "numero_objetivo": "3124390973",
+      "operador": "CLARO",
+      "ocurrencias": 4,
+      "primera_deteccion": "2021-05-20 13:30:02",
+      "ultima_deteccion": "2021-05-20 13:47:00",
+      "celdas_relacionadas": [
+        "22504",
+        "51438",
+        "52356",
+        "6578"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 4
+    },
+    {
+      "numero_objetivo": "3142178431",
+      "operador": "CLARO",
+      "ocurrencias": 4,
+      "primera_deteccion": "2021-05-20 12:10:56",
+      "ultima_deteccion": "2021-05-20 12:45:33",
+      "celdas_relacionadas": [
+        "22504",
+        "22771",
+        "2528",
+        "51438"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 4
+    },
+    {
+      "numero_objetivo": "3143534707",
+      "operador": "CLARO",
+      "ocurrencias": 4,
+      "primera_deteccion": "2021-05-20 10:16:19",
+      "ultima_deteccion": "2021-05-20 13:21:53",
+      "celdas_relacionadas": [
+        "51203",
+        "51438",
+        "53591",
+        "56124"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 4
+    },
+    {
+      "numero_objetivo": "3147403555",
+      "operador": "CLARO",
+      "ocurrencias": 4,
+      "primera_deteccion": "2021-05-20 10:05:48",
+      "ultima_deteccion": "2021-05-20 10:47:54",
+      "celdas_relacionadas": [
+        "25921",
+        "25925",
+        "25927",
+        "51203"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 4
+    },
+    {
+      "numero_objetivo": "3204071664",
+      "operador": "CLARO",
+      "ocurrencias": 4,
+      "primera_deteccion": "2021-05-20 13:35:38",
+      "ultima_deteccion": "2021-05-20 13:35:38",
+      "celdas_relacionadas": [
+        "22504",
+        "51438",
+        "53625",
+        "6159"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 4
+    },
+    {
+      "numero_objetivo": "3222679525",
+      "operador": "CLARO",
+      "ocurrencias": 4,
+      "primera_deteccion": "2021-05-20 12:09:02",
+      "ultima_deteccion": "2021-05-20 13:54:34",
+      "celdas_relacionadas": [
+        "22504",
+        "40128",
+        "51438",
+        "6159"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 4
+    },
+    {
+      "numero_objetivo": "3224274851",
+      "operador": "CLARO",
+      "ocurrencias": 4,
+      "primera_deteccion": "2021-05-20 10:10:27",
+      "ultima_deteccion": "2021-05-20 13:02:43",
+      "celdas_relacionadas": [
+        "51438",
+        "53591",
+        "56124",
+        "63095"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 4
+    },
+    {
+      "numero_objetivo": "3224825567",
+      "operador": "CLARO",
+      "ocurrencias": 4,
+      "primera_deteccion": "2021-05-20 12:27:04",
+      "ultima_deteccion": "2021-05-20 12:35:20",
+      "celdas_relacionadas": [
+        "22504",
+        "48565",
+        "51438",
+        "6159"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 4
+    },
+    {
+      "numero_objetivo": "12712020",
+      "operador": "CLARO",
+      "ocurrencias": 3,
+      "primera_deteccion": "2021-05-20 10:02:25",
+      "ultima_deteccion": "2021-05-20 10:44:17",
+      "celdas_relacionadas": [
+        "53591",
+        "53594",
+        "54845"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 3
+    },
+    {
+      "numero_objetivo": "19118909",
+      "operador": "CLARO",
+      "ocurrencias": 3,
+      "primera_deteccion": "2021-05-20 12:17:31",
+      "ultima_deteccion": "2021-05-20 13:57:56",
+      "celdas_relacionadas": [
+        "22504",
+        "56124",
+        "6314"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 3
+    },
+    {
+      "numero_objetivo": "3009109947",
+      "operador": "CLARO",
+      "ocurrencias": 3,
+      "primera_deteccion": "2021-05-20 10:20:06",
+      "ultima_deteccion": "2021-05-20 13:44:53",
+      "celdas_relacionadas": [
+        "14670",
+        "16040",
+        "58659"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 3
+    },
+    {
+      "numero_objetivo": "3024053985",
+      "operador": "CLARO",
+      "ocurrencias": 3,
+      "primera_deteccion": "2021-05-20 12:38:25",
+      "ultima_deteccion": "2021-05-20 12:49:49",
+      "celdas_relacionadas": [
+        "22504",
+        "22506",
+        "56124"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 3
+    },
+    {
+      "numero_objetivo": "3057793520",
+      "operador": "CLARO",
+      "ocurrencias": 3,
+      "primera_deteccion": "2021-05-20 12:24:01",
+      "ultima_deteccion": "2021-05-20 12:30:41",
+      "celdas_relacionadas": [
+        "16478",
+        "16479",
+        "51438"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 3
+    },
+    {
+      "numero_objetivo": "3103036409",
+      "operador": "CLARO",
+      "ocurrencias": 3,
+      "primera_deteccion": "2021-05-20 12:16:08",
+      "ultima_deteccion": "2021-05-20 13:18:31",
+      "celdas_relacionadas": [
+        "22504",
+        "51438",
+        "51439"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 3
+    },
+    {
+      "numero_objetivo": "3103164403",
+      "operador": "CLARO",
+      "ocurrencias": 3,
+      "primera_deteccion": "2021-05-20 12:00:24",
+      "ultima_deteccion": "2021-05-20 13:21:27",
+      "celdas_relacionadas": [
+        "22504",
+        "51438",
+        "6578"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 3
+    },
+    {
+      "numero_objetivo": "3107598140",
+      "operador": "CLARO",
+      "ocurrencias": 3,
+      "primera_deteccion": "2021-05-20 12:28:45",
+      "ultima_deteccion": "2021-05-20 13:48:04",
+      "celdas_relacionadas": [
+        "22504",
+        "51276",
+        "51438"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 3
+    },
+    {
+      "numero_objetivo": "3113330727",
+      "operador": "CLARO",
+      "ocurrencias": 3,
+      "primera_deteccion": "2021-05-20 12:30:31",
+      "ultima_deteccion": "2021-05-20 13:08:43",
+      "celdas_relacionadas": [
+        "22504",
+        "51438",
+        "64065"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 3
+    },
+    {
+      "numero_objetivo": "3114940770",
+      "operador": "CLARO",
+      "ocurrencias": 3,
+      "primera_deteccion": "2021-05-20 12:01:51",
+      "ultima_deteccion": "2021-05-20 12:06:26",
+      "celdas_relacionadas": [
+        "22300",
+        "22504",
+        "56124"
+      ],
+      "nivel_confianza": 95.0,
+      "strategy": "DynamicCorrected_v2.0",
+      "total_celdas_unicas": 3
+    }
+  ]
+}

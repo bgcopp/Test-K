@@ -1,0 +1,180 @@
+{
+  "config": {
+    "configFile": "C:\\Soluciones\\BGC\\claude\\KNSOft\\playwright-certification.config.ts",
+    "rootDir": "C:/Soluciones/BGC/claude/KNSOft/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "test-results/certification-html-report"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results/certification-results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Soluciones/BGC/claude/KNSOft/test-results/certification-artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "certification-chrome",
+        "name": "certification-chrome",
+        "testDir": "C:/Soluciones/BGC/claude/KNSOft/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/target-numbers-final-certification.spec.ts"
+        ],
+        "timeout": 300000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.54.2",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "target-numbers-final-certification.spec.ts",
+      "file": "target-numbers-final-certification.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Certificación Final - Números Objetivo",
+          "file": "target-numbers-final-certification.spec.ts",
+          "line": 37,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Debe encontrar todos los números objetivo en la UI de KRONOS",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 300000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "certification-chrome",
+                  "projectName": "certification-chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 64844,
+                      "error": {
+                        "message": "TimeoutError: page.fill: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[type=\"text\"]')\u001b[22m\n",
+                        "stack": "TimeoutError: page.fill: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[type=\"text\"]')\u001b[22m\n\n    at C:\\Soluciones\\BGC\\claude\\KNSOft\\tests\\target-numbers-final-certification.spec.ts:61:24",
+                        "location": {
+                          "file": "C:\\Soluciones\\BGC\\claude\\KNSOft\\tests\\target-numbers-final-certification.spec.ts",
+                          "column": 24,
+                          "line": 61
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 59 |\u001b[39m         \u001b[36mif\u001b[39m (isLoginPage) {\n \u001b[90m 60 |\u001b[39m             console\u001b[33m.\u001b[39mlog(\u001b[32m'🔐 Realizando login...'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 61 |\u001b[39m             \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mfill(\u001b[32m'input[type=\"text\"]'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'admin'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 62 |\u001b[39m             \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mfill(\u001b[32m'input[type=\"password\"]'\u001b[39m\u001b[33m,\u001b[39m \u001b[32m'admin123'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 63 |\u001b[39m             \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mclick(\u001b[32m'button[type=\"submit\"]'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 64 |\u001b[39m             \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Soluciones\\BGC\\claude\\KNSOft\\tests\\target-numbers-final-certification.spec.ts",
+                            "column": 24,
+                            "line": 61
+                          },
+                          "message": "TimeoutError: page.fill: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[type=\"text\"]')\u001b[22m\n\n\n  59 |         if (isLoginPage) {\n  60 |             console.log('🔐 Realizando login...');\n> 61 |             await page.fill('input[type=\"text\"]', 'admin');\n     |                        ^\n  62 |             await page.fill('input[type=\"password\"]', 'admin123');\n  63 |             await page.click('button[type=\"submit\"]');\n  64 |             await page.waitForLoadState('networkidle');\n    at C:\\Soluciones\\BGC\\claude\\KNSOft\\tests\\target-numbers-final-certification.spec.ts:61:24"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🚀 Iniciando certificación final de números objetivo...\n"
+                        },
+                        {
+                          "text": "📱 PASO 1: Navegando a KRONOS...\n"
+                        },
+                        {
+                          "text": "✅ Aplicación KRONOS iniciada correctamente\n"
+                        },
+                        {
+                          "text": "🔐 Realizando login...\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-17T16:50:48.251Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\test-results\\certification-artifacts\\target-numbers-final-certi-3a1bf-objetivo-en-la-UI-de-KRONOS-certification-chrome\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\test-results\\certification-artifacts\\target-numbers-final-certi-3a1bf-objetivo-en-la-UI-de-KRONOS-certification-chrome\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\test-results\\certification-artifacts\\target-numbers-final-certi-3a1bf-objetivo-en-la-UI-de-KRONOS-certification-chrome\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Soluciones\\BGC\\claude\\KNSOft\\tests\\target-numbers-final-certification.spec.ts",
+                        "column": 24,
+                        "line": 61
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "033f1bbc2f2dfe5eb472-3b286aebbf0194b16f69",
+              "file": "target-numbers-final-certification.spec.ts",
+              "line": 47,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-08-17T16:50:47.540Z",
+    "duration": 66042.00899999999,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

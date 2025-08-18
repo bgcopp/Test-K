@@ -1,0 +1,452 @@
+{
+  "analysis_timestamp": "2025-08-18T05:48:11.502261",
+  "target_number": "3143534707",
+  "expected_cells": [
+    "53591",
+    "51438",
+    "56124",
+    "51203"
+  ],
+  "files_analyzed": [
+    {
+      "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+      "file_name": "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+      "sheets": [
+        {
+          "name": "XDR",
+          "max_row": 1,
+          "max_col": 1,
+          "headers": [
+            "celda_inicio_llamada"
+          ],
+          "has_data": false
+        }
+      ],
+      "total_rows": 1,
+      "structure_analysis": true
+    },
+    {
+      "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+      "file_name": "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+      "sheets": [
+        {
+          "name": "XDR",
+          "max_row": 1,
+          "max_col": 1,
+          "headers": [
+            "celda_inicio_llamada"
+          ],
+          "has_data": false
+        }
+      ],
+      "total_rows": 1,
+      "structure_analysis": true
+    },
+    {
+      "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+      "file_name": "2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+      "sheets": [
+        {
+          "name": "XDR",
+          "max_row": 1,
+          "max_col": 1,
+          "headers": [
+            "celda_inicio_llamada"
+          ],
+          "has_data": false
+        }
+      ],
+      "total_rows": 1,
+      "structure_analysis": true
+    },
+    {
+      "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+      "file_name": "2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+      "sheets": [
+        {
+          "name": "XDR",
+          "max_row": 1,
+          "max_col": 1,
+          "headers": [
+            "celda_inicio_llamada"
+          ],
+          "has_data": false
+        }
+      ],
+      "total_rows": 1,
+      "structure_analysis": true
+    }
+  ],
+  "findings": [
+    {
+      "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+      "file_name": "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+      "number_found": true,
+      "occurrences": [
+        {
+          "sheet": "XDR",
+          "row": 116,
+          "column": "originador",
+          "pattern_found": "3143534707",
+          "cell_value": "3143534707",
+          "cell_id": null,
+          "full_row_data": {
+            "celda_inicio_llamada": "53591",
+            "celda_final_llamada": "51203",
+            "originador": "3143534707",
+            "receptor": "3208611034",
+            "fecha_hora": "2021-05-20 10:16:19",
+            "duracion": "48",
+            "tipo": "CDR_ENTRANTE"
+          }
+        }
+      ],
+      "cells_with_number": [],
+      "total_matches": 1,
+      "search_successful": true
+    },
+    {
+      "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+      "file_name": "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+      "number_found": true,
+      "occurrences": [
+        {
+          "sheet": "XDR",
+          "row": 302,
+          "column": "receptor",
+          "pattern_found": "3143534707",
+          "cell_value": "3143534707",
+          "cell_id": null,
+          "full_row_data": {
+            "celda_inicio_llamada": "53591",
+            "celda_final_llamada": "53591",
+            "originador": "3224274851",
+            "receptor": "3143534707",
+            "fecha_hora": "2021-05-20 10:08:41",
+            "duracion": "42",
+            "tipo": "CDR_SALIENTE"
+          }
+        }
+      ],
+      "cells_with_number": [],
+      "total_matches": 1,
+      "search_successful": true
+    },
+    {
+      "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+      "file_name": "2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+      "number_found": true,
+      "occurrences": [
+        {
+          "sheet": "XDR",
+          "row": 1061,
+          "column": "originador",
+          "pattern_found": "3143534707",
+          "cell_value": "3143534707",
+          "cell_id": null,
+          "full_row_data": {
+            "celda_inicio_llamada": "51438",
+            "celda_final_llamada": "51438",
+            "originador": "3143534707",
+            "receptor": "3224274851",
+            "fecha_hora": "2021-05-20 12:17:14",
+            "duracion": "27",
+            "tipo": "CDR_ENTRANTE"
+          }
+        },
+        {
+          "sheet": "XDR",
+          "row": 1533,
+          "column": "receptor",
+          "pattern_found": "3143534707",
+          "cell_value": "3143534707",
+          "cell_id": null,
+          "full_row_data": {
+            "celda_inicio_llamada": "2523",
+            "celda_final_llamada": "56124",
+            "originador": "3214161903",
+            "receptor": "3143534707",
+            "fecha_hora": "2021-05-20 12:09:51",
+            "duracion": "54",
+            "tipo": "CDR_ENTRANTE"
+          }
+        },
+        {
+          "sheet": "XDR",
+          "row": 1595,
+          "column": "receptor",
+          "pattern_found": "3143534707",
+          "cell_value": "3143534707",
+          "cell_id": null,
+          "full_row_data": {
+            "celda_inicio_llamada": "56124",
+            "celda_final_llamada": "56124",
+            "originador": "3224274851",
+            "receptor": "3143534707",
+            "fecha_hora": "2021-05-20 13:00:35",
+            "duracion": "59",
+            "tipo": "CDR_ENTRANTE"
+          }
+        },
+        {
+          "sheet": "XDR",
+          "row": 1602,
+          "column": "receptor",
+          "pattern_found": "3143534707",
+          "cell_value": "3143534707",
+          "cell_id": null,
+          "full_row_data": {
+            "celda_inicio_llamada": "63095",
+            "celda_final_llamada": "56124",
+            "originador": "3224274851",
+            "receptor": "3143534707",
+            "fecha_hora": "2021-05-20 13:02:43",
+            "duracion": "42",
+            "tipo": "CDR_ENTRANTE"
+          }
+        },
+        {
+          "sheet": "XDR",
+          "row": 1620,
+          "column": "receptor",
+          "pattern_found": "3143534707",
+          "cell_value": "3143534707",
+          "cell_id": null,
+          "full_row_data": {
+            "celda_inicio_llamada": "56124",
+            "celda_final_llamada": "56124",
+            "originador": "3102715509",
+            "receptor": "3143534707",
+            "fecha_hora": "2021-05-20 13:11:40",
+            "duracion": "27",
+            "tipo": "CDR_ENTRANTE"
+          }
+        },
+        {
+          "sheet": "XDR",
+          "row": 1636,
+          "column": "receptor",
+          "pattern_found": "3143534707",
+          "cell_value": "3143534707",
+          "cell_id": null,
+          "full_row_data": {
+            "celda_inicio_llamada": "63095",
+            "celda_final_llamada": "56124",
+            "originador": "3208611034",
+            "receptor": "3143534707",
+            "fecha_hora": "2021-05-20 13:21:53",
+            "duracion": "39",
+            "tipo": "CDR_ENTRANTE"
+          }
+        }
+      ],
+      "cells_with_number": [],
+      "total_matches": 6,
+      "search_successful": true
+    },
+    {
+      "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+      "file_name": "2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+      "number_found": true,
+      "occurrences": [
+        {
+          "sheet": "XDR",
+          "row": 1440,
+          "column": "receptor",
+          "pattern_found": "3143534707",
+          "cell_value": "3143534707",
+          "cell_id": null,
+          "full_row_data": {
+            "celda_inicio_llamada": "56124",
+            "celda_final_llamada": "56124",
+            "originador": "3102715509",
+            "receptor": "3143534707",
+            "fecha_hora": "2021-05-20 13:14:03",
+            "duracion": "48",
+            "tipo": "CDR_SALIENTE"
+          }
+        }
+      ],
+      "cells_with_number": [],
+      "total_matches": 1,
+      "search_successful": true
+    }
+  ],
+  "summary": {
+    "total_occurrences": 9,
+    "cells_found": [],
+    "files_with_number": 4,
+    "verification_status": "DISCREPANCY_DETECTED"
+  },
+  "cell_verification": {
+    "expected_cells": [
+      "53591",
+      "51438",
+      "56124",
+      "51203"
+    ],
+    "found_cells": [],
+    "matching_cells": [],
+    "missing_cells": [
+      "53591",
+      "51203",
+      "56124",
+      "51438"
+    ],
+    "extra_cells": [],
+    "exact_match": false,
+    "partial_match": false,
+    "match_percentage": 0.0
+  },
+  "database_status": {
+    "database_accessible": true,
+    "operator_records": [
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "numero_origen": "3102715509",
+        "numero_destino": "3143534707",
+        "celda_origen": "56124",
+        "celda_destino": "56124",
+        "operator": "CLARO",
+        "fecha_hora_llamada": "2021-05-20 13:11:40",
+        "duracion_segundos": 27
+      },
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "numero_origen": "3143534707",
+        "numero_destino": "3102715509",
+        "celda_origen": "16041",
+        "celda_destino": "16040",
+        "operator": "CLARO",
+        "fecha_hora_llamada": "2024-08-15 14:45:00",
+        "duracion_segundos": 0
+      },
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "numero_origen": "3143534707",
+        "numero_destino": "3208611034",
+        "celda_origen": "53591",
+        "celda_destino": "51203",
+        "operator": "CLARO",
+        "fecha_hora_llamada": "2021-05-20 10:16:19",
+        "duracion_segundos": 48
+      },
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "numero_origen": "3143534707",
+        "numero_destino": "3224274851",
+        "celda_origen": "51438",
+        "celda_destino": "51438",
+        "operator": "CLARO",
+        "fecha_hora_llamada": "2021-05-20 12:17:14",
+        "duracion_segundos": 27
+      },
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "numero_origen": "3208611034",
+        "numero_destino": "3143534707",
+        "celda_origen": "63095",
+        "celda_destino": "56124",
+        "operator": "CLARO",
+        "fecha_hora_llamada": "2021-05-20 13:21:53",
+        "duracion_segundos": 39
+      },
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "numero_origen": "3214161903",
+        "numero_destino": "3143534707",
+        "celda_origen": "2523",
+        "celda_destino": "56124",
+        "operator": "CLARO",
+        "fecha_hora_llamada": "2021-05-20 12:09:51",
+        "duracion_segundos": 54
+      },
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "numero_origen": "3224274851",
+        "numero_destino": "3143534707",
+        "celda_origen": "56124",
+        "celda_destino": "56124",
+        "operator": "CLARO",
+        "fecha_hora_llamada": "2021-05-20 13:00:35",
+        "duracion_segundos": 59
+      },
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "numero_origen": "3224274851",
+        "numero_destino": "3143534707",
+        "celda_origen": "63095",
+        "celda_destino": "56124",
+        "operator": "CLARO",
+        "fecha_hora_llamada": "2021-05-20 13:02:43",
+        "duracion_segundos": 42
+      }
+    ],
+    "cellular_records": [
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "cell_id": "51203",
+        "operator": "CLARO",
+        "tecnologia": "UMTS",
+        "lat": 4.6108,
+        "lon": -74.10912,
+        "rssi": -122,
+        "created_at": "2025-08-18 07:41:52"
+      },
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "cell_id": "51438",
+        "operator": "CLARO",
+        "tecnologia": "UMTS",
+        "lat": 4.55038,
+        "lon": -74.13705,
+        "rssi": -55,
+        "created_at": "2025-08-18 07:41:52"
+      },
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "cell_id": "53591",
+        "operator": "CLARO",
+        "tecnologia": "UMTS",
+        "lat": 4.6108,
+        "lon": -74.10912,
+        "rssi": -121,
+        "created_at": "2025-08-18 07:41:52"
+      },
+      {
+        "mission_id": "mission_MPFRBNsb",
+        "cell_id": "56124",
+        "operator": "CLARO",
+        "tecnologia": "GSM",
+        "lat": 4.55038,
+        "lon": -74.13705,
+        "rssi": -73,
+        "created_at": "2025-08-18 07:41:52"
+      }
+    ],
+    "total_operator_matches": 8,
+    "total_cellular_matches": 4,
+    "cells_in_operator_data": [
+      "2523",
+      "51438",
+      "63095",
+      "16041",
+      "51203",
+      "53591",
+      "56124",
+      "16040"
+    ],
+    "verification_successful": true
+  },
+  "diagnosis": {
+    "timestamp": "2025-08-18T05:48:12.341308",
+    "critical_findings": [
+      "Las celdas encontradas NO coinciden exactamente con las esperadas por Boris"
+    ],
+    "recommendations": [],
+    "algorithm_issues": [
+      "Falla en identificación correcta de celdas objetivo"
+    ],
+    "data_integrity_status": "UNKNOWN"
+  }
+}

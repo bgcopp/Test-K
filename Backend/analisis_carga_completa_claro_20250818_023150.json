@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-08-18T02:31:50.515324",
+  "analisis_tipo": "Carga Completa CLARO - Debug",
+  "archivos_analizados": [
+    "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+    "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+    "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+    "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx"
+  ],
+  "registros_excel_total": 5611,
+  "registros_bd_actual": 3391,
+  "diferencia": 2220,
+  "porcentaje_cargado": 60.43,
+  "archivos_detalle": {
+    "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx": {
+      "registros": 973,
+      "columnas": [
+        "celda_inicio_llamada",
+        "celda_final_llamada",
+        "originador",
+        "receptor",
+        "fecha_hora",
+        "duracion",
+        "tipo"
+      ],
+      "numeros_objetivo": [],
+      "muestra": [
+        {
+          "celda_inicio_llamada": 20264,
+          "celda_final_llamada": 20264,
+          "originador": 3213639847,
+          "receptor": 3132825038,
+          "fecha_hora": 

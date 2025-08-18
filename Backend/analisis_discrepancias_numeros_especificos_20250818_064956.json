@@ -1,0 +1,819 @@
+{
+  "analysis_timestamp": "2025-08-18T06:49:53.811915",
+  "numbers_analyzed": [
+    "3243182028",
+    "3009120093",
+    "3124390973"
+  ],
+  "files_examined": [
+    {
+      "file": "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+      "analyzed_for_number": "3243182028",
+      "success": true
+    },
+    {
+      "file": "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+      "analyzed_for_number": "3243182028",
+      "success": true
+    },
+    {
+      "file": "2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+      "analyzed_for_number": "3243182028",
+      "success": true
+    },
+    {
+      "file": "2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+      "analyzed_for_number": "3243182028",
+      "success": true
+    },
+    {
+      "file": "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+      "analyzed_for_number": "3009120093",
+      "success": true
+    },
+    {
+      "file": "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+      "analyzed_for_number": "3009120093",
+      "success": true
+    },
+    {
+      "file": "2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+      "analyzed_for_number": "3009120093",
+      "success": true
+    },
+    {
+      "file": "2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+      "analyzed_for_number": "3009120093",
+      "success": true
+    },
+    {
+      "file": "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+      "analyzed_for_number": "3124390973",
+      "success": true
+    },
+    {
+      "file": "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+      "analyzed_for_number": "3124390973",
+      "success": true
+    },
+    {
+      "file": "2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+      "analyzed_for_number": "3124390973",
+      "success": true
+    },
+    {
+      "file": "2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+      "analyzed_for_number": "3124390973",
+      "success": true
+    }
+  ],
+  "source_data_findings": {
+    "3243182028": {
+      "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+        "file_name": "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+        "number_found": false,
+        "total_occurrences": 0,
+        "detailed_occurrences": [],
+        "cells_found": [],
+        "patterns_found": [],
+        "excel_references": [],
+        "analysis_successful": true
+      },
+      "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+        "file_name": "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+        "number_found": false,
+        "total_occurrences": 0,
+        "detailed_occurrences": [],
+        "cells_found": [],
+        "patterns_found": [],
+        "excel_references": [],
+        "analysis_successful": true
+      },
+      "2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+        "file_name": "2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+        "number_found": true,
+        "total_occurrences": 5,
+        "detailed_occurrences": [
+          {
+            "sheet": "XDR",
+            "excel_row": 473,
+            "excel_reference": "XDR!originador473",
+            "column_found": "originador",
+            "pattern_matched": "3243182028",
+            "cell_value": "3243182028",
+            "relevant_cell": "16478",
+            "role": "originador",
+            "celda_inicio": "16478",
+            "celda_final": "16478",
+            "originador": "3243182028",
+            "receptor": "573103681979",
+            "fecha_hora": "2021-05-20 13:06:40",
+            "full_row": {
+              "celda_inicio_llamada": "16478",
+              "celda_final_llamada": "16478",
+              "originador": "3243182028",
+              "receptor": "573103681979",
+              "fecha_hora": "2021-05-20 13:06:40",
+              "duracion": "5",
+              "tipo": "CDR_ENTRANTE"
+            }
+          },
+          {
+            "sheet": "XDR",
+            "excel_row": 834,
+            "excel_reference": "XDR!originador834",
+            "column_found": "originador",
+            "pattern_matched": "3243182028",
+            "cell_value": "3243182028",
+            "relevant_cell": "22504",
+            "role": "originador",
+            "celda_inicio": "22504",
+            "celda_final": "22504",
+            "originador": "3243182028",
+            "receptor": "573106096815",
+            "fecha_hora": "2021-05-20 13:10:48",
+            "full_row": {
+              "celda_inicio_llamada": "22504",
+              "celda_final_llamada": "22504",
+              "originador": "3243182028",
+              "receptor": "573106096815",
+              "fecha_hora": "2021-05-20 13:10:48",
+              "duracion": "39",
+              "tipo": "CDR_ENTRANTE"
+            }
+          },
+          {
+            "sheet": "XDR",
+            "excel_row": 906,
+            "excel_reference": "XDR!originador906",
+            "column_found": "originador",
+            "pattern_matched": "3243182028",
+            "cell_value": "3243182028",
+            "relevant_cell": "22504",
+            "role": "originador",
+            "celda_inicio": "22504",
+            "celda_final": "22504",
+            "originador": "3243182028",
+            "receptor": "573125434533",
+            "fecha_hora": "2021-05-20 13:36:03",
+            "full_row": {
+              "celda_inicio_llamada": "22504",
+              "celda_final_llamada": "22504",
+              "originador": "3243182028",
+              "receptor": "573125434533",
+              "fecha_hora": "2021-05-20 13:36:03",
+              "duracion": "12",
+              "tipo": "CDR_ENTRANTE"
+            }
+          },
+          {
+            "sheet": "XDR",
+            "excel_row": 1313,
+            "excel_reference": "XDR!originador1313",
+            "column_found": "originador",
+            "pattern_matched": "3243182028",
+            "cell_value": "3243182028",
+            "relevant_cell": "6159",
+            "role": "originador",
+            "celda_inicio": "6159",
+            "celda_final": "51438",
+            "originador": "3243182028",
+            "receptor": "573107798557",
+            "fecha_hora": "2021-05-20 13:13:25",
+            "full_row": {
+              "celda_inicio_llamada": "6159",
+              "celda_final_llamada": "51438",
+              "originador": "3243182028",
+              "receptor": "573107798557",
+              "fecha_hora": "2021-05-20 13:13:25",
+              "duracion": "8",
+              "tipo": "CDR_ENTRANTE"
+            }
+          },
+          {
+            "sheet": "XDR",
+            "excel_row": 1407,
+            "excel_reference": "XDR!originador1407",
+            "column_found": "originador",
+            "pattern_matched": "3243182028",
+            "cell_value": "3243182028",
+            "relevant_cell": "6578",
+            "role": "originador",
+            "celda_inicio": "6578",
+            "celda_final": "51438",
+            "originador": "3243182028",
+            "receptor": "573123558221",
+            "fecha_hora": "2021-05-20 13:32:12",
+            "full_row": {
+              "celda_inicio_llamada": "6578",
+              "celda_final_llamada": "51438",
+              "originador": "3243182028",
+              "receptor": "573123558221",
+              "fecha_hora": "2021-05-20 13:32:12",
+              "duracion": "9",
+              "tipo": "CDR_ENTRANTE"
+            }
+          }
+        ],
+        "cells_found": [
+          "6578",
+          "22504",
+          "16478",
+          "6159"
+        ],
+        "patterns_found": [
+          "3243182028"
+        ],
+        "excel_references": [
+          "XDR!originador473",
+          "XDR!originador834",
+          "XDR!originador906",
+          "XDR!originador1313",
+          "XDR!originador1407"
+        ],
+        "analysis_successful": true
+      },
+      "2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+        "file_name": "2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+        "number_found": false,
+        "total_occurrences": 0,
+        "detailed_occurrences": [],
+        "cells_found": [],
+        "patterns_found": [],
+        "excel_references": [],
+        "analysis_successful": true
+      }
+    },
+    "3009120093": {
+      "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+        "file_name": "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+        "number_found": false,
+        "total_occurrences": 0,
+        "detailed_occurrences": [],
+        "cells_found": [],
+        "patterns_found": [],
+        "excel_references": [],
+        "analysis_successful": true
+      },
+      "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+        "file_name": "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+        "number_found": false,
+        "total_occurrences": 0,
+        "detailed_occurrences": [],
+        "cells_found": [],
+        "patterns_found": [],
+        "excel_references": [],
+        "analysis_successful": true
+      },
+      "2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+        "file_name": "2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+        "number_found": true,
+        "total_occurrences": 2,
+        "detailed_occurrences": [
+          {
+            "sheet": "XDR",
+            "excel_row": 1159,
+            "excel_reference": "XDR!originador1159",
+            "column_found": "originador",
+            "pattern_matched": "3009120093",
+            "cell_value": "3009120093",
+            "relevant_cell": "22504",
+            "role": "originador",
+            "celda_inicio": "22504",
+            "celda_final": "51438",
+            "originador": "3009120093",
+            "receptor": "573143067409",
+            "fecha_hora": "2021-05-20 12:40:10",
+            "full_row": {
+              "celda_inicio_llamada": "22504",
+              "celda_final_llamada": "51438",
+              "originador": "3009120093",
+              "receptor": "573143067409",
+              "fecha_hora": "2021-05-20 12:40:10",
+              "duracion": "999",
+              "tipo": "CDR_ENTRANTE"
+            }
+          },
+          {
+            "sheet": "XDR",
+            "excel_row": 1575,
+            "excel_reference": "XDR!originador1575",
+            "column_found": "originador",
+            "pattern_matched": "3009120093",
+            "cell_value": "3009120093",
+            "relevant_cell": "56121",
+            "role": "originador",
+            "celda_inicio": "56121",
+            "celda_final": "56124",
+            "originador": "3009120093",
+            "receptor": "573142071141",
+            "fecha_hora": "2021-05-20 12:45:20",
+            "full_row": {
+              "celda_inicio_llamada": "56121",
+              "celda_final_llamada": "56124",
+              "originador": "3009120093",
+              "receptor": "573142071141",
+              "fecha_hora": "2021-05-20 12:45:20",
+              "duracion": "115",
+              "tipo": "CDR_ENTRANTE"
+            }
+          }
+        ],
+        "cells_found": [
+          "22504",
+          "56121"
+        ],
+        "patterns_found": [
+          "3009120093"
+        ],
+        "excel_references": [
+          "XDR!originador1159",
+          "XDR!originador1575"
+        ],
+        "analysis_successful": true
+      },
+      "2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+        "file_name": "2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+        "number_found": false,
+        "total_occurrences": 0,
+        "detailed_occurrences": [],
+        "cells_found": [],
+        "patterns_found": [],
+        "excel_references": [],
+        "analysis_successful": true
+      }
+    },
+    "3124390973": {
+      "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+        "file_name": "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+        "number_found": false,
+        "total_occurrences": 0,
+        "detailed_occurrences": [],
+        "cells_found": [],
+        "patterns_found": [],
+        "excel_references": [],
+        "analysis_successful": true
+      },
+      "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+        "file_name": "1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+        "number_found": false,
+        "total_occurrences": 0,
+        "detailed_occurrences": [],
+        "cells_found": [],
+        "patterns_found": [],
+        "excel_references": [],
+        "analysis_successful": true
+      },
+      "2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+        "file_name": "2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+        "number_found": true,
+        "total_occurrences": 1,
+        "detailed_occurrences": [
+          {
+            "sheet": "XDR",
+            "excel_row": 930,
+            "excel_reference": "XDR!originador930",
+            "column_found": "originador",
+            "pattern_matched": "3124390973",
+            "cell_value": "3124390973",
+            "relevant_cell": "22504",
+            "role": "originador",
+            "celda_inicio": "22504",
+            "celda_final": "22504",
+            "originador": "3124390973",
+            "receptor": "3124092058",
+            "fecha_hora": "2021-05-20 13:47:00",
+            "full_row": {
+              "celda_inicio_llamada": "22504",
+              "celda_final_llamada": "22504",
+              "originador": "3124390973",
+              "receptor": "3124092058",
+              "fecha_hora": "2021-05-20 13:47:00",
+              "duracion": "23",
+              "tipo": "CDR_ENTRANTE"
+            }
+          }
+        ],
+        "cells_found": [
+          "22504"
+        ],
+        "patterns_found": [
+          "3124390973"
+        ],
+        "excel_references": [
+          "XDR!originador930"
+        ],
+        "analysis_successful": true
+      },
+      "2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx": {
+        "file_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+        "file_name": "2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+        "number_found": true,
+        "total_occurrences": 3,
+        "detailed_occurrences": [
+          {
+            "sheet": "XDR",
+            "excel_row": 1272,
+            "excel_reference": "XDR!originador1272",
+            "column_found": "originador",
+            "pattern_matched": "3124390973",
+            "cell_value": "3124390973",
+            "relevant_cell": "51438",
+            "role": "originador",
+            "celda_inicio": "51438",
+            "celda_final": "52356",
+            "originador": "3124390973",
+            "receptor": "3208325670",
+            "fecha_hora": "2021-05-20 13:30:02",
+            "full_row": {
+              "celda_inicio_llamada": "51438",
+              "celda_final_llamada": "52356",
+              "originador": "3124390973",
+              "receptor": "3208325670",
+              "fecha_hora": "2021-05-20 13:30:02",
+              "duracion": "69",
+              "tipo": "CDR_SALIENTE"
+            }
+          },
+          {
+            "sheet": "XDR",
+            "excel_row": 1299,
+            "excel_reference": "XDR!originador1299",
+            "column_found": "originador",
+            "pattern_matched": "3124390973",
+            "cell_value": "573124390973",
+            "relevant_cell": "51438",
+            "role": "originador",
+            "celda_inicio": "51438",
+            "celda_final": "6578",
+            "originador": "573124390973",
+            "receptor": "3057066104",
+            "fecha_hora": "2021-05-20 13:37:05",
+            "full_row": {
+              "celda_inicio_llamada": "51438",
+              "celda_final_llamada": "6578",
+              "originador": "573124390973",
+              "receptor": "3057066104",
+              "fecha_hora": "2021-05-20 13:37:05",
+              "duracion": "497",
+              "tipo": "CDR_SALIENTE"
+            }
+          },
+          {
+            "sheet": "XDR",
+            "excel_row": 1299,
+            "excel_reference": "XDR!originador1299",
+            "column_found": "originador",
+            "pattern_matched": "573124390973",
+            "cell_value": "573124390973",
+            "relevant_cell": "51438",
+            "role": "originador",
+            "celda_inicio": "51438",
+            "celda_final": "6578",
+            "originador": "573124390973",
+            "receptor": "3057066104",
+            "fecha_hora": "2021-05-20 13:37:05",
+            "full_row": {
+              "celda_inicio_llamada": "51438",
+              "celda_final_llamada": "6578",
+              "originador": "573124390973",
+              "receptor": "3057066104",
+              "fecha_hora": "2021-05-20 13:37:05",
+              "duracion": "497",
+              "tipo": "CDR_SALIENTE"
+            }
+          }
+        ],
+        "cells_found": [
+          "51438"
+        ],
+        "patterns_found": [
+          "573124390973",
+          "3124390973"
+        ],
+        "excel_references": [
+          "XDR!originador1272",
+          "XDR!originador1299",
+          "XDR!originador1299"
+        ],
+        "analysis_successful": true
+      }
+    }
+  },
+  "database_findings": {
+    "3243182028": {
+      "number": "3243182028",
+      "database_accessible": true,
+      "total_records": 5,
+      "records_as_origin": 5,
+      "records_as_destination": 0,
+      "cells_as_origin": [
+        "6578",
+        "22504",
+        "16478",
+        "6159"
+      ],
+      "cells_as_destination": [],
+      "detailed_records": [
+        {
+          "mission_id": "mission_MPFRBNsb",
+          "numero_origen": "3243182028",
+          "numero_destino": "3103681979",
+          "celda_origen": "16478",
+          "celda_destino": "16478",
+          "operator": "CLARO",
+          "fecha_hora_llamada": "2021-05-20 13:06:40",
+          "duracion_segundos": 5,
+          "role": "origin"
+        },
+        {
+          "mission_id": "mission_MPFRBNsb",
+          "numero_origen": "3243182028",
+          "numero_destino": "3106096815",
+          "celda_origen": "22504",
+          "celda_destino": "22504",
+          "operator": "CLARO",
+          "fecha_hora_llamada": "2021-05-20 13:10:48",
+          "duracion_segundos": 39,
+          "role": "origin"
+        },
+        {
+          "mission_id": "mission_MPFRBNsb",
+          "numero_origen": "3243182028",
+          "numero_destino": "3125434533",
+          "celda_origen": "22504",
+          "celda_destino": "22504",
+          "operator": "CLARO",
+          "fecha_hora_llamada": "2021-05-20 13:36:03",
+          "duracion_segundos": 12,
+          "role": "origin"
+        },
+        {
+          "mission_id": "mission_MPFRBNsb",
+          "numero_origen": "3243182028",
+          "numero_destino": "3107798557",
+          "celda_origen": "6159",
+          "celda_destino": "51438",
+          "operator": "CLARO",
+          "fecha_hora_llamada": "2021-05-20 13:13:25",
+          "duracion_segundos": 8,
+          "role": "origin"
+        },
+        {
+          "mission_id": "mission_MPFRBNsb",
+          "numero_origen": "3243182028",
+          "numero_destino": "3123558221",
+          "celda_origen": "6578",
+          "celda_destino": "51438",
+          "operator": "CLARO",
+          "fecha_hora_llamada": "2021-05-20 13:32:12",
+          "duracion_segundos": 9,
+          "role": "origin"
+        }
+      ],
+      "analysis_successful": true
+    },
+    "3009120093": {
+      "number": "3009120093",
+      "database_accessible": true,
+      "total_records": 2,
+      "records_as_origin": 2,
+      "records_as_destination": 0,
+      "cells_as_origin": [
+        "22504",
+        "56121"
+      ],
+      "cells_as_destination": [],
+      "detailed_records": [
+        {
+          "mission_id": "mission_MPFRBNsb",
+          "numero_origen": "3009120093",
+          "numero_destino": "3143067409",
+          "celda_origen": "22504",
+          "celda_destino": "51438",
+          "operator": "CLARO",
+          "fecha_hora_llamada": "2021-05-20 12:40:10",
+          "duracion_segundos": 999,
+          "role": "origin"
+        },
+        {
+          "mission_id": "mission_MPFRBNsb",
+          "numero_origen": "3009120093",
+          "numero_destino": "3142071141",
+          "celda_origen": "56121",
+          "celda_destino": "56124",
+          "operator": "CLARO",
+          "fecha_hora_llamada": "2021-05-20 12:45:20",
+          "duracion_segundos": 115,
+          "role": "origin"
+        }
+      ],
+      "analysis_successful": true
+    },
+    "3124390973": {
+      "number": "3124390973",
+      "database_accessible": true,
+      "total_records": 3,
+      "records_as_origin": 3,
+      "records_as_destination": 0,
+      "cells_as_origin": [
+        "22504",
+        "51438"
+      ],
+      "cells_as_destination": [],
+      "detailed_records": [
+        {
+          "mission_id": "mission_MPFRBNsb",
+          "numero_origen": "3124390973",
+          "numero_destino": "3124092058",
+          "celda_origen": "22504",
+          "celda_destino": "22504",
+          "operator": "CLARO",
+          "fecha_hora_llamada": "2021-05-20 13:47:00",
+          "duracion_segundos": 23,
+          "role": "origin"
+        },
+        {
+          "mission_id": "mission_MPFRBNsb",
+          "numero_origen": "3124390973",
+          "numero_destino": "3208325670",
+          "celda_origen": "51438",
+          "celda_destino": "52356",
+          "operator": "CLARO",
+          "fecha_hora_llamada": "2021-05-20 13:30:02",
+          "duracion_segundos": 69,
+          "role": "origin"
+        },
+        {
+          "mission_id": "mission_MPFRBNsb",
+          "numero_origen": "3124390973",
+          "numero_destino": "3057066104",
+          "celda_origen": "51438",
+          "celda_destino": "6578",
+          "operator": "CLARO",
+          "fecha_hora_llamada": "2021-05-20 13:37:05",
+          "duracion_segundos": 497,
+          "role": "origin"
+        }
+      ],
+      "analysis_successful": true
+    }
+  },
+  "discrepancy_analysis": {
+    "3243182028": {
+      "number": "3243182028",
+      "comparison": {
+        "boris_manual": {
+          "count": 1,
+          "cells": [
+            "16478"
+          ]
+        },
+        "source_files": {
+          "count": 5,
+          "cells": [
+            "22504",
+            "16478",
+            "6578",
+            "6159"
+          ]
+        },
+        "database": {
+          "count": 5,
+          "cells": [
+            "22504",
+            "16478",
+            "6578",
+            "6159"
+          ]
+        },
+        "algorithm": {
+          "count": 5,
+          "cells": [
+            "51438",
+            "22504",
+            "16478"
+          ]
+        }
+      },
+      "discrepancies_identified": [
+        "Boris manual (1) vs Archivos fuente (5)",
+        "Celdas Boris {'16478'} vs Archivos fuente {'22504', '16478', '6578', '6159'}",
+        "Celdas BD {'22504', '16478', '6578', '6159'} vs Algoritmo {'51438', '22504', '16478'}"
+      ],
+      "possible_causes": [
+        "Boris puede haber omitido ocurrencias en revisión manual"
+      ],
+      "severity": "CRITICAL"
+    },
+    "3009120093": {
+      "number": "3009120093",
+      "comparison": {
+        "boris_manual": {
+          "count": 2,
+          "cells": [
+            "22504",
+            "56121"
+          ]
+        },
+        "source_files": {
+          "count": 2,
+          "cells": [
+            "22504",
+            "56121"
+          ]
+        },
+        "database": {
+          "count": 2,
+          "cells": [
+            "22504",
+            "56121"
+          ]
+        },
+        "algorithm": {
+          "count": 4,
+          "cells": [
+            "22504",
+            "56121",
+            "51438"
+          ]
+        }
+      },
+      "discrepancies_identified": [
+        "Base de datos (2) vs Algoritmo (4)",
+        "Celdas BD {'22504', '56121'} vs Algoritmo {'22504', '56121', '51438'}"
+      ],
+      "possible_causes": [
+        "Algoritmo está inflando conteos (multiplicación incorrecta)"
+      ],
+      "severity": "MODERATE"
+    },
+    "3124390973": {
+      "number": "3124390973",
+      "comparison": {
+        "boris_manual": {
+          "count": 2,
+          "cells": [
+            "22504",
+            "51438"
+          ]
+        },
+        "source_files": {
+          "count": 4,
+          "cells": [
+            "22504",
+            "51438"
+          ]
+        },
+        "database": {
+          "count": 3,
+          "cells": [
+            "22504",
+            "51438"
+          ]
+        },
+        "algorithm": {
+          "count": 4,
+          "cells": [
+            "52356",
+            "22504",
+            "51438"
+          ]
+        }
+      },
+      "discrepancies_identified": [
+        "Boris manual (2) vs Archivos fuente (4)",
+        "Archivos fuente (4) vs Base de datos (3)",
+        "Base de datos (3) vs Algoritmo (4)",
+        "Celdas BD {'22504', '51438'} vs Algoritmo {'52356', '22504', '51438'}"
+      ],
+      "possible_causes": [
+        "Boris puede haber omitido ocurrencias en revisión manual",
+        "Proceso ETL está perdiendo registros",
+        "Algoritmo está inflando conteos (multiplicación incorrecta)"
+      ],
+      "severity": "CRITICAL"
+    }
+  },
+  "recommendations": [
+    "CRÍTICO: Revisar algoritmo de correlación - está inflando conteos consistentemente",
+    "Verificar lógica de conteo único por combinación número-celda",
+    "Revisar criterios de conteo manual - puede haber diferencias metodológicas",
+    "Implementar validación cruzada automática entre archivos fuente y BD",
+    "Agregar logging detallado en proceso ETL para rastrear duplicaciones",
+    "Crear tests automatizados con números de referencia conocidos"
+  ],
+  "analysis_completed": true,
+  "success": true
+}

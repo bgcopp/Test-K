@@ -1,4 +1,4 @@
-import type { Mission, User, Role, Permissions, OperatorSheet, OperatorCellularRecord, OperatorUploadResponse } from '../types';
+import type { Mission, User, Role, Permissions, OperatorSheet, OperatorCellularRecord, OperatorUploadResponse, TargetRecord, CorrelationResult, CorrelationAnalysisResponse } from '../types';
 import { initialUsers, initialRoles, initialMissions } from './mockData';
 
 // Eel types for better autocompletion, assuming eel is exposed to window
@@ -30,6 +30,10 @@ declare global {
             
             // Analysis
             run_analysis(missionId: string): () => Promise<TargetRecord[]>;
+            
+            // Correlation Analysis
+            analyze_correlation(missionId: string, startDateTime: string, endDateTime: string, minOccurrences: number): () => Promise<CorrelationAnalysisResponse>;
+            get_correlation_summary(missionId: string): () => Promise<any>;
             
             // Operator Data
             upload_operator_data(file_data: string, file_name: string, mission_id: string, operator: string, file_type: string, user_id: string): () => Promise<OperatorUploadResponse>;
@@ -784,6 +788,99 @@ export const getOperatorStatistics = async (missionId?: string): Promise<{succes
     }
     
     return handleEelResponse(() => window.eel.get_operator_statistics(missionId)(), 'obtener estadísticas de operador');
+};
+
+// ============================================================================
+// ANÁLISIS DE CORRELACIÓN
+// ============================================================================
+
+/**
+ * Ejecuta análisis de correlación entre datos HUNTER y operadores
+ */
+export const analyzeCorrelation = async (
+    missionId: string, 
+    startDateTime: string, 
+    endDateTime: string, 
+    minOccurrences: number = 1
+): Promise<CorrelationAnalysisResponse> => {
+    if (USE_MOCK_API) {
+        await sleep(MOCK_API_DELAY * 2); // Simular procesamiento más largo
+        
+        // Mock de resultados de correlación
+        const mockResults: CorrelationResult[] = [
+            {
+                targetNumber: "3224274851",
+                operator: "CLARO",
+                occurrences: 5,
+                firstDetection: "2024-01-15T10:30:00",
+                lastDetection: "2024-01-15T14:45:00",
+                relatedCells: ["56124", "51438", "51203"],
+                confidence: 85.5
+            },
+            {
+                targetNumber: "3104277553",
+                operator: "MOVISTAR",
+                occurrences: 3,
+                firstDetection: "2024-01-15T11:15:00",
+                lastDetection: "2024-01-15T13:20:00",
+                relatedCells: ["56124", "63095"],
+                confidence: 72.0
+            },
+            {
+                targetNumber: "3143534707",
+                operator: "CLARO",
+                occurrences: 8,
+                firstDetection: "2024-01-15T09:00:00",
+                lastDetection: "2024-01-15T15:30:00",
+                relatedCells: ["51203", "51438", "56124", "22504"],
+                confidence: 92.3
+            }
+        ];
+        
+        return {
+            success: true,
+            data: mockResults,
+            statistics: {
+                totalAnalyzed: 1500,
+                totalFound: mockResults.length,
+                processingTime: 2.5
+            }
+        };
+    }
+    
+    return handleEelResponse(
+        () => window.eel.analyze_correlation(missionId, startDateTime, endDateTime, minOccurrences)(),
+        'ejecutar análisis de correlación'
+    );
+};
+
+/**
+ * Obtiene resumen de correlación para una misión
+ */
+export const getCorrelationSummary = async (missionId: string): Promise<any> => {
+    if (USE_MOCK_API) {
+        await sleep(MOCK_API_DELAY);
+        
+        return {
+            success: true,
+            summary: {
+                totalTargets: 15,
+                highConfidence: 5,
+                mediumConfidence: 7,
+                lowConfidence: 3,
+                topOperators: ["CLARO", "MOVISTAR"],
+                dateRange: {
+                    start: "2024-01-15T00:00:00",
+                    end: "2024-01-15T23:59:59"
+                }
+            }
+        };
+    }
+    
+    return handleEelResponse(
+        () => window.eel.get_correlation_summary(missionId)(),
+        'obtener resumen de correlación'
+    );
 };
 
 

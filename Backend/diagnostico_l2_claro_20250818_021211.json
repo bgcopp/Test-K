@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-08-18T02:12:11.228567",
+  "diagnostic_type": "L2 - CLARO Loading Issue",
+  "test_files": [
+    "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+    "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+    "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+    "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx"
+  ],
+  "database_path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\kronos.db",
+  "analysis_results": {
+    "1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx": {
+      "exists": true,
+      "records": 973,
+      "columns": [
+        "celda_inicio_llamada",
+        "celda_final_llamada",
+        "originador",
+        "receptor",
+        "fecha_hora",
+        "duracion",
+        "tipo"
+      ],
+      "sample_data": [
+        {
+          "celda_inicio_llamada": 20264,
+          "celda_final_llamada": 20264,
+          "originador": 3213639847,
+          "receptor": 3132825038,
+          "fecha_hora": 

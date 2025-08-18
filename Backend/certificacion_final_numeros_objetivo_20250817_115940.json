@@ -1,0 +1,102 @@
+{
+  "timestamp": "2025-08-17T11:59:40.876198",
+  "test_config": {
+    "mission_id": "mission_MPFRBNsb",
+    "start_date": "2021-05-20 10:00:00",
+    "end_date": "2021-05-20 14:30:00",
+    "min_coincidences": 1
+  },
+  "target_numbers": [
+    {
+      "number": "3143534707",
+      "expected_coincidences": 3
+    },
+    {
+      "number": "3224274851",
+      "expected_coincidences": 2
+    },
+    {
+      "number": "3208611034",
+      "expected_coincidences": 2
+    },
+    {
+      "number": "3214161903",
+      "expected_coincidences": 1
+    },
+    {
+      "number": "3102715509",
+      "expected_coincidences": 1
+    }
+  ],
+  "results": {
+    "total_found": 5,
+    "total_with_correct_coincidences": 5,
+    "total_with_correct_format": 5,
+    "total_results": 4530,
+    "all_criteria_met": true
+  },
+  "detailed_results": [
+    {
+      "number": "3143534707",
+      "found": true,
+      "expected_coincidences": 3,
+      "actual_coincidences": 3,
+      "coincidences_match": true,
+      "correct_format": true,
+      "format_value": "3143534707"
+    },
+    {
+      "number": "3224274851",
+      "found": true,
+      "expected_coincidences": 2,
+      "actual_coincidences": 2,
+      "coincidences_match": true,
+      "correct_format": true,
+      "format_value": "3224274851"
+    },
+    {
+      "number": "3208611034",
+      "found": true,
+      "expected_coincidences": 2,
+      "actual_coincidences": 2,
+      "coincidences_match": true,
+      "correct_format": true,
+      "format_value": "3208611034"
+    },
+    {
+      "number": "3214161903",
+      "found": true,
+      "expected_coincidences": 1,
+      "actual_coincidences": 1,
+      "coincidences_match": true,
+      "correct_format": true,
+      "format_value": "3214161903"
+    },
+    {
+      "number": "3102715509",
+      "found": true,
+      "expected_coincidences": 1,
+      "actual_coincidences": 1,
+      "coincidences_match": true,
+      "correct_format": true,
+      "format_value": "3102715509"
+    }
+  ],
+  "statistics": {
+    "total_numeros_correlacionados": 4530,
+    "promedio_celdas_por_numero": 1.12,
+    "max_celdas_coincidentes": 5,
+    "min_celdas_coincidentes": 1,
+    "desviacion_estandar": 0.34,
+    "total_cell_ids_hunter": 42,
+    "total_registros_operador": 7610,
+    "operadores_mas_frecuentes": {
+      "MULTIPLE": 4530
+    },
+    "numeros_objetivo_detectados": 5,
+    "algoritmo_utilizado": "correlacion_por_cell_ids"
+  },
+  "missing_numbers": [],
+  "incorrect_coincidences": [],
+  "format_errors": []
+}

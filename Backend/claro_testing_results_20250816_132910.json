@@ -1,0 +1,63 @@
+{
+  "suite_start_time": "2025-08-16T13:29:06.946248",
+  "tests_executed": [
+    {
+      "test_name": "validate_test_files_exist",
+      "status": "PASS",
+      "files_found": {
+        "entrantes_1": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx",
+          "exists": true,
+          "size_mb": 0.048844337463378906
+        },
+        "salientes_1": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx",
+          "exists": true,
+          "size_mb": 0.04734325408935547
+        },
+        "entrantes_2": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx",
+          "exists": true,
+          "size_mb": 0.09470939636230469
+        },
+        "salientes_2": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx",
+          "exists": true,
+          "size_mb": 0.0842132568359375
+        },
+        "hunter": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\archivos\\envioarchivosparaanalizar (1)\\SCANHUNTER.xlsx",
+          "exists": true,
+          "size_mb": 0.013489723205566406
+        },
+        "numeros_base": {
+          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\datatest\\Claro\\numerosbase.xlsx",
+          "exists": true,
+          "size_mb": 0.13729286193847656
+        }
+      },
+      "files_missing": [],
+      "critical_error": null
+    },
+    {
+      "test_name": "analyze_raw_file_content",
+      "status": "PASS",
+      "file_analysis": {
+        "entrantes_1": {
+          "total_rows": 973,
+          "columns": [
+            "celda_inicio_llamada",
+            "celda_final_llamada",
+            "originador",
+            "receptor",
+            "fecha_hora",
+            "duracion",
+            "tipo"
+          ],
+          "sample_data": [
+            {
+              "celda_inicio_llamada": 20264,
+              "celda_final_llamada": 20264,
+              "originador": 3213639847,
+              "receptor": 3132825038,
+              "fecha_hora": 

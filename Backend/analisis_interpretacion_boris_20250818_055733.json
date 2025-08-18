@@ -1,0 +1,88 @@
+{
+  "numero_analizado": "3143534707",
+  "interpretacion": "Boris - Ubicacion fisica + destino cuando origina",
+  "timestamp": "2025-08-18T05:57:33.391130",
+  "analisis_boris": {
+    "registros_origen": [
+      {
+        "numero_origen": "3143534707",
+        "numero_destino": "3208611034",
+        "celda_origen": "53591",
+        "celda_destino": "51203",
+        "fecha_hora_llamada": "2021-05-20 10:16:19",
+        "operator": "CLARO"
+      },
+      {
+        "numero_origen": "3143534707",
+        "numero_destino": "3224274851",
+        "celda_origen": "51438",
+        "celda_destino": "51438",
+        "fecha_hora_llamada": "2021-05-20 12:17:14",
+        "operator": "CLARO"
+      }
+    ],
+    "registros_destino": [
+      {
+        "numero_origen": "3214161903",
+        "numero_destino": "3143534707",
+        "celda_origen": "2523",
+        "celda_destino": "56124",
+        "fecha_hora_llamada": "2021-05-20 12:09:51",
+        "operator": "CLARO"
+      },
+      {
+        "numero_origen": "3224274851",
+        "numero_destino": "3143534707",
+        "celda_origen": "56124",
+        "celda_destino": "56124",
+        "fecha_hora_llamada": "2021-05-20 13:00:35",
+        "operator": "CLARO"
+      },
+      {
+        "numero_origen": "3224274851",
+        "numero_destino": "3143534707",
+        "celda_origen": "63095",
+        "celda_destino": "56124",
+        "fecha_hora_llamada": "2021-05-20 13:02:43",
+        "operator": "CLARO"
+      },
+      {
+        "numero_origen": "3102715509",
+        "numero_destino": "3143534707",
+        "celda_origen": "56124",
+        "celda_destino": "56124",
+        "fecha_hora_llamada": "2021-05-20 13:11:40",
+        "operator": "CLARO"
+      },
+      {
+        "numero_origen": "3208611034",
+        "numero_destino": "3143534707",
+        "celda_origen": "63095",
+        "celda_destino": "56124",
+        "fecha_hora_llamada": "2021-05-20 13:21:53",
+        "operator": "CLARO"
+      }
+    ],
+    "celdas_interpretacion_boris": [
+      "51203",
+      "51438",
+      "53591",
+      "56124"
+    ],
+    "celdas_esperadas": [
+      "51203",
+      "51438",
+      "53591",
+      "56124"
+    ],
+    "coincidencia_exacta": true,
+    "recomendacion": "IMPLEMENTAR ALGORITMO DE BORIS",
+    "justificacion": "La interpretación de Boris coincide exactamente con su expectativa",
+    "algoritmo_recomendado": "boris_ubicacion_mas_destino",
+    "detalle_algoritmo": {
+      "cuando_es_originador": "incluir celda_origen Y celda_destino",
+      "cuando_es_receptor": "incluir celda_destino",
+      "logica": "El número puede estar físicamente en una celda pero comunicarse con otra"
+    }
+  }
+}

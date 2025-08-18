@@ -100,11 +100,13 @@ class DataNormalizerService:
         """
         Normaliza un número telefónico al formato estándar.
         
+        CORRECCIÓN BORIS: Remover prefijo 57 para normalizar a formato colombiano estándar
+        
         Args:
             phone (str): Número telefónico bruto
             
         Returns:
-            str: Número normalizado
+            str: Número normalizado (sin prefijo 57)
         """
         if not phone:
             return ''
@@ -112,13 +114,18 @@ class DataNormalizerService:
         # Limpiar número (solo dígitos)
         clean_phone = re.sub(r'[^\d]', '', str(phone).strip())
         
-        # Si tiene código de país Colombia (57) al inicio, mantenerlo
+        # CORRECCIÓN: Si tiene código de país Colombia (57) al inicio, REMOVERLO
         if clean_phone.startswith('57') and len(clean_phone) == 12:
+            # Remover prefijo 57 para normalizar a formato colombiano de 10 dígitos
+            return clean_phone[2:]
+        
+        # Si es número móvil colombiano válido de 10 dígitos, mantenerlo como está
+        if len(clean_phone) == 10 and clean_phone.startswith('3'):
             return clean_phone
         
-        # Si es número móvil colombiano sin código de país
-        if len(clean_phone) == 10 and clean_phone.startswith('3'):
-            return '57' + clean_phone
+        # Para números de 8-9 dígitos (líneas fijas), mantenerlos como están
+        if len(clean_phone) >= 8 and len(clean_phone) <= 10:
+            return clean_phone
         
         # Retornar como está si no coincide con patrones conocidos
         return clean_phone
@@ -635,12 +642,13 @@ class DataNormalizerService:
             # Determinar número objetivo (para investigaciones)
             numero_objetivo = self._determine_numero_objetivo(numero_origen, numero_destino, tipo_llamada)
             
-            # Normalizar celdas
-            celda_origen = str(raw_record.get('celda_inicio_llamada', '')).strip()
+            # Normalizar celdas - CORRECCIÓN BORIS: mapear campos correctos del Excel
+            # Buscar primero con nombres del Excel, luego con nombres alternativos
+            celda_origen = str(raw_record.get('celda_inicio', raw_record.get('celda_inicio_llamada', ''))).strip()
             if celda_origen and celda_origen.lower() in ['nan', 'null', 'none', '']:
                 celda_origen = None
             
-            celda_destino = str(raw_record.get('celda_final_llamada', '')).strip()
+            celda_destino = str(raw_record.get('celda_final', raw_record.get('celda_final_llamada', ''))).strip()
             if celda_destino and celda_destino.lower() in ['nan', 'null', 'none', '']:
                 celda_destino = None
             
@@ -793,12 +801,13 @@ class DataNormalizerService:
             # Determinar número objetivo (para investigaciones)
             numero_objetivo = self._determine_numero_objetivo(numero_origen, numero_destino, tipo_llamada)
             
-            # Normalizar celdas
-            celda_origen = str(raw_record.get('celda_inicio_llamada', '')).strip()
+            # Normalizar celdas - CORRECCIÓN BORIS: mapear campos correctos del Excel
+            # Buscar primero con nombres del Excel, luego con nombres alternativos
+            celda_origen = str(raw_record.get('celda_inicio', raw_record.get('celda_inicio_llamada', ''))).strip()
             if celda_origen and celda_origen.lower() in ['nan', 'null', 'none', '']:
                 celda_origen = None
             
-            celda_destino = str(raw_record.get('celda_final_llamada', '')).strip()
+            celda_destino = str(raw_record.get('celda_final', raw_record.get('celda_final_llamada', ''))).strip()
             if celda_destino and celda_destino.lower() in ['nan', 'null', 'none', '']:
                 celda_destino = None
             

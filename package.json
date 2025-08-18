@@ -1,0 +1,39 @@
+{
+  "name": "kronos-e2e-tests",
+  "version": "1.0.0",
+  "description": "End-to-end tests for KRONOS application using Playwright",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:claro": "playwright test tests/claro-upload.spec.ts",
+    "test:claro-validation": "playwright test tests/claro-validation.spec.ts",
+    "test:claro-correlation": "playwright test tests/claro-correlation.spec.ts",
+    "test:claro-complete": "npm run test:claro && npm run test:claro-validation && npm run test:claro-correlation",
+    "report": "playwright show-report",
+    "install-browsers": "playwright install"
+  },
+  "keywords": [
+    "playwright",
+    "e2e",
+    "testing",
+    "kronos",
+    "claro",
+    "cellular",
+    "operators"
+  ],
+  "author": "Boris - KRONOS Testing Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "-": "^0.0.1",
+    "@anthropic-ai/claude-code": "^1.0.83",
+    "g": "^2.0.1",
+    "sqlite3": "^5.1.6"
+  }
+}

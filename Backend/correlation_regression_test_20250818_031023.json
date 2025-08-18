@@ -1,0 +1,135 @@
+{
+  "timestamp": "2025-08-18T03:10:23.700048",
+  "test_suite": "correlation_regression_validation",
+  "original_algorithm_results": {
+    "success": true,
+    "execution_time": 0.0,
+    "total_numbers_found": 0,
+    "target_numbers_found": 0,
+    "critical_3143534707_found": false,
+    "missing_targets": [
+      "3214161903",
+      "3102715509",
+      "3104277553",
+      "3143534707",
+      "3224274851",
+      "3208611034"
+    ],
+    "target_details": {},
+    "algorithm_version": "original",
+    "full_statistics": {
+      "totalAnalyzed": 0,
+      "totalFound": 0,
+      "processingTime": 0.0,
+      "hunterCellsTotal": 0,
+      "analysisType": "correlation",
+      "timestamp": "2025-08-18T03:10:23.747739"
+    }
+  },
+  "fixed_algorithm_results": {
+    "success": true,
+    "execution_time": 0.016,
+    "total_numbers_found": 4,
+    "target_numbers_found": 4,
+    "critical_3143534707_found": true,
+    "missing_targets": [
+      "3104277553",
+      "3102715509"
+    ],
+    "target_details": {
+      "3143534707": {
+        "confidence": 90.0,
+        "total_calls": 5,
+        "strategy": "DirectTarget",
+        "cells_used": 1
+      },
+      "3214161903": {
+        "confidence": 90.0,
+        "total_calls": 1,
+        "strategy": "DirectTarget",
+        "cells_used": 1
+      },
+      "3224274851": {
+        "confidence": 90.0,
+        "total_calls": 1,
+        "strategy": "DirectTarget",
+        "cells_used": 1
+      },
+      "3208611034": {
+        "confidence": 90.0,
+        "total_calls": 1,
+        "strategy": "DirectTarget",
+        "cells_used": 1
+      }
+    },
+    "strategies_used": {
+      "DirectTarget": 4
+    },
+    "algorithm_version": "fixed",
+    "full_statistics": {
+      "totalAnalyzed": 4,
+      "totalFound": 4,
+      "targetNumbersFound": 4,
+      "targetNumbersTotal": 6,
+      "processingTime": 0.016,
+      "strategiesUsed": {
+        "DirectTarget": 4
+      },
+      "analysisType": "correlation_fixed",
+      "timestamp": "2025-08-18T03:10:23.763593"
+    }
+  },
+  "regression_analysis": {
+    "performance_comparison": {
+      "original_time": 0.0,
+      "fixed_time": 0.016,
+      "performance_regression": true,
+      "time_difference": 0.016
+    },
+    "functionality_regression": {
+      "numbers_lost": false,
+      "original_found": 0,
+      "fixed_found": 4,
+      "net_difference": 4
+    },
+    "improvement_metrics": {
+      "critical_number_recovered": true,
+      "target_numbers_improvement": 4,
+      "strategies_implemented": false
+    }
+  },
+  "critical_findings": {
+    "critical_number_3143534707": {
+      "original_found": false,
+      "fixed_found": true,
+      "issue_resolved": true
+    },
+    "target_numbers_analysis": {
+      "original_missing": [
+        "3214161903",
+        "3102715509",
+        "3104277553",
+        "3143534707",
+        "3224274851",
+        "3208611034"
+      ],
+      "fixed_missing": [
+        "3104277553",
+        "3102715509"
+      ],
+      "recovered_numbers": [
+        "3143534707",
+        "3214161903",
+        "3224274851",
+        "3208611034"
+      ],
+      "lost_numbers": []
+    },
+    "algorithm_reliability": {
+      "original_success": true,
+      "fixed_success": true,
+      "improvement_achieved": true
+    }
+  },
+  "overall_regression_passed": false
+}

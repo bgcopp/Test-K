@@ -1,0 +1,84 @@
+================================================================================
+REPORTE DE ANÁLISIS - 6 NÚMEROS ESPECÍFICOS BORIS
+================================================================================
+Fecha: 2025-08-18T10:25:51.695417
+Números analizados: 6
+Archivos analizados: 4
+
+RESUMEN GENERAL:
+- Números encontrados: 6
+- Números NO encontrados: 0
+- Ocurrencias totales: 28
+
+
+------------------------------------------------------------
+NÚMERO: 3224274851
+------------------------------------------------------------
+✓ PRESENTE: SÍ
+Archivos donde aparece: 1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx, 1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx, 2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx, 2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx
+Ocurrencias totales: 9
+Como originador: 5
+Como receptor: 4
+Celdas (todas): ['51438', '33527', '22504', '53591', '63095', '56124', '52453']
+Celdas como originador: ['63095', '56124', '53591', '22504']
+Celdas como receptor: ['51438', '33527', '56124', '52453']
+
+------------------------------------------------------------
+NÚMERO: 3208611034
+------------------------------------------------------------
+✓ PRESENTE: SÍ
+Archivos donde aparece: 1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx, 1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx, 2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx
+Ocurrencias totales: 3
+Como originador: 2
+Como receptor: 1
+Celdas (todas): ['63095', '53591', '51203']
+Celdas como originador: ['63095', '53591']
+Celdas como receptor: ['51203']
+
+------------------------------------------------------------
+NÚMERO: 3104277553
+------------------------------------------------------------
+✓ PRESENTE: SÍ
+Archivos donde aparece: 1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx
+Ocurrencias totales: 1
+Como originador: 1
+Como receptor: 0
+Celdas (todas): ['53591']
+Celdas como originador: ['53591']
+Celdas como receptor: []
+
+------------------------------------------------------------
+NÚMERO: 3102715509
+------------------------------------------------------------
+✓ PRESENTE: SÍ
+Archivos donde aparece: 2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx, 2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx
+Ocurrencias totales: 4
+Como originador: 3
+Como receptor: 1
+Celdas (todas): ['56124', '6159']
+Celdas como originador: ['56124']
+Celdas como receptor: ['6159']
+
+------------------------------------------------------------
+NÚMERO: 3143534707
+------------------------------------------------------------
+✓ PRESENTE: SÍ
+Archivos donde aparece: 1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx, 1-225211_LLAMADAS_SALIENTES_POR_CELDA_545613_0.xlsx, 2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx, 2-225211_LLAMADAS_SALIENTES_POR_CELDA_545615_0.xlsx
+Ocurrencias totales: 9
+Como originador: 2
+Como receptor: 7
+Celdas (todas): ['51438', '56124', '53591']
+Celdas como originador: ['51438', '53591']
+Celdas como receptor: ['56124', '53591']
+
+------------------------------------------------------------
+NÚMERO: 3214161903
+------------------------------------------------------------
+✓ PRESENTE: SÍ
+Archivos donde aparece: 1-225211_LLAMADAS_ENTRANTES_POR_CELDA_545612_0.xlsx, 2-225211_LLAMADAS_ENTRANTES_POR_CELDA_545614_0.xlsx
+Ocurrencias totales: 2
+Como originador: 1
+Como receptor: 1
+Celdas (todas): ['2523', '53591']
+Celdas como originador: ['2523']
+Celdas como receptor: ['53591']

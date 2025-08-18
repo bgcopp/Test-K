@@ -46,6 +46,10 @@ from services.user_service import get_user_service, UserServiceError
 from services.role_service import get_role_service, RoleServiceError
 from services.mission_service import get_mission_service, MissionServiceError
 from services.analysis_service import get_analysis_service, AnalysisServiceError
+from services.correlation_service import get_correlation_service
+from services.correlation_service_fixed import CorrelationServiceFixedError
+from services.correlation_service_dynamic import get_correlation_service_dynamic
+from services.correlation_service_hunter_validated import get_correlation_service_hunter_validated
 from services.file_processor import FileProcessorError
 
 # Importar servicio de datos de operador (para registrar funciones Eel expuestas)
@@ -279,6 +283,7 @@ user_service = None
 role_service = None
 mission_service = None
 analysis_service = None
+correlation_service = None
 
 
 def handle_service_error(func_name: str, error: Exception) -> None:
@@ -752,6 +757,132 @@ def run_analysis(mission_id):
         handle_service_error("run_analysis", e)
 
 
+@eel.expose
+def analyze_correlation(mission_id, start_datetime, end_datetime, min_occurrences=1):
+    """
+    Ejecuta análisis de correlación para detectar números objetivo
+    que utilizaron las mismas celdas que HUNTER en un período específico
+    
+    Args:
+        mission_id: ID de la misión
+        start_datetime: Inicio del período (formato: YYYY-MM-DD HH:MM:SS)
+        end_datetime: Fin del período (formato: YYYY-MM-DD HH:MM:SS)
+        min_occurrences: Mínimo de coincidencias de celdas requeridas (default: 1)
+        
+    Returns:
+        Dict con resultados del análisis de correlación:
+        {
+            'success': bool,
+            'data': [
+                {
+                    'targetNumber': str,      # Número sin prefijo 57
+                    'operator': str,          # CLARO, MOVISTAR, etc
+                    'occurrences': int,       # Total de coincidencias
+                    'firstDetection': str,    # Primera aparición
+                    'lastDetection': str,     # Última aparición
+                    'relatedCells': list,     # Cell IDs relacionados
+                    'confidence': float       # Nivel de confianza 0-100
+                }
+            ],
+            'statistics': {
+                'totalAnalyzed': int,
+                'totalFound': int,
+                'processingTime': float
+            }
+        }
+    """
+    try:
+        logger.info(f"Ejecutando análisis de correlación para misión: {mission_id}")
+        logger.info(f"Período: {start_datetime} - {end_datetime}, Min occurrences: {min_occurrences}")
+        
+        # CORRECCIÓN BORIS 2025-08-18: Usar servicio con validación de celdas HUNTER reales
+        # Elimina inflación del 50% por celdas que no existen en HUNTER
+        logger.info("Usando servicio de correlación HUNTER-VALIDATED - CORRECCIÓN INFLACIÓN BORIS")
+        correlation_service_hunter = get_correlation_service_hunter_validated()
+        
+        # Ejecutar análisis de correlación con validación HUNTER
+        result = correlation_service_hunter.analyze_correlation(
+            mission_id=mission_id,
+            start_datetime=start_datetime,
+            end_datetime=end_datetime,
+            min_occurrences=min_occurrences
+        )
+        
+        logger.info(f"Análisis de correlación HUNTER-VALIDATED completado: {result['total_count']} números encontrados")
+        logger.info(f"Tiempo de procesamiento: {result['processing_time']}s")
+        logger.info(f"Celdas HUNTER reales utilizadas: {result.get('hunter_cells_real_count', 'N/A')}")
+        logger.info(f"CORRECCIÓN BORIS: Inflación eliminada mediante filtrado por celdas HUNTER reales")
+        
+        # Mapear resultado del servicio dinámico al formato esperado por el frontend
+        if result['success'] and result['data']:
+            mapped_data = []
+            for item in result['data']:
+                # Transformar campos de snake_case a camelCase para el frontend
+                mapped_item = {
+                    'targetNumber': item.get('numero_objetivo', 'N/A'),
+                    'operator': item.get('operador', 'DESCONOCIDO'),
+                    'occurrences': item.get('ocurrencias', 0),
+                    'firstDetection': item.get('primera_deteccion', ''),
+                    'lastDetection': item.get('ultima_deteccion', ''),
+                    'relatedCells': item.get('celdas_relacionadas', []),
+                    'confidence': item.get('nivel_confianza', 0)
+                }
+                mapped_data.append(mapped_item)
+            
+            # Devolver resultado con formato estándar para el frontend
+            return {
+                'success': True,
+                'data': mapped_data,
+                'statistics': {
+                    'totalAnalyzed': result.get('total_count', 0),
+                    'totalFound': len(mapped_data),
+                    'processingTime': result.get('processing_time', 0)
+                }
+            }
+        
+        # Si no hay éxito o no hay datos, devolver el resultado original
+        return result
+        
+    except CorrelationServiceFixedError as e:
+        logger.error(f"Error en servicio de correlación: {e}")
+        handle_service_error("analyze_correlation", e)
+    except Exception as e:
+        logger.error(f"Error inesperado en análisis de correlación: {e}")
+        handle_service_error("analyze_correlation", e)
+
+
+@eel.expose
+def get_correlation_summary(mission_id):
+    """
+    Obtiene resumen de capacidades de correlación para una misión
+    
+    Args:
+        mission_id: ID de la misión
+        
+    Returns:
+        Dict con estadísticas de datos disponibles para correlación
+    """
+    try:
+        logger.info(f"Obteniendo resumen de correlación para misión: {mission_id}")
+        
+        # Lazy loading: obtener servicio si la variable global no está inicializada
+        global correlation_service
+        if correlation_service is None:
+            logger.info("Servicio de correlación no inicializado, creando instancia lazy")
+            correlation_service = get_correlation_service()
+        
+        summary = correlation_service.get_correlation_summary(mission_id)
+        logger.info(f"Resumen de correlación obtenido: Listo={summary.get('correlationReady', False)}")
+        
+        return summary
+        
+    except CorrelationServiceFixedError as e:
+        logger.error(f"Error obteniendo resumen de correlación: {e}")
+        handle_service_error("get_correlation_summary", e)
+    except Exception as e:
+        logger.error(f"Error inesperado obteniendo resumen de correlación: {e}")
+        handle_service_error("get_correlation_summary", e)
+
 
 # ============================================================================
 # SIGNAL HANDLERS Y CLEANUP SETUP
@@ -823,7 +954,7 @@ def setup_cleanup_handlers():
     
     def cleanup_services():
         """Cleanup general de servicios"""
-        global auth_service, user_service, role_service, mission_service, analysis_service
+        global auth_service, user_service, role_service, mission_service, analysis_service, correlation_service
         try:
             # Limpiar referencias a servicios
             auth_service = None
@@ -831,6 +962,7 @@ def setup_cleanup_handlers():
             role_service = None
             mission_service = None
             analysis_service = None
+            correlation_service = None
         except Exception as e:
             logger.error(f"Error limpiando servicios: {e}")
     
@@ -1014,7 +1146,7 @@ def main():
             position=(100, 100),
             disable_cache=True,
             mode='chrome',  # Usar Chrome si está disponible
-            port=8081,
+            port=8000,
             host='localhost'
         )
         

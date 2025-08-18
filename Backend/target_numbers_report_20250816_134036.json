@@ -1,0 +1,79 @@
+{
+  "timestamp": "2025-08-16T13:40:36.051431",
+  "target_numbers": [
+    "3224274851",
+    "3208611034",
+    "3104277553",
+    "3102715509",
+    "3143534707",
+    "3214161903"
+  ],
+  "results": {
+    "3224274851": {
+      "total": 1,
+      "archivos": 1,
+      "misiones": 1,
+      "entrantes": 0,
+      "salientes": 1,
+      "primera_llamada": "2024-08-12 23:13:20",
+      "ultima_llamada": "2024-08-12 23:13:20",
+      "duracion_total": 120
+    },
+    "3208611034": {
+      "total": 0,
+      "archivos": 0,
+      "misiones": 0,
+      "entrantes": 0,
+      "salientes": 0,
+      "primera_llamada": null,
+      "ultima_llamada": null,
+      "duracion_total": 0
+    },
+    "3104277553": {
+      "total": 1,
+      "archivos": 1,
+      "misiones": 1,
+      "entrantes": 0,
+      "salientes": 1,
+      "primera_llamada": "2024-08-12 23:13:20",
+      "ultima_llamada": "2024-08-12 23:13:20",
+      "duracion_total": 120
+    },
+    "3102715509": {
+      "total": 0,
+      "archivos": 0,
+      "misiones": 0,
+      "entrantes": 0,
+      "salientes": 0,
+      "primera_llamada": null,
+      "ultima_llamada": null,
+      "duracion_total": 0
+    },
+    "3143534707": {
+      "total": 0,
+      "archivos": 0,
+      "misiones": 0,
+      "entrantes": 0,
+      "salientes": 0,
+      "primera_llamada": null,
+      "ultima_llamada": null,
+      "duracion_total": 0
+    },
+    "3214161903": {
+      "total": 0,
+      "archivos": 0,
+      "misiones": 0,
+      "entrantes": 0,
+      "salientes": 0,
+      "primera_llamada": null,
+      "ultima_llamada": null,
+      "duracion_total": 0
+    }
+  },
+  "summary": {
+    "found": 2,
+    "total": 6,
+    "total_records": 2,
+    "success": false
+  }
+}

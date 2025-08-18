@@ -1,0 +1,129 @@
+{
+  "success": true,
+  "timestamp": "2025-08-18T10:05:51.234425",
+  "hunter_analysis": {
+    "total_cells_extracted": 113,
+    "sample_cells": [
+      "0",
+      "12",
+      "32",
+      "118",
+      "1474",
+      "1481",
+      "1485",
+      "1486",
+      "1532",
+      "1535",
+      "1537",
+      "1842",
+      "2002",
+      "2006",
+      "2023",
+      "2113",
+      "2130",
+      "2131",
+      "2132",
+      "2201",
+      "2325",
+      "2341",
+      "2364",
+      "2480",
+      "2525",
+      "2575",
+      "3075",
+      "3246",
+      "4101",
+      "4364",
+      "4387",
+      "5002",
+      "5004",
+      "5006",
+      "5016",
+      "5031",
+      "5602",
+      "6159",
+      "9310",
+      "9650",
+      "9800",
+      "9825",
+      "10111",
+      "10248",
+      "10263",
+      "10753",
+      "11713",
+      "12252",
+      "12283",
+      "13922"
+    ]
+  },
+  "numero_3243182028_validation": {
+    "numero": "3243182028",
+    "celdas_encontradas": [
+      "16478",
+      "22504",
+      "6159",
+      "6578"
+    ],
+    "celdas_validas_hunter": [
+      "22504",
+      "6159"
+    ],
+    "celdas_invalidas": [
+      "16478",
+      "6578"
+    ],
+    "conteo_actual_incorrecto": 4,
+    "conteo_correcto": 2,
+    "inflacion_detectada": 2,
+    "impacto_porcentual": 50.0,
+    "detalle_validacion": [
+      {
+        "celda": "16478",
+        "valida": false
+      },
+      {
+        "celda": "22504",
+        "valida": true
+      },
+      {
+        "celda": "6159",
+        "valida": true
+      },
+      {
+        "celda": "6578",
+        "valida": false
+      }
+    ]
+  },
+  "algorithm_correction_proposal": {
+    "problema_identificado": {
+      "descripcion": "Algoritmo cuenta celdas que NO están definidas en HUNTER real",
+      "impacto": "Inflación de 2 celdas falsas (50.0%)",
+      "ejemplo": "Número 3243182028: 4 → 2 ocurrencias"
+    },
+    "solucion_requerida": {
+      "paso_1": "Cargar celdas HUNTER reales de SCANHUNTER.xlsx al inicio",
+      "paso_2": "Filtrar query de correlación: AND celda IN (hunter_cells_valid)",
+      "paso_3": "Validar cada celda antes de contar ocurrencias",
+      "paso_4": "Excluir automáticamente celdas no-HUNTER"
+    },
+    "implementacion_algoritmica": {
+      "pre_filtro": "hunter_cells = extract_real_hunter_cells()",
+      "query_modification": "WHERE celda IN (SELECT cell_id FROM hunter_cells)",
+      "validation_logic": "if celda not in hunter_cells: skip_counting",
+      "performance_impact": "Mínimo - una vez por sesión"
+    },
+    "beneficios_esperados": {
+      "precision_mejorada": "Eliminación completa de celdas falsas",
+      "conteos_exactos": "Solo celdas definidas en HUNTER",
+      "correlaciones_confiables": "Resultados basados en datos reales",
+      "algoritmo_robusto": "Validación automática contra HUNTER"
+    }
+  },
+  "critical_findings": {
+    "hunter_cells_count": 113,
+    "validation_passed": true,
+    "false_cells_detected": true,
+    "inflation_percentage": 50.0
+  }
+}

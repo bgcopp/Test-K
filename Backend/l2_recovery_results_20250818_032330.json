@@ -1,0 +1,175 @@
+{
+  "timestamp": "2025-08-18T03:23:30.015410",
+  "target_number": "3104277553",
+  "phases": {
+    "analysis": {
+      "status": "success",
+      "total_records": 961,
+      "columns_found": [
+        "celda_inicio_llamada",
+        "celda_final_llamada",
+        "originador",
+        "receptor",
+        "fecha_hora",
+        "duracion",
+        "tipo"
+      ],
+      "column_mapping": {
+        "celda_inicio_llamada": "celda_inicio_llamada",
+        "celda_final_llamada": "celda_final_llamada",
+        "originador": "originador",
+        "receptor": "receptor",
+        "fecha_hora": "fecha_hora",
+        "duracion": "duracion",
+        "tipo": "tipo"
+      },
+      "related_records_count": 2,
+      "specific_target_count": 1,
+      "target_records": [
+        {
+          "celda_inicio_llamada": 53591,
+          "celda_final_llamada": 33527,
+          "originador": "3208611034",
+          "receptor": "3224274851",
+          "fecha_hora": "2021-05-20 10:04:30",
+          "duracion": 45,
+          "tipo": "CDR_SALIENTE"
+        },
+        {
+          "celda_inicio_llamada": 53591,
+          "celda_final_llamada": 52453,
+          "originador": "3104277553",
+          "receptor": "3224274851",
+          "fecha_hora": "2021-05-20 10:09:58",
+          "duracion": 12,
+          "tipo": "CDR_SALIENTE"
+        }
+      ],
+      "specific_target": [
+        {
+          "celda_inicio_llamada": 53591,
+          "celda_final_llamada": 52453,
+          "originador": "3104277553",
+          "receptor": "3224274851",
+          "fecha_hora": "2021-05-20 10:09:58",
+          "duracion": 12,
+          "tipo": "CDR_SALIENTE"
+        }
+      ]
+    },
+    "extraction": {
+      "status": "success",
+      "raw_record": {
+        "celda_inicio_llamada": 53591,
+        "celda_final_llamada": 52453,
+        "originador": "3104277553",
+        "receptor": "3224274851",
+        "fecha_hora": "2021-05-20 10:09:58",
+        "duracion": 12,
+        "tipo": "CDR_SALIENTE"
+      },
+      "kronos_record": {
+        "file_upload_id": "L2_RECOVERY_MANUAL",
+        "mission_id": "L2_RECOVERY",
+        "operator": "CLARO",
+        "tipo_llamada": "SALIENTE",
+        "numero_origen": "3104277553",
+        "numero_destino": "3224274851",
+        "numero_objetivo": "3104277553",
+        "fecha_hora_llamada": "2021-05-20 10:09:58",
+        "duracion_segundos": 12,
+        "celda_origen": "53591",
+        "celda_destino": "52453",
+        "celda_objetivo": "53591",
+        "latitud_origen": null,
+        "longitud_origen": null,
+        "latitud_destino": null,
+        "longitud_destino": null,
+        "tecnologia": "UNKNOWN",
+        "tipo_trafico": "VOZ",
+        "estado_llamada": "COMPLETADA",
+        "operator_specific_data": "{\"celda_inicio_llamada\": 53591, \"celda_final_llamada\": 52453, \"originador\": \"3104277553\", \"receptor\": \"3224274851\", \"fecha_hora\": \"2021-05-20 10:09:58\", \"duracion\": 12, \"tipo\": \"CDR_SALIENTE\"}",
+        "cellid_decimal": null,
+        "lac_decimal": null,
+        "calidad_senal": null,
+        "record_hash": "6d86b4e0f28215abf392d0347dfc1dd7"
+      }
+    },
+    "insertion": {
+      "status": "success",
+      "record_id": 55219,
+      "record_hash": "6d86b4e0f28215abf392d0347dfc1dd7"
+    },
+    "validation": {
+      "status": "success",
+      "target_number_present": true,
+      "record_count": 1,
+      "record_details": [
+        {
+          "id": 55219,
+          "file_upload_id": "L2_RECOVERY_MANUAL",
+          "mission_id": "L2_RECOVERY",
+          "operator": "CLARO",
+          "tipo_llamada": "SALIENTE",
+          "numero_origen": "3104277553",
+          "numero_destino": "3224274851",
+          "numero_objetivo": "3104277553",
+          "fecha_hora_llamada": "2021-05-20 10:09:58",
+          "duracion_segundos": 12,
+          "celda_origen": "53591",
+          "celda_destino": "52453",
+          "celda_objetivo": "53591",
+          "latitud_origen": null,
+          "longitud_origen": null,
+          "latitud_destino": null,
+          "longitud_destino": null,
+          "tecnologia": "UNKNOWN",
+          "tipo_trafico": "VOZ",
+          "estado_llamada": "COMPLETADA",
+          "operator_specific_data": "{\"celda_inicio_llamada\": 53591, \"celda_final_llamada\": 52453, \"originador\": \"3104277553\", \"receptor\": \"3224274851\", \"fecha_hora\": \"2021-05-20 10:09:58\", \"duracion\": 12, \"tipo\": \"CDR_SALIENTE\"}",
+          "record_hash": "6d86b4e0f28215abf392d0347dfc1dd7",
+          "created_at": "2025-08-18T03:23:30.424377",
+          "cellid_decimal": null,
+          "lac_decimal": null,
+          "calidad_senal": null
+        }
+      ],
+      "target_numbers_status": {
+        "3224274851": {
+          "present": true,
+          "record_count": 5
+        },
+        "3208611034": {
+          "present": true,
+          "record_count": 2
+        },
+        "3104277553": {
+          "present": true,
+          "record_count": 1
+        },
+        "3102715509": {
+          "present": true,
+          "record_count": 1
+        },
+        "3143534707": {
+          "present": true,
+          "record_count": 7
+        },
+        "3214161903": {
+          "present": true,
+          "record_count": 2
+        }
+      },
+      "total_targets_present": 6,
+      "validation_success": true
+    }
+  },
+  "recovery_success": true,
+  "validation_success": true,
+  "overall_status": "success",
+  "summary": {
+    "recovery_completed": true,
+    "validation_passed": true,
+    "all_targets_present": true
+  }
+}

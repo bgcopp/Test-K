@@ -7,6 +7,7 @@ import FileUpload from '../components/ui/FileUpload';
 import CellularDataStats from '../components/ui/CellularDataStats';
 import PremiumProcessingOverlay from '../components/ui/PremiumProcessingOverlay';
 import PointChip from '../components/ui/PointChip';
+import Pagination from '../components/ui/Pagination';
 import { CorrelationCellBadgeGroup } from '../components/ui/CorrelationCellBadge';
 import CorrelationLegend from '../components/ui/CorrelationLegend';
 import { OperatorDataUpload, OperatorSheetsManager, OperatorDataViewer } from '../components/operator-data';
@@ -15,6 +16,7 @@ import { uploadCellularData, clearCellularDataApi, runAnalysis, getOperatorSheet
 import { useNotification } from '../hooks/useNotification';
 import { useConfirmation, confirmationPresets } from '../hooks/useConfirmation';
 import { useProcessingOverlay } from '../hooks/useProcessingOverlay';
+import { exportCorrelationResultsToCSV, getExportStats } from '../utils/exportUtils';
 
 interface MissionDetailProps {
     missions: Mission[];
@@ -50,6 +52,10 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
     const [minOccurrences, setMinOccurrences] = useState(1);
     const [phoneFilter, setPhoneFilter] = useState('');
     const [cellFilter, setCellFilter] = useState('');
+    
+    // Estados para paginación
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(25);
     
     const { showFileProcessingResult, showError, showSuccess } = useNotification();
     const { showConfirmation } = useConfirmation();
@@ -388,6 +394,63 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
         
         return filtered;
     };
+
+    // Función para obtener resultados paginados
+    const getPaginatedResults = (): CorrelationResult[] => {
+        const filteredResults = getFilteredResults();
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return filteredResults.slice(startIndex, endIndex);
+    };
+
+    // Función para manejar cambio de página
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+        // Opcional: scroll suave al inicio de la tabla
+        document.querySelector('[data-correlation-table]')?.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+        });
+    };
+
+    // Función para manejar cambio de elementos por página
+    const handleItemsPerPageChange = (items: number) => {
+        setItemsPerPage(items);
+        // Reset a página 1 cuando cambie el número de elementos
+        setCurrentPage(1);
+    };
+
+    // Función para manejar exportación completa (independiente de paginación)
+    const handleExportResults = () => {
+        const allResults = correlationResults; // TODOS los resultados (sin paginar)
+        const filteredResults = getFilteredResults(); // Resultados filtrados
+        
+        try {
+            const exportInfo = exportCorrelationResultsToCSV(allResults, filteredResults);
+            
+            if (exportInfo) {
+                const stats = getExportStats(allResults, filteredResults);
+                
+                // Mostrar notificación de éxito con detalles
+                showSuccess(
+                    "Exportación Completada", 
+                    `Se exportaron ${exportInfo.exportedRecords} registros${
+                        stats.isFiltered ? ` (de ${stats.totalOriginalResults} totales, aplicando filtros)` : ''
+                    } al archivo ${exportInfo.filename}`
+                );
+                
+                console.log('📊 Estadísticas de exportación:', stats);
+            }
+        } catch (error) {
+            console.error('❌ Error en exportación:', error);
+            showError("Error de Exportación", `Error al exportar datos: ${(error as Error).message}`);
+        }
+    };
+
+    // Reset página cuando cambien los filtros
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [phoneFilter, cellFilter]);
 
     if (!mission) {
         return <Navigate to="/missions" replace />;
@@ -728,6 +791,7 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
                                                 variant="secondary" 
                                                 icon={ICONS.download}
                                                 size="sm"
+                                                onClick={handleExportResults}
                                             >
                                                 Exportar Resultados
                                             </Button>
@@ -787,7 +851,18 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
                                         />
                                     )}
                                     
-                                    <div className="overflow-x-auto">
+                                    {/* Paginación superior */}
+                                    <div className="mb-4">
+                                        <Pagination
+                                            currentPage={currentPage}
+                                            totalItems={getFilteredResults().length}
+                                            itemsPerPage={itemsPerPage}
+                                            onPageChange={handlePageChange}
+                                            onItemsPerPageChange={handleItemsPerPageChange}
+                                        />
+                                    </div>
+
+                                    <div className="overflow-x-auto" data-correlation-table>
                                         <Table headers={[
                                             'Número Objetivo', 
                                             'Operador', 
@@ -797,7 +872,7 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
                                             'Celdas Relacionadas'
                                             // 'Nivel de Confianza' - OCULTA POR SOLICITUD DE BORIS
                                         ]}>
-                                            {getFilteredResults().map((result, index) => (
+                                            {getPaginatedResults().map((result, index) => (
                                                 <tr key={index} className="hover:bg-secondary-light">
                                                     {/* Número Objetivo */}
                                                     <td className="px-4 py-3 text-sm text-light font-mono font-bold">
@@ -862,6 +937,18 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
                                                 </tr>
                                             ))}
                                         </Table>
+                                    </div>
+
+                                    {/* Paginación inferior */}
+                                    <div className="mt-4">
+                                        <Pagination
+                                            currentPage={currentPage}
+                                            totalItems={getFilteredResults().length}
+                                            itemsPerPage={itemsPerPage}
+                                            onPageChange={handlePageChange}
+                                            onItemsPerPageChange={handleItemsPerPageChange}
+                                            showItemsPerPage={false} // Solo mostrar selector en la paginación superior
+                                        />
                                     </div>
                                 </div>
                             ) : (

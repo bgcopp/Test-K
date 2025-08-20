@@ -450,6 +450,10 @@ class DataNormalizerService:
             
             # Normalizar tipo de conexión
             tipo_conexion = self._normalize_connection_type(raw_record.get('tipo_cdr'))
+
+            # Obtener latitud y longitud
+            latitud = raw_record.get('Latitud', '').strip() if raw_record.get('Latitud') else None
+            longitud = raw_record.get('Longitud', '').strip() if raw_record.get('Longitud') else None
             
             # === CREACIÓN DEL REGISTRO NORMALIZADO ===
             
@@ -469,8 +473,8 @@ class DataNormalizerService:
                 'trafico_bajada_bytes': 0,  # Placeholder
                 
                 # Información geográfica (no disponible en formato básico)
-                'latitud': None,
-                'longitud': None,
+                'latitud': latitud,
+                'longitud': longitud,
                 
                 # Información técnica
                 'tecnologia': tecnologia,

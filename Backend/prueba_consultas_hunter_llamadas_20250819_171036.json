@@ -1,0 +1,241 @@
+{
+  "timestamp": "2025-08-19T17:10:36.983319",
+  "mission_id": "mission_MPFRBNsb",
+  "resultados_consultas": {
+    "consulta_origen": {
+      "registros": 10,
+      "tiempo_segundos": 0.0,
+      "muestra": [
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          4.55038,
+          -74.13705,
+          "51438",
+          "CLARO",
+          "UMTS",
+          "3176476132",
+          "3145092915",
+          "2021-05-20 13:59:42",
+          33,
+          "51438",
+          "CLARO",
+          "LTE"
+        ],
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          4.55038,
+          -74.13705,
+          "64065",
+          "CLARO",
+          "GSM",
+          "45824736",
+          "3216129897",
+          "2021-05-20 13:59:25",
+          97,
+          "64065",
+          "CLARO",
+          "LTE"
+        ],
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          4.55038,
+          -74.13705,
+          "22504",
+          "CLARO",
+          "UMTS",
+          "3107519325",
+          "3212139287",
+          "2021-05-20 13:59:23",
+          367,
+          "22504",
+          "CLARO",
+          "LTE"
+        ]
+      ]
+    },
+    "consulta_destino": {
+      "registros": 10,
+      "tiempo_segundos": 0.01481175422668457,
+      "muestra": [
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          4.55038,
+          -74.13705,
+          "51438",
+          "CLARO",
+          "UMTS",
+          "3176476132",
+          "3145092915",
+          "2021-05-20 13:59:42",
+          33,
+          "51438",
+          "CLARO",
+          "LTE"
+        ],
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          4.55038,
+          -74.13705,
+          "64065",
+          "CLARO",
+          "GSM",
+          "3004052035",
+          "3222200005",
+          "2021-05-20 13:59:39",
+          194,
+          "64065",
+          "CLARO",
+          "LTE"
+        ],
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          4.55038,
+          -74.13705,
+          "51438",
+          "CLARO",
+          "UMTS",
+          "3222925666",
+          "3108809792",
+          "2021-05-20 13:59:37",
+          795,
+          "51438",
+          "CLARO",
+          "LTE"
+        ]
+      ]
+    },
+    "consulta_completa": {
+      "registros": 15,
+      "tiempo_segundos": 0.0,
+      "muestra": [
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          4.55038,
+          -74.13705,
+          "51438",
+          "CLARO",
+          "UMTS",
+          "3176476132",
+          "3145092915",
+          "2021-05-20 13:59:42",
+          33,
+          "51438",
+          "ORIGEN",
+          "CLARO",
+          "LTE"
+        ],
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          4.55038,
+          -74.13705,
+          "64065",
+          "CLARO",
+          "GSM",
+          "3004052035",
+          "3222200005",
+          "2021-05-20 13:59:39",
+          194,
+          "64065",
+          "DESTINO",
+          "CLARO",
+          "LTE"
+        ],
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          4.55038,
+          -74.13705,
+          "51438",
+          "CLARO",
+          "UMTS",
+          "3222925666",
+          "3108809792",
+          "2021-05-20 13:59:37",
+          795,
+          "51438",
+          "DESTINO",
+          "CLARO",
+          "LTE"
+        ],
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          4.55038,
+          -74.13705,
+          "22504",
+          "CLARO",
+          "UMTS",
+          "3114995861",
+          "3125996001",
+          "2021-05-20 13:59:36",
+          5,
+          "22504",
+          "DESTINO",
+          "CLARO",
+          "LTE"
+        ],
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          4.55038,
+          -74.13705,
+          "64065",
+          "CLARO",
+          "GSM",
+          "45824736",
+          "3216129897",
+          "2021-05-20 13:59:25",
+          97,
+          "64065",
+          "ORIGEN",
+          "CLARO",
+          "LTE"
+        ]
+      ]
+    },
+    "analisis_por_punto": {
+      "puntos_activos": 3,
+      "tiempo_segundos": 0.0,
+      "datos": [
+        [
+          "CARRERA 17 N° 71 A SUR ",
+          6,
+          1762,
+          1422,
+          1330,
+          "2021-05-20 12:00:04",
+          "2021-05-20 13:59:42"
+        ],
+        [
+          "CALLE 4 CON CARRERA 36",
+          5,
+          843,
+          727,
+          664,
+          "2021-05-20 10:00:00",
+          "2021-05-20 10:59:55"
+        ],
+        [
+          "CALLE 3 B CON CARRERA 41 A ",
+          2,
+          208,
+          191,
+          167,
+          "2021-05-20 10:00:03",
+          "2021-05-20 10:59:46"
+        ]
+      ]
+    },
+    "busqueda_especifica": {
+      "cell_id_analizado": "10111",
+      "registros": 1,
+      "tiempo_segundos": 0.0
+    }
+  },
+  "indices_optimizacion": 37,
+  "resumen": {
+    "hunter_registros": 58,
+    "llamadas_registros": 3392,
+    "total_coincidencias_origen": 10,
+    "total_coincidencias_destino": 10,
+    "total_coincidencias_completas": 15,
+    "puntos_con_actividad": 3
+  }
+}

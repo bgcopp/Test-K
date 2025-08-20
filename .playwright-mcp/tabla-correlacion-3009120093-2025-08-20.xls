@@ -1,0 +1,5 @@
+
+                <table>
+                    <tr><td>Dirección</td><td>Originador</td><td>Receptor</td><td>Fecha y Hora</td><td>Duración (s)</td><td>Punto HUNTER</td><td>Latitud HUNTER</td><td>Longitud HUNTER</td><td>Operador</td><td>Celda Origen</td><td>Celda Destino</td></tr><tr><td>Saliente</td><td>3009120093</td><td>3142071141</td><td>20/05/2021 12:45</td><td>115</td><td>CARRERA 17 N° 71 A SUR</td><td>4.55038</td><td>-74.13705</td><td>CLARO</td><td>56121</td><td>56124</td></tr><tr><td>Saliente</td><td>3009120093</td><td>3143067409</td><td>20/05/2021 12:40</td><td>999</td><td>CARRERA 17 N° 71 A SUR</td><td>4.55038</td><td>-74.13705</td><td>CLARO</td><td>22504</td><td>51438</td></tr>
+                </table>
+            

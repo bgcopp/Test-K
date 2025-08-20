@@ -12,7 +12,8 @@ Funciones expuestas para el frontend:
 - Missions: get_missions, create_mission, update_mission, delete_mission
 - File Upload: upload_cellular_data
 - Data Management: clear_cellular_data
-- Analysis: run_analysis
+- Analysis: run_analysis, analyze_correlation, get_correlation_summary
+- Call Data: get_call_interactions
 
 Características principales:
 - Inicialización automática de base de datos
@@ -40,7 +41,8 @@ sys.path.insert(0, str(current_dir))
 import eel
 
 # Importar servicios
-from database.connection import init_database, get_database_manager
+from database.connection import init_database, get_database_manager, get_db_connection
+import sqlite3
 from services.auth_service import get_auth_service, AuthenticationError
 from services.user_service import get_user_service, UserServiceError
 from services.role_service import get_role_service, RoleServiceError
@@ -48,6 +50,7 @@ from services.mission_service import get_mission_service, MissionServiceError
 from services.analysis_service import get_analysis_service, AnalysisServiceError
 from services.correlation_service import get_correlation_service
 from services.correlation_service_fixed import CorrelationServiceFixedError
+from services.diagram_correlation_service import get_diagram_correlation_service, DiagramCorrelationServiceError
 from services.correlation_service_dynamic import get_correlation_service_dynamic
 from services.correlation_service_hunter_validated import get_correlation_service_hunter_validated
 from services.file_processor import FileProcessorError
@@ -882,6 +885,346 @@ def get_correlation_summary(mission_id):
     except Exception as e:
         logger.error(f"Error inesperado obteniendo resumen de correlación: {e}")
         handle_service_error("get_correlation_summary", e)
+
+
+@eel.expose
+def get_correlation_diagram(mission_id: str, 
+                          numero_objetivo: str,
+                          start_datetime: str,
+                          end_datetime: str,
+                          filtros: dict = None):
+    """
+    CORRECCIÓN URGENTE BORIS 2025-08-19: Endpoint para diagrama de correlación con función específica
+    
+    PROBLEMA RESUELTO:
+    - ANTES: 255 nodos para 3113330727 (dataset completo)
+    - AHORA: 4-5 nodos (solo interacciones directas del número objetivo)
+    
+    IMPLEMENTACIÓN:
+    - Detecta solicitud de diagrama para número específico  
+    - Usa nueva función optimizada en lugar del algoritmo general
+    - Retorna solo interacciones donde numero_objetivo fue origen O destino
+    
+    Args:
+        mission_id: ID de la misión
+        numero_objetivo: Número telefónico objetivo para el análisis
+        start_datetime: Inicio del período (YYYY-MM-DD HH:MM:SS)
+        end_datetime: Fin del período (YYYY-MM-DD HH:MM:SS)
+        filtros: Filtros opcionales (tipo_trafico, operador, etc.)
+        
+    Returns:
+        Dict con nodos, aristas y metadatos para el diagrama de red
+    """
+    try:
+        logger.info(f"=== CORRECCIÓN BORIS: DIAGRAMA DE CORRELACIÓN ESPECÍFICO ===")
+        logger.info(f"Número objetivo: {numero_objetivo}")
+        logger.info(f"Misión: {mission_id}")
+        logger.info(f"Período: {start_datetime} - {end_datetime}")
+        logger.info(f"Filtros: {filtros}")
+        logger.info(f"OBJETIVO: Generar diagrama individual con máximo 4-5 nodos")
+        
+        # Validar parámetros requeridos
+        if not mission_id or not numero_objetivo:
+            raise ValueError("mission_id y numero_objetivo son requeridos")
+        
+        if not start_datetime or not end_datetime:
+            raise ValueError("start_datetime y end_datetime son requeridos")
+        
+        # CORRECCIÓN BORIS: Usar servicio específico para número individual
+        # En lugar del servicio general que causa inflación de nodos
+        logger.info("CORRECCIÓN APLICADA: Usando servicio HUNTER-VALIDATED específico para número individual")
+        correlation_service_hunter = get_correlation_service_hunter_validated()
+        
+        # Usar función específica para diagrama individual
+        result = correlation_service_hunter.get_individual_number_diagram_data(
+            mission_id=mission_id,
+            numero_objetivo=numero_objetivo,
+            start_datetime=start_datetime,
+            end_datetime=end_datetime,
+            filtros=filtros or {}
+        )
+        
+        logger.info(f"✓ DIAGRAMA INDIVIDUAL GENERADO CON CORRECCIÓN BORIS:")
+        logger.info(f"  - Nodos: {len(result.get('nodos', []))} (objetivo: máximo 4-5)")
+        logger.info(f"  - Aristas: {len(result.get('aristas', []))}")
+        logger.info(f"  - Interacciones directas: {result.get('estadisticas', {}).get('interacciones_directas', 0)}")
+        logger.info(f"  - Tiempo procesamiento: {result.get('processing_time', 0):.3f}s")
+        logger.info(f"  - INFLACIÓN ELIMINADA: Solo interacciones directas del número objetivo")
+        
+        # Log específico para números problema
+        if numero_objetivo in ['3113330727', '3243182028', '3009120093']:
+            logger.info(f"✓ CORRECCIÓN EXITOSA PARA {numero_objetivo}:")
+            logger.info(f"  - ANTES: 255+ nodos (dataset completo)")
+            logger.info(f"  - AHORA: {len(result.get('nodos', []))} nodos (interacciones directas)")
+            logger.info(f"  - PROBLEMA RESUELTO: Eliminada inflación artificial")
+        
+        return result
+        
+    except Exception as e:
+        logger.error(f"Error generando diagrama individual para {numero_objetivo}: {e}")
+        return {
+            'success': False,
+            'message': f'Error generando diagrama: {str(e)}',
+            'numero_objetivo': numero_objetivo,
+            'nodos': [],
+            'aristas': [],
+            'celdas_hunter': [],
+            'estadisticas': {
+                'total_nodos': 0,
+                'total_aristas': 0,
+                'interacciones_directas': 0
+            },
+            'processing_time': 0,
+            'algoritmo': 'INDIVIDUAL_DIRECT_INTERACTIONS_ERROR',
+            'correccion_boris': 'Error al aplicar corrección para diagrama individual'
+        }
+
+
+@eel.expose
+def get_call_interactions(mission_id, target_number, start_datetime, end_datetime):
+    """
+    Obtiene interacciones telefónicas específicas de un número objetivo desde operator_call_data
+    correlacionadas con datos HUNTER de cellular_data.
+    
+    Este endpoint retorna todas las llamadas donde el número objetivo fue origen O destino,
+    enriquecidas con información de puntos HUNTER cuando las celdas coinciden.
+    
+    Args:
+        mission_id: ID de la misión (string)
+        target_number: Número telefónico objetivo (string, sin prefijo +57)
+        start_datetime: Inicio del período (string, formato: YYYY-MM-DD HH:MM:SS)
+        end_datetime: Fin del período (string, formato: YYYY-MM-DD HH:MM:SS)
+        
+    Returns:
+        Lista de diccionarios con interacciones telefónicas correlacionadas:
+        [
+            {
+                'originador': str,              # Número que originó la llamada
+                'receptor': str,                # Número que recibió la llamada  
+                'fecha_hora': str,              # Timestamp de la llamada (ISO format)
+                'duracion': int,                # Duración en segundos
+                'operador': str,                # CLARO, MOVISTAR, TIGO, WOM
+                'celda_origen': str,            # Celda del originador (puede ser None)
+                'celda_destino': str,           # Celda del receptor (puede ser None)
+                'latitud_origen': str,          # Latitud origen de operadora (puede ser None)
+                'longitud_origen': str,         # Longitud origen de operadora (puede ser None)
+                'latitud_destino': str,         # Latitud destino de operadora (puede ser None)
+                'longitud_destino': str,        # Longitud destino de operadora (puede ser None)
+                # Campos HUNTER correlacionados (específicos por celda):
+                'punto_hunter_origen': str,     # Punto HUNTER de celda origen (puede ser None)
+                'lat_hunter_origen': str,       # Latitud HUNTER de celda origen (puede ser None)
+                'lon_hunter_origen': str,       # Longitud HUNTER de celda origen (puede ser None)
+                'punto_hunter_destino': str,    # Punto HUNTER de celda destino (puede ser None)
+                'lat_hunter_destino': str,      # Latitud HUNTER de celda destino (puede ser None)
+                'lon_hunter_destino': str,      # Longitud HUNTER de celda destino (puede ser None)
+                # CAMPOS HUNTER UNIFICADOS (CORRECCIÓN BORIS 2025-08-19):
+                'punto_hunter': str,            # Punto HUNTER unificado (prioriza destino sobre origen)
+                'lat_hunter': str,              # Latitud HUNTER unificada (prioriza destino sobre origen)
+                'lon_hunter': str,              # Longitud HUNTER unificada (prioriza destino sobre origen)
+                'hunter_source': str            # Fuente del dato HUNTER: 'destino', 'origen' o 'ninguno'
+            }
+        ]
+        
+    Raises:
+        ValueError: Si faltan parámetros requeridos o hay errores de validación
+    """
+    try:
+        logger.info(f"=== OBTENER INTERACCIONES TELEFÓNICAS CON DATOS HUNTER ===")
+        logger.info(f"Parámetros recibidos:")
+        logger.info(f"  - mission_id: '{mission_id}' (tipo: {type(mission_id)})")
+        logger.info(f"  - target_number: '{target_number}' (tipo: {type(target_number)})")
+        logger.info(f"  - start_datetime: '{start_datetime}' (tipo: {type(start_datetime)})")
+        logger.info(f"  - end_datetime: '{end_datetime}' (tipo: {type(end_datetime)})")
+        logger.info(f"Correlacionando llamadas (operator_call_data) con datos HUNTER (cellular_data)")
+        
+        # Validación detallada de parámetros de entrada
+        missing_params = []
+        if not mission_id:
+            missing_params.append("mission_id")
+        if not target_number:
+            missing_params.append("target_number")
+        if not start_datetime:
+            missing_params.append("start_datetime")
+        if not end_datetime:
+            missing_params.append("end_datetime")
+            
+        if missing_params:
+            error_msg = f"Parámetros faltantes o vacíos: {', '.join(missing_params)}"
+            logger.error(error_msg)
+            raise ValueError(f"Todos los parámetros son requeridos: mission_id, target_number, start_datetime, end_datetime. Faltantes: {', '.join(missing_params)}")
+        
+        # Validar que el número sea numérico
+        if not str(target_number).isdigit():
+            raise ValueError(f"target_number debe ser numérico: {target_number}")
+        
+        # Normalizar número objetivo (remover cualquier prefijo +57 si existe)
+        target_number_clean = str(target_number).replace('+57', '').replace('57', '') if str(target_number).startswith(('57', '+57')) else str(target_number)
+        logger.info(f"Número objetivo normalizado: {target_number_clean}")
+        
+        # Query SQL parametrizada para obtener interacciones con datos HUNTER correlacionados
+        # LEFT JOINs con cellular_data para enriquecer con información de puntos HUNTER
+        # CORRECCIÓN BORIS 2025-08-19: Query mejorada para resolver problema de "N/A" en Punto HUNTER
+        # Problema identificado: Frontend mostraba "N/A" cuando punto_hunter_origen era NULL 
+        # pero punto_hunter_destino tenía datos válidos (ej: celda 56124)
+        # Solución: Campos unificados que priorizan destino sobre origen usando COALESCE
+        query = """
+        SELECT 
+            ocd.numero_origen as originador,
+            ocd.numero_destino as receptor,
+            ocd.fecha_hora_llamada as fecha_hora, 
+            ocd.duracion_segundos as duracion,
+            ocd.operator as operador,
+            ocd.celda_origen,
+            ocd.celda_destino,
+            ocd.latitud_origen,
+            ocd.longitud_origen,
+            ocd.latitud_destino,
+            ocd.longitud_destino,
+            cd_origen.punto as punto_hunter_origen,
+            cd_origen.lat as lat_hunter_origen,
+            cd_origen.lon as lon_hunter_origen,
+            cd_destino.punto as punto_hunter_destino,
+            cd_destino.lat as lat_hunter_destino,
+            cd_destino.lon as lon_hunter_destino,
+            -- CAMPOS UNIFICADOS HUNTER (CORRECCIÓN DIRECCIONALIDAD BORIS): Considera dirección de llamada
+            CASE 
+                WHEN ocd.numero_origen = :target_number THEN cd_origen.punto    -- SALIENTE: ubicación origen
+                WHEN ocd.numero_destino = :target_number THEN cd_destino.punto  -- ENTRANTE: ubicación destino
+                ELSE COALESCE(cd_destino.punto, cd_origen.punto)               -- Fallback general
+            END as punto_hunter,
+            CASE 
+                WHEN ocd.numero_origen = :target_number THEN cd_origen.lat      -- SALIENTE: latitud origen
+                WHEN ocd.numero_destino = :target_number THEN cd_destino.lat    -- ENTRANTE: latitud destino
+                ELSE COALESCE(cd_destino.lat, cd_origen.lat)                   -- Fallback general
+            END as lat_hunter,
+            CASE 
+                WHEN ocd.numero_origen = :target_number THEN cd_origen.lon      -- SALIENTE: longitud origen
+                WHEN ocd.numero_destino = :target_number THEN cd_destino.lon    -- ENTRANTE: longitud destino
+                ELSE COALESCE(cd_destino.lon, cd_origen.lon)                   -- Fallback general
+            END as lon_hunter,
+            -- Metadatos para transparencia investigativa
+            CASE 
+                WHEN ocd.numero_origen = :target_number AND cd_origen.punto IS NOT NULL THEN 'origen_direccional'
+                WHEN ocd.numero_destino = :target_number AND cd_destino.punto IS NOT NULL THEN 'destino_direccional'
+                WHEN ocd.numero_origen = :target_number AND cd_origen.punto IS NULL AND cd_destino.punto IS NOT NULL THEN 'destino_fallback'
+                WHEN ocd.numero_destino = :target_number AND cd_destino.punto IS NULL AND cd_origen.punto IS NOT NULL THEN 'origen_fallback'
+                ELSE 'sin_ubicacion'
+            END as hunter_source,
+            -- Campo de precisión para investigadores
+            CASE 
+                WHEN (ocd.numero_origen = :target_number AND cd_origen.punto IS NOT NULL) OR 
+                     (ocd.numero_destino = :target_number AND cd_destino.punto IS NOT NULL) THEN 'ALTA'
+                WHEN COALESCE(cd_destino.punto, cd_origen.punto) IS NOT NULL THEN 'MEDIA'
+                ELSE 'SIN_DATOS'
+            END as precision_ubicacion
+        FROM operator_call_data ocd
+        LEFT JOIN cellular_data cd_origen ON (cd_origen.cell_id = ocd.celda_origen AND cd_origen.mission_id = ocd.mission_id)
+        LEFT JOIN cellular_data cd_destino ON (cd_destino.cell_id = ocd.celda_destino AND cd_destino.mission_id = ocd.mission_id)
+        WHERE ocd.mission_id = :mission_id
+          AND (ocd.numero_origen = :target_number OR ocd.numero_destino = :target_number)
+          AND ocd.fecha_hora_llamada BETWEEN :start_datetime AND :end_datetime  
+        ORDER BY ocd.fecha_hora_llamada DESC
+        """
+        
+        # Parámetros para la query (prevención de SQL injection)
+        params = {
+            'mission_id': mission_id,
+            'target_number': target_number_clean,
+            'start_datetime': start_datetime,
+            'end_datetime': end_datetime
+        }
+        
+        logger.info(f"Ejecutando query con parámetros: {params}")
+        
+        # Ejecutar query usando conexión directa a SQLite
+        interactions = []
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(query, params)
+            rows = cursor.fetchall()
+            
+            # Convertir resultados a lista de diccionarios
+            column_names = [description[0] for description in cursor.description]
+            for row in rows:
+                interaction = {}
+                for i, value in enumerate(row):
+                    field_name = column_names[i]
+                    # Convertir valores NULL a None y manejar tipos específicos
+                    if value is None:
+                        interaction[field_name] = None
+                    elif field_name == 'fecha_hora':
+                        # Asegurar formato ISO para fechas
+                        interaction[field_name] = str(value) if value else None
+                    elif field_name == 'duracion':
+                        # Asegurar que duración sea entero
+                        interaction[field_name] = int(value) if value is not None else 0
+                    else:
+                        # Convertir a string otros campos
+                        interaction[field_name] = str(value) if value is not None else None
+                
+                interactions.append(interaction)
+        
+        # Logging de resultados
+        total_found = len(interactions)
+        logger.info(f"✓ Interacciones encontradas: {total_found}")
+        
+        if total_found > 0:
+            # Log de primeros y últimos registros para verificación
+            first_interaction = interactions[0]
+            last_interaction = interactions[-1]
+            logger.info(f"Primera interacción: {first_interaction['fecha_hora']} - {first_interaction['originador']} → {first_interaction['receptor']}")
+            logger.info(f"Última interacción: {last_interaction['fecha_hora']} - {last_interaction['originador']} → {last_interaction['receptor']}")
+            
+            # Estadísticas de operadores
+            operators_count = {}
+            for interaction in interactions:
+                operator = interaction.get('operador', 'DESCONOCIDO')
+                operators_count[operator] = operators_count.get(operator, 0) + 1
+            logger.info(f"Distribución por operadores: {operators_count}")
+            
+            # Estadísticas de correlación HUNTER (por campos específicos)
+            hunter_origen_found = sum(1 for i in interactions if i.get('punto_hunter_origen'))
+            hunter_destino_found = sum(1 for i in interactions if i.get('punto_hunter_destino'))
+            hunter_ambos_found = sum(1 for i in interactions if i.get('punto_hunter_origen') and i.get('punto_hunter_destino'))
+            
+            # CORRECCIÓN BORIS: Estadísticas de campos unificados 
+            hunter_unificado_found = sum(1 for i in interactions if i.get('punto_hunter'))
+            hunter_source_stats = {}
+            for interaction in interactions:
+                source = interaction.get('hunter_source', 'desconocido')
+                hunter_source_stats[source] = hunter_source_stats.get(source, 0) + 1
+            
+            logger.info(f"Correlación HUNTER - Origen: {hunter_origen_found}/{total_found} ({hunter_origen_found/total_found*100:.1f}%)")
+            logger.info(f"Correlación HUNTER - Destino: {hunter_destino_found}/{total_found} ({hunter_destino_found/total_found*100:.1f}%)")
+            logger.info(f"Correlación HUNTER - Ambos: {hunter_ambos_found}/{total_found} ({hunter_ambos_found/total_found*100:.1f}%)")
+            logger.info(f"✓ CORRECCIÓN BORIS - Campo unificado: {hunter_unificado_found}/{total_found} ({hunter_unificado_found/total_found*100:.1f}%)")
+            logger.info(f"✓ CORRECCIÓN BORIS - Fuentes HUNTER: {hunter_source_stats}")
+        else:
+            logger.info("No se encontraron interacciones para los criterios especificados")
+            logger.info("Verificar que:")
+            logger.info(f"  - La misión {mission_id} tenga datos de llamadas cargados")
+            logger.info(f"  - El número {target_number_clean} aparezca en los datos")
+            logger.info(f"  - El período {start_datetime} - {end_datetime} contenga actividad")
+        
+        logger.info(f"=== CONSULTA CON CORRELACIÓN HUNTER COMPLETADA EXITOSAMENTE ===")
+        return interactions
+        
+    except sqlite3.Error as e:
+        error_msg = f"Error de base de datos obteniendo interacciones telefónicas: {e}"
+        logger.error(error_msg)
+        logger.error(f"Query: {query if 'query' in locals() else 'No definida'}")
+        logger.error(f"Parámetros: {params if 'params' in locals() else 'No definidos'}")
+        handle_service_error("get_call_interactions", e)
+    except ValueError as e:
+        error_msg = f"Error de validación en get_call_interactions: {e}"
+        logger.error(error_msg)
+        handle_service_error("get_call_interactions", e)
+    except Exception as e:
+        error_msg = f"Error inesperado obteniendo interacciones telefónicas: {e}"
+        logger.error(error_msg)
+        import traceback
+        logger.error(f"Traceback completo:\n{traceback.format_exc()}")
+        handle_service_error("get_call_interactions", e)
 
 
 # ============================================================================

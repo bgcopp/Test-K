@@ -648,25 +648,48 @@ class FileProcessorService:
                             raise Exception(f"mission_id '{normalized_data['mission_id']}' no existe en missions")
                         
                         # Insertar en base de datos
+                        # cursor.execute("""
+                        #     INSERT INTO operator_cellular_data (
+                        #         file_upload_id, mission_id, operator, numero_telefono,
+                        #         fecha_hora_inicio, celda_id, lac_tac, trafico_subida_bytes,
+                        #         trafico_bajada_bytes, tecnologia, tipo_conexion, record_hash
+                        #     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        # """, (
+                        #     normalized_data['file_upload_id'],
+                        #     normalized_data['mission_id'],
+                        #     normalized_data['operator'],
+                        #     normalized_data['numero_telefono'],
+                        #     normalized_data['fecha_hora_inicio'],
+                        #     normalized_data['celda_id'],
+                        #     normalized_data['lac_tac'],
+                        #     normalized_data['trafico_subida_bytes'],
+                        #     normalized_data['trafico_bajada_bytes'],
+                        #     normalized_data['tecnologia'],
+                        #     normalized_data['tipo_conexion'],
+                        #     normalized_data['record_hash']
+                        # ))
+
                         cursor.execute("""
-                            INSERT INTO operator_cellular_data (
-                                file_upload_id, mission_id, operator, numero_telefono,
-                                fecha_hora_inicio, celda_id, lac_tac, trafico_subida_bytes,
-                                trafico_bajada_bytes, tecnologia, tipo_conexion, record_hash
-                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            INSERT INTO cellular_data (
+                                mission_id, file_record_id, punto, lat, lon, mnc_mcc, operator,
+                                rssi, tecnologia, cell_id, lac_tac, enb, 
+                                comentario, channel, created_at
+                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
                         """, (
-                            normalized_data['file_upload_id'],
                             normalized_data['mission_id'],
+                            normalized_data.get('file_record_id'),
+                            normalized_data['punto'],
+                            normalized_data['latitud'],
+                            normalized_data['longitud'],
+                            normalized_data['mnc_mcc'],
                             normalized_data['operator'],
-                            normalized_data['numero_telefono'],
-                            normalized_data['fecha_hora_inicio'],
-                            normalized_data['celda_id'],
-                            normalized_data['lac_tac'],
-                            normalized_data['trafico_subida_bytes'],
-                            normalized_data['trafico_bajada_bytes'],
+                            normalized_data['rssi'],
                             normalized_data['tecnologia'],
-                            normalized_data['tipo_conexion'],
-                            normalized_data['record_hash']
+                            normalized_data['cell_id'],
+                            normalized_data['lac_tac'],
+                            normalized_data['enb'],
+                            normalized_data['comentario'],
+                            normalized_data['channel']
                         ))
                         
                         records_processed += 1

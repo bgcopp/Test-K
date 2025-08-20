@@ -1,0 +1,114 @@
+<testsuites id="" name="" tests="2" failures="1" skipped="0" errors="0" time="81.180777">
+<testsuite name="diagram-investigation.spec.ts" timestamp="2025-08-19T02:50:04.253Z" hostname="diagram-investigation" tests="2" failures="1" skipped="0" time="70.555" errors="0">
+<testcase name="Investigación Diagrama Correlación - Número 3113330727 › Investigación completa del problema del diagrama" classname="diagram-investigation.spec.ts" time="66.78">
+<failure message="diagram-investigation.spec.ts:135:7 Investigación completa del problema del diagrama" type="FAILURE">
+<![CDATA[  [diagram-investigation] › diagram-investigation.spec.ts:135:7 › Investigación Diagrama Correlación - Número 3113330727 › Investigación completa del problema del diagrama 
+
+    TimeoutError: page.click: Timeout 60000ms exceeded.
+    Call log:
+      - waiting for locator('text=Misiones')
+
+
+      138 |     // FASE 1: Navegar a Misiones
+      139 |     console.log('📋 FASE 1: Navegando a la sección de Misiones');
+    > 140 |     await page.click('text=Misiones');
+          |                ^
+      141 |     await page.waitForLoadState('networkidle');
+      142 |     await page.screenshot({ path: 'Backend/diagram_investigation_evidence/01-missions-page.png' });
+      143 |
+        at C:\Soluciones\BGC\claude\KNSOft\tests\diagram-investigation.spec.ts:140:16
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\Backend\diagram_investigation_evidence\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\Backend\diagram_investigation_evidence\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\Backend\diagram_investigation_evidence\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ..\Backend\diagram_investigation_evidence\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\trace.zip
+    Usage:
+
+        npx playwright show-trace ..\Backend\diagram_investigation_evidence\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[🔍 Iniciando investigación del diagrama para número 3113330727
+🚀 Navegando a KRONOS...
+🌐 Request: GET http://localhost:8000/
+🌐 Request: GET http://localhost:8000/eel.js
+🌐 Request: GET https://cdn.tailwindcss.com/
+🌐 Request: GET http://localhost:8000/assets/index.DFjwuW6Z.js
+🌐 Request: GET http://localhost:8000/assets/vendor.jUXUGz7r.js
+🌐 Request: GET http://localhost:8000/assets/index.D_hJh1s1.css
+🌐 Request: GET https://cdn.tailwindcss.com/3.4.17
+📝 Console [warning]: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
+📝 Console [log]: ✅ Eel detectado y disponible - Modo backend activo
+📝 Console [log]: 🎯 Modo API seleccionado: EEL
+📝 Console [error]: Failed to load resource: the server responded with a status of 404 (Not Found)
+📝 Console [verbose]: [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq)
+🎯 Iniciando investigación completa para número 3113330727
+📋 FASE 1: Navegando a la sección de Misiones
+🔚 Finalizando investigación y guardando evidencia
+💾 Reporte de investigación guardado en: Backend/diagram_investigation_evidence/investigation-report.json
+📋 Resumen ejecutivo guardado
+
+[[ATTACHMENT|diagram_investigation_evidence\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\test-failed-1.png]]
+
+[[ATTACHMENT|diagram_investigation_evidence\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\video.webm]]
+
+[[ATTACHMENT|diagram_investigation_evidence\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\error-context.md]]
+
+[[ATTACHMENT|diagram_investigation_evidence\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\trace.zip]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Investigación Diagrama Correlación - Número 3113330727 › Consulta directa al backend para verificar datos" classname="diagram-investigation.spec.ts" time="3.775">
+<system-out>
+<![CDATA[🔍 Iniciando investigación del diagrama para número 3113330727
+🚀 Navegando a KRONOS...
+🌐 Request: GET http://localhost:8000/
+🌐 Request: GET http://localhost:8000/eel.js
+🌐 Request: GET https://cdn.tailwindcss.com/
+🌐 Request: GET http://localhost:8000/assets/index.DFjwuW6Z.js
+🌐 Request: GET http://localhost:8000/assets/vendor.jUXUGz7r.js
+🌐 Request: GET http://localhost:8000/assets/index.D_hJh1s1.css
+🌐 Request: GET https://cdn.tailwindcss.com/3.4.17
+📝 Console [warning]: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
+📝 Console [log]: ✅ Eel detectado y disponible - Modo backend activo
+📝 Console [log]: 🎯 Modo API seleccionado: EEL
+📝 Console [error]: Failed to load resource: the server responded with a status of 404 (Not Found)
+📝 Console [verbose]: [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq)
+🔍 Consultando backend directamente para verificar datos de 3113330727
+🌐 Request: GET http://localhost:8000/
+🌐 Request: GET http://localhost:8000/eel.js
+🌐 Request: GET https://cdn.tailwindcss.com/
+🌐 Request: GET http://localhost:8000/assets/index.DFjwuW6Z.js
+🌐 Request: GET http://localhost:8000/assets/vendor.jUXUGz7r.js
+🌐 Request: GET http://localhost:8000/assets/index.D_hJh1s1.css
+📝 Console [warning]: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation
+📝 Console [log]: ✅ Eel detectado y disponible - Modo backend activo
+📝 Console [log]: 🎯 Modo API seleccionado: EEL
+📝 Console [verbose]: [DOM] Input elements should have autocomplete attributes (suggested: "current-password"): (More info: https://goo.gl/9p2vKq)
+📊 Datos del backend para 3113330727: {
+  "error": "Error en llamada backend: TypeError: window.eel.get_correlation_data is not a function"
+}
+🔚 Finalizando investigación y guardando evidencia
+💾 Reporte de investigación guardado en: Backend/diagram_investigation_evidence/investigation-report.json
+📋 Resumen ejecutivo guardado
+
+[[ATTACHMENT|diagram_investigation_evidence\diagram-investigation-Inve-3b688-ackend-para-verificar-datos-diagram-investigation\test-finished-1.png]]
+
+[[ATTACHMENT|diagram_investigation_evidence\diagram-investigation-Inve-3b688-ackend-para-verificar-datos-diagram-investigation\video.webm]]
+
+[[ATTACHMENT|diagram_investigation_evidence\diagram-investigation-Inve-3b688-ackend-para-verificar-datos-diagram-investigation\trace.zip]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

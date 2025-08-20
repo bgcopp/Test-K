@@ -625,3 +625,44 @@ Encoding auto-detectado: ascii (confianza: 1.00)
 CSV leído exitosamente: 2 filas, 1 columnas
 Archivo leído: 2 registros, 1 columnas
 ERROR RESPONSE STRUCTURE: {'success': False, 'error': 'Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal', 'error_code': 'PROCESSING_FAILED', 'sheetId': '5a784b09-b17c-421c-9e87-81f35d2e78df', 'processedRecords': 0, 'warnings': [], 'errors': ['Estructura de archivo inválida: Columnas faltantes: numero, fecha_trafico, tipo_cdr, celda_decimal, lac_decimal']}
+OperatorLogger inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente
+DataNormalizerService inicializado
+FileProcessorService inicializado
+DataNormalizerService inicializado
+Schema ya está actualizado para validación por misión
+OperatorDataService inicializado correctamente

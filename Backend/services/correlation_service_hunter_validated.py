@@ -448,6 +448,301 @@ class CorrelationServiceHunterValidated:
         
         return phone_clean
     
+    def get_individual_number_diagram_data(self, mission_id: str, numero_objetivo: str, 
+                                           start_datetime: str, end_datetime: str, 
+                                           filtros: dict = None) -> Dict[str, Any]:
+        """
+        CORRECCIÓN URGENTE BORIS 2025-08-19: Diagrama específico para número individual
+        
+        PROBLEMA RESUELTO:
+        - ANTES: 255 nodos (dataset completo) para 3113330727
+        - AHORA: 4-5 nodos (solo interacciones directas del número objetivo)
+        
+        ALGORITMO ESPECÍFICO:
+        1. Buscar SOLO donde numero_objetivo fue origen O destino
+        2. Filtrar SOLO por celdas HUNTER reales 
+        3. Generar nodos únicamente para interacciones directas
+        4. Eliminar inflación artificial completamente
+        
+        Args:
+            mission_id: ID de la misión
+            numero_objetivo: Número específico para el diagrama
+            start_datetime: Inicio del período 
+            end_datetime: Fin del período
+            filtros: Filtros opcionales (no usados en esta corrección)
+            
+        Returns:
+            Dict con nodos, aristas y metadatos del diagrama específico
+        """
+        start_time = time.time()
+        
+        try:
+            logger.info(f"=== CORRECCIÓN BORIS: DIAGRAMA INDIVIDUAL ESPECÍFICO ===")
+            logger.info(f"Número objetivo: {numero_objetivo}")
+            logger.info(f"Misión: {mission_id}")
+            logger.info(f"Período: {start_datetime} - {end_datetime}")
+            logger.info(f"OBJETIVO: Solo interacciones directas (máximo 4-5 nodos)")
+            
+            with self.db_manager.get_session() as session:
+                # 1. Cargar celdas HUNTER reales
+                real_hunter_cells = self._load_real_hunter_cells()
+                if not real_hunter_cells:
+                    logger.error("No se pudieron cargar celdas HUNTER reales")
+                    return self._create_empty_diagram_result(numero_objetivo, "Error cargando celdas HUNTER")
+                
+                logger.info(f"✓ Usando {len(real_hunter_cells)} celdas HUNTER reales")
+                
+                # 2. Buscar SOLO interacciones directas del número objetivo
+                direct_interactions = self._find_direct_interactions_for_number(
+                    session, mission_id, numero_objetivo, real_hunter_cells, 
+                    start_datetime, end_datetime
+                )
+                
+                logger.info(f"✓ Encontradas {len(direct_interactions)} interacciones directas")
+                
+                # 3. Generar nodos y aristas específicas
+                nodos, aristas = self._generate_specific_diagram_elements(
+                    numero_objetivo, direct_interactions
+                )
+                
+                processing_time = time.time() - start_time
+                
+                logger.info(f"✓ DIAGRAMA INDIVIDUAL GENERADO:")
+                logger.info(f"  - Nodos: {len(nodos)} (objetivo: máximo 4-5)")
+                logger.info(f"  - Aristas: {len(aristas)}")
+                logger.info(f"  - Tiempo: {processing_time:.3f}s")
+                logger.info(f"  - CORRECCIÓN APLICADA: Solo interacciones directas")
+                
+                return {
+                    'success': True,
+                    'numero_objetivo': numero_objetivo,
+                    'nodos': nodos,
+                    'aristas': aristas,
+                    'celdas_hunter': list(real_hunter_cells)[:20],  # Primeras 20 para referencia
+                    'estadisticas': {
+                        'total_nodos': len(nodos),
+                        'total_aristas': len(aristas),
+                        'interacciones_directas': len(direct_interactions),
+                        'celdas_hunter_utilizadas': len(real_hunter_cells)
+                    },
+                    'processing_time': processing_time,
+                    'algoritmo': 'INDIVIDUAL_DIRECT_INTERACTIONS_v1.0',
+                    'correccion_boris': 'Eliminada inflación - Solo interacciones directas del número objetivo'
+                }
+                
+        except Exception as e:
+            logger.error(f"Error generando diagrama individual para {numero_objetivo}: {e}")
+            return self._create_empty_diagram_result(numero_objetivo, f"Error: {str(e)}")
+
+    def _find_direct_interactions_for_number(self, session, mission_id: str, numero_objetivo: str,
+                                           real_hunter_cells: Set[str], start_datetime: str, 
+                                           end_datetime: str) -> List[Dict[str, Any]]:
+        """
+        Encuentra SOLO las interacciones directas donde el número objetivo participó
+        
+        CORRECCIÓN ESPECÍFICA BORIS:
+        - SOLO registros donde numero_objetivo es origen O destino
+        - SOLO celdas que existen en HUNTER real
+        - NO dataset completo, SOLO interacciones específicas del número
+        """
+        try:
+            # Convertir celdas HUNTER a formato SQL
+            hunter_cells_str = ','.join([f"'{cell}'" for cell in real_hunter_cells])
+            
+            if not hunter_cells_str:
+                logger.warning("No hay celdas HUNTER reales para filtrar")
+                return []
+            
+            # Query ESPECÍFICO: Solo interacciones directas del número objetivo
+            query = text(f"""
+                -- CORRECCIÓN BORIS: Solo interacciones directas del número objetivo
+                SELECT DISTINCT
+                    numero_origen,
+                    numero_destino, 
+                    celda_origen,
+                    celda_destino,
+                    fecha_hora_llamada,
+                    operator,
+                    'origen' as rol_objetivo
+                FROM operator_call_data 
+                WHERE mission_id = :mission_id
+                  AND numero_origen = :numero_objetivo  -- ESPECÍFICO: número como origen
+                  AND date(fecha_hora_llamada) BETWEEN :start_date AND :end_date
+                  AND (celda_origen IN ({hunter_cells_str}) OR celda_destino IN ({hunter_cells_str}))  -- Solo celdas HUNTER
+                  AND numero_origen IS NOT NULL 
+                  AND numero_origen != ''
+                  AND numero_destino IS NOT NULL 
+                  AND numero_destino != ''
+                
+                UNION ALL
+                
+                SELECT DISTINCT
+                    numero_origen,
+                    numero_destino,
+                    celda_origen, 
+                    celda_destino,
+                    fecha_hora_llamada,
+                    operator,
+                    'destino' as rol_objetivo
+                FROM operator_call_data 
+                WHERE mission_id = :mission_id
+                  AND numero_destino = :numero_objetivo  -- ESPECÍFICO: número como destino
+                  AND date(fecha_hora_llamada) BETWEEN :start_date AND :end_date
+                  AND (celda_origen IN ({hunter_cells_str}) OR celda_destino IN ({hunter_cells_str}))  -- Solo celdas HUNTER
+                  AND numero_origen IS NOT NULL 
+                  AND numero_origen != ''
+                  AND numero_destino IS NOT NULL 
+                  AND numero_destino != ''
+                
+                ORDER BY fecha_hora_llamada
+            """)
+            
+            # Convertir fechas
+            start_date = datetime.strptime(start_datetime, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')
+            end_date = datetime.strptime(end_datetime, '%Y-%m-%d %H:%M:%S').strftime('%Y-%m-%d')
+            
+            logger.info(f"Buscando interacciones directas para {numero_objetivo}")
+            logger.info(f"Período: {start_date} a {end_date}")
+            logger.info(f"Celdas HUNTER: {len(real_hunter_cells)} disponibles")
+            
+            result = session.execute(query, {
+                'mission_id': mission_id,
+                'numero_objetivo': numero_objetivo,
+                'start_date': start_date,
+                'end_date': end_date
+            })
+            
+            interactions = []
+            for row in result.fetchall():
+                numero_origen = str(row[0])
+                numero_destino = str(row[1])
+                celda_origen = str(row[2]) if row[2] else None
+                celda_destino = str(row[3]) if row[3] else None
+                fecha_hora = row[4]
+                operador = str(row[5])
+                rol_objetivo = str(row[6])
+                
+                interactions.append({
+                    'numero_origen': numero_origen,
+                    'numero_destino': numero_destino,
+                    'celda_origen': celda_origen,
+                    'celda_destino': celda_destino,
+                    'fecha_hora': fecha_hora,
+                    'operador': operador,
+                    'rol_objetivo': rol_objetivo
+                })
+            
+            logger.info(f"✓ Encontradas {len(interactions)} interacciones directas específicas")
+            
+            # Log específico para número problema
+            if numero_objetivo in ['3113330727', '3243182028', '3009120093']:
+                logger.info(f"CORRECCIÓN BORIS {numero_objetivo}:")
+                logger.info(f"  - Interacciones directas: {len(interactions)}")
+                logger.info(f"  - ELIMINADA inflación por dataset completo")
+                for i, interaction in enumerate(interactions[:5]):  # Primeras 5
+                    logger.info(f"    {i+1}. {interaction['numero_origen']} -> {interaction['numero_destino']} "
+                               f"(celdas: {interaction['celda_origen']} -> {interaction['celda_destino']})")
+            
+            return interactions
+            
+        except Exception as e:
+            logger.error(f"Error buscando interacciones directas para {numero_objetivo}: {e}")
+            return []
+
+    def _generate_specific_diagram_elements(self, numero_objetivo: str, 
+                                          interactions: List[Dict[str, Any]]) -> Tuple[List[Dict], List[Dict]]:
+        """
+        Genera nodos y aristas específicos para las interacciones directas
+        
+        CORRECCIÓN BORIS: Solo números que interactuaron directamente con numero_objetivo
+        """
+        try:
+            nodos = []
+            aristas = []
+            numeros_unicos = set()
+            celdas_utilizadas = set()
+            
+            # Agregar nodo del número objetivo (siempre presente)
+            nodos.append({
+                'id': numero_objetivo,
+                'label': numero_objetivo,
+                'tipo': 'objetivo',
+                'color': '#ff6b6b',
+                'size': 20,
+                'importancia': 100
+            })
+            numeros_unicos.add(numero_objetivo)
+            
+            # Procesar cada interacción directa
+            for interaction in interactions:
+                numero_origen = interaction['numero_origen']
+                numero_destino = interaction['numero_destino']
+                celda_origen = interaction['celda_origen']
+                celda_destino = interaction['celda_destino']
+                
+                # Agregar números únicos como nodos
+                for numero in [numero_origen, numero_destino]:
+                    if numero not in numeros_unicos:
+                        nodos.append({
+                            'id': numero,
+                            'label': numero,
+                            'tipo': 'interactuante' if numero != numero_objetivo else 'objetivo',
+                            'color': '#4ecdc4' if numero != numero_objetivo else '#ff6b6b',
+                            'size': 15 if numero != numero_objetivo else 20,
+                            'importancia': 50 if numero != numero_objetivo else 100
+                        })
+                        numeros_unicos.add(numero)
+                
+                # Crear arista para la interacción
+                arista_id = f"{numero_origen}-{numero_destino}-{interaction['fecha_hora']}"
+                aristas.append({
+                    'id': arista_id,
+                    'source': numero_origen,
+                    'target': numero_destino,
+                    'label': f"{celda_origen} -> {celda_destino}",
+                    'celda_origen': celda_origen,
+                    'celda_destino': celda_destino,
+                    'fecha_hora': interaction['fecha_hora'],
+                    'operador': interaction['operador'],
+                    'tipo': 'comunicacion'
+                })
+                
+                # Registrar celdas utilizadas
+                if celda_origen:
+                    celdas_utilizadas.add(celda_origen)
+                if celda_destino:
+                    celdas_utilizadas.add(celda_destino)
+            
+            logger.info(f"✓ Generados elementos específicos para {numero_objetivo}:")
+            logger.info(f"  - Nodos únicos: {len(nodos)} (números diferentes)")
+            logger.info(f"  - Aristas: {len(aristas)} (interacciones)")
+            logger.info(f"  - Celdas involucradas: {len(celdas_utilizadas)}")
+            logger.info(f"  - OBJETIVO CUMPLIDO: Máximo nodos para número específico")
+            
+            return nodos, aristas
+            
+        except Exception as e:
+            logger.error(f"Error generando elementos del diagrama para {numero_objetivo}: {e}")
+            return [], []
+
+    def _create_empty_diagram_result(self, numero_objetivo: str, message: str) -> Dict[str, Any]:
+        """Crea resultado vacío para casos de error"""
+        return {
+            'success': False,
+            'numero_objetivo': numero_objetivo,
+            'message': message,
+            'nodos': [],
+            'aristas': [],
+            'celdas_hunter': [],
+            'estadisticas': {
+                'total_nodos': 0,
+                'total_aristas': 0,
+                'interacciones_directas': 0
+            },
+            'processing_time': 0,
+            'algoritmo': 'INDIVIDUAL_DIRECT_INTERACTIONS_v1.0_ERROR'
+        }
+
     def validate_number_hunter_correlation(self, session, numero: str, real_hunter_cells: Set[str]) -> Dict[str, Any]:
         """
         Valida la correlación HUNTER-validated de un número específico

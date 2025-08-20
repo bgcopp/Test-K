@@ -1,0 +1,18 @@
+{
+  "fecha_prueba": "2025-08-18T21:16:32.009042",
+  "numero_objetivo": "3113330727",
+  "mision": "mission_MPFRBNsb",
+  "periodo": "2021-05-01 00:00:00 - 2021-05-31 23:59:59",
+  "resultado_correccion": {
+    "status": "EXITOSA",
+    "nodos_encontrados": 0,
+    "aristas_encontradas": 0,
+    "tiempo_procesamiento": 0.001018,
+    "success": true
+  },
+  "analisis_detallado": {
+    "nodos": [],
+    "estadisticas": {},
+    "metadata": {}
+  }
+}

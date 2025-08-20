@@ -1,0 +1,153 @@
+{
+  "targetNumber": "3113330727",
+  "consoleMessages": [
+    {
+      "type": "warning",
+      "text": "cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation",
+      "timestamp": "2025-08-19T02:51:18.172Z",
+      "args": [
+        "cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation"
+      ]
+    },
+    {
+      "type": "log",
+      "text": "✅ Eel detectado y disponible - Modo backend activo",
+      "timestamp": "2025-08-19T02:51:18.286Z",
+      "args": [
+        "✅ Eel detectado y disponible - Modo backend activo"
+      ]
+    },
+    {
+      "type": "log",
+      "text": "🎯 Modo API seleccionado: EEL",
+      "timestamp": "2025-08-19T02:51:18.286Z",
+      "args": [
+        "🎯 Modo API seleccionado: EEL"
+      ]
+    },
+    {
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)",
+      "timestamp": "2025-08-19T02:51:18.344Z",
+      "args": []
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq)",
+      "timestamp": "2025-08-19T02:51:18.412Z",
+      "args": []
+    },
+    {
+      "type": "warning",
+      "text": "cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation",
+      "timestamp": "2025-08-19T02:51:19.335Z",
+      "args": [
+        "cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation"
+      ]
+    },
+    {
+      "type": "log",
+      "text": "✅ Eel detectado y disponible - Modo backend activo",
+      "timestamp": "2025-08-19T02:51:19.399Z",
+      "args": [
+        "✅ Eel detectado y disponible - Modo backend activo"
+      ]
+    },
+    {
+      "type": "log",
+      "text": "🎯 Modo API seleccionado: EEL",
+      "timestamp": "2025-08-19T02:51:19.399Z",
+      "args": [
+        "🎯 Modo API seleccionado: EEL"
+      ]
+    },
+    {
+      "type": "verbose",
+      "text": "[DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq)",
+      "timestamp": "2025-08-19T02:51:19.505Z",
+      "args": []
+    }
+  ],
+  "networkRequests": [
+    {
+      "url": "http://localhost:8000/",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:17.381Z",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8000/eel.js",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:17.699Z",
+      "status": 200
+    },
+    {
+      "url": "https://cdn.tailwindcss.com/",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:17.700Z",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8000/assets/index.DFjwuW6Z.js",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:17.700Z",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8000/assets/vendor.jUXUGz7r.js",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:17.704Z",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8000/assets/index.D_hJh1s1.css",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:17.705Z",
+      "status": 200
+    },
+    {
+      "url": "https://cdn.tailwindcss.com/3.4.17",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:17.978Z",
+      "status": 200
+    },
+    {
+      "url": "http://localhost:8000/",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:19.316Z"
+    },
+    {
+      "url": "http://localhost:8000/eel.js",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:19.331Z"
+    },
+    {
+      "url": "https://cdn.tailwindcss.com/",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:19.331Z"
+    },
+    {
+      "url": "http://localhost:8000/assets/index.DFjwuW6Z.js",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:19.332Z"
+    },
+    {
+      "url": "http://localhost:8000/assets/vendor.jUXUGz7r.js",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:19.332Z"
+    },
+    {
+      "url": "http://localhost:8000/assets/index.D_hJh1s1.css",
+      "method": "GET",
+      "timestamp": "2025-08-19T02:51:19.333Z"
+    }
+  ],
+  "backendDataCount": 0,
+  "frontendNodesCount": 0,
+  "filteredDataCount": 0,
+  "transformedDataCount": 0,
+  "finalVisualizationCount": 0,
+  "issueIdentified": "",
+  "recommendedSolution": "",
+  "capturedAt": "2025-08-19T02:51:17.236Z"
+}

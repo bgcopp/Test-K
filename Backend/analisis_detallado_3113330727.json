@@ -1,0 +1,32 @@
+{
+  "numero_objetivo": "3113330727",
+  "fecha_analisis": "2025-08-18T21:48:16.963983",
+  "conteos": {
+    "como_origen": 3,
+    "como_destino": 0,
+    "como_objetivo": 0
+  },
+  "nodos_unicos": {
+    "destinos_cuando_origen": 3,
+    "origenes_cuando_destino": 0,
+    "total_nodos_esperados": 4
+  },
+  "metricas_problema": {
+    "nodos_esperados": 4,
+    "nodos_reportados_ui": 255,
+    "diferencia": 251
+  },
+  "distribucion_operador": {
+    "CLARO": 3
+  },
+  "actividad_por_fecha": {
+    "2021-05-20": 3
+  },
+  "numeros_relacionados": [
+    "3226506678",
+    "3113330727",
+    "3227863649",
+    "3214665744"
+  ],
+  "duplicados_detectados": []
+}

@@ -1,0 +1,37 @@
+{
+  "timestamp": "2025-08-19T17:09:30.173844",
+  "analisis": "Relación HUNTER-LLAMADAS",
+  "estadisticas": {
+    "hunter_registros": 58,
+    "llamadas_registros": 3392,
+    "coincidencias_origen": 1783,
+    "coincidencias_destino": 2506
+  },
+  "esquemas": {
+    "hunter_campos_clave": [
+      "punto",
+      "cell_id",
+      "lat",
+      "lon",
+      "operator",
+      "tecnologia"
+    ],
+    "llamadas_campos_clave": [
+      "numero_origen",
+      "numero_destino",
+      "celda_origen",
+      "celda_destino",
+      "operator",
+      "tecnologia"
+    ]
+  },
+  "relaciones_detectadas": {
+    "cell_id_celda_origen": true,
+    "cell_id_celda_destino": true
+  },
+  "consultas_optimizadas": {
+    "consulta_origen": "\n-- CONSULTA 1: Relacionar HUNTER con LLAMADAS por celda_origen\nSELECT \n    cd.punto AS punto_hunter,\n    cd.lat AS lat_hunter,\n    cd.lon AS lon_hunter,\n    cd.cell_id,\n    cd.operator AS operador_hunter,\n    cd.tecnologia AS tech_hunter,\n    ocd.numero_origen,\n    ocd.numero_destino,\n    ocd.fecha_hora_llamada,\n    ocd.duracion_segundos,\n    ocd.celda_origen,\n    ocd.operator AS operador_llamada,\n    ocd.tecnologia AS tech_llamada\nFROM cellular_data cd\nINNER JOIN operator_call_data ocd ON cd.cell_id = ocd.celda_origen\nWHERE cd.mission_id = ? AND ocd.mission_id = ?\nORDER BY ocd.fecha_hora_llamada DESC;\n",
+    "consulta_destino": "\n-- CONSULTA 2: Relacionar HUNTER con LLAMADAS por celda_destino\nSELECT \n    cd.punto AS punto_hunter,\n    cd.lat AS lat_hunter,\n    cd.lon AS lon_hunter,\n    cd.cell_id,\n    cd.operator AS operador_hunter,\n    cd.tecnologia AS tech_hunter,\n    ocd.numero_origen,\n    ocd.numero_destino,\n    ocd.fecha_hora_llamada,\n    ocd.duracion_segundos,\n    ocd.celda_destino,\n    ocd.operator AS operador_llamada,\n    ocd.tecnologia AS tech_llamada\nFROM cellular_data cd\nINNER JOIN operator_call_data ocd ON cd.cell_id = ocd.celda_destino\nWHERE cd.mission_id = ? AND ocd.mission_id = ?\nORDER BY ocd.fecha_hora_llamada DESC;\n",
+    "consulta_completa": "\n-- CONSULTA 3: Unión completa (origen + destino)\nSELECT \n    cd.punto AS punto_hunter,\n    cd.lat AS lat_hunter,\n    cd.lon AS lon_hunter,\n    cd.cell_id,\n    cd.operator AS operador_hunter,\n    cd.tecnologia AS tech_hunter,\n    ocd.numero_origen,\n    ocd.numero_destino,\n    ocd.fecha_hora_llamada,\n    ocd.duracion_segundos,\n    CASE \n        WHEN cd.cell_id = ocd.celda_origen THEN ocd.celda_origen\n        WHEN cd.cell_id = ocd.celda_destino THEN ocd.celda_destino\n    END AS celda_coincidente,\n    CASE \n        WHEN cd.cell_id = ocd.celda_origen THEN 'ORIGEN'\n        WHEN cd.cell_id = ocd.celda_destino THEN 'DESTINO'\n    END AS tipo_coincidencia,\n    ocd.operator AS operador_llamada,\n    ocd.tecnologia AS tech_llamada\nFROM cellular_data cd\nINNER JOIN operator_call_data ocd ON (\n    cd.cell_id = ocd.celda_origen OR cd.cell_id = ocd.celda_destino\n)\nWHERE cd.mission_id = ? AND ocd.mission_id = ?\nORDER BY ocd.fecha_hora_llamada DESC;\n"
+  }
+}

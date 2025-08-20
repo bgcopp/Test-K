@@ -54,7 +54,7 @@
         "testMatch": [
           "**/*.spec.ts"
         ],
-        "timeout": 180000
+        "timeout": 120000
       }
     ],
     "shard": null,
@@ -76,13 +76,13 @@
   "suites": [],
   "errors": [
     {
-      "message": "Error: Process from config.webServer exited early.",
-      "stack": "Error: Process from config.webServer exited early."
+      "message": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments.",
+      "stack": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments."
     }
   ],
   "stats": {
-    "startTime": "2025-08-17T16:47:52.563Z",
-    "duration": 3209.402,
+    "startTime": "2025-08-19T03:13:13.727Z",
+    "duration": 4619.799,
     "expected": 0,
     "skipped": 0,
     "unexpected": 0,

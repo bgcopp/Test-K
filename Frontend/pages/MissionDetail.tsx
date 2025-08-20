@@ -10,6 +10,8 @@ import PointChip from '../components/ui/PointChip';
 import Pagination from '../components/ui/Pagination';
 import { CorrelationCellBadgeGroup } from '../components/ui/CorrelationCellBadge';
 import CorrelationLegend from '../components/ui/CorrelationLegend';
+import TableCorrelationModal from '../components/ui/TableCorrelationModal';
+import ActionButton from '../components/ui/ActionButton';
 import { OperatorDataUpload, OperatorSheetsManager, OperatorDataViewer } from '../components/operator-data';
 import { ICONS } from '../constants';
 import { uploadCellularData, clearCellularDataApi, runAnalysis, getOperatorSheets, deleteOperatorSheet, analyzeCorrelation } from '../services/api';
@@ -56,6 +58,11 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
     // Estados para paginación
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(25);
+    
+    // Estados para tabla de correlación modal
+    const [showTableCorrelation, setShowTableCorrelation] = useState(false);
+    const [selectedTableTarget, setSelectedTableTarget] = useState('');
+    
     
     const { showFileProcessingResult, showError, showSuccess } = useNotification();
     const { showConfirmation } = useConfirmation();
@@ -451,6 +458,22 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
     useEffect(() => {
         setCurrentPage(1);
     }, [phoneFilter, cellFilter]);
+
+    // Función para manejar la apertura del modal de tabla de correlación
+    const handleViewTableCorrelation = (targetNumber: string) => {
+        console.log('🔍 Abriendo tabla de correlación para:', targetNumber);
+        setSelectedTableTarget(targetNumber);
+        setShowTableCorrelation(true);
+    };
+
+    // Función para cerrar el modal de tabla de correlación
+    const handleCloseTableCorrelation = () => {
+        console.log('❌ Cerrando tabla de correlación');
+        setShowTableCorrelation(false);
+        setSelectedTableTarget('');
+    };
+
+
 
     if (!mission) {
         return <Navigate to="/missions" replace />;
@@ -869,7 +892,8 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
                                             'Ocurrencias', 
                                             'Primera Detección', 
                                             'Última Detección', 
-                                            'Celdas Relacionadas'
+                                            'Celdas Relacionadas',
+                                            'Acciones'
                                             // 'Nivel de Confianza' - OCULTA POR SOLICITUD DE BORIS
                                         ]}>
                                             {getPaginatedResults().map((result, index) => (
@@ -916,6 +940,19 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
                                                                 // Aquí puedes agregar lógica adicional como resaltar filas relacionadas
                                                             }}
                                                         />
+                                                    </td>
+                                                    
+                                                    {/* Acciones */}
+                                                    <td className="px-4 py-3 text-sm">
+                                                        <div className="flex items-center justify-center">
+                                                            <ActionButton
+                                                                icon="📊"
+                                                                onClick={() => handleViewTableCorrelation(result.targetNumber)}
+                                                                tooltip="Ver tabla de correlación"
+                                                                size="sm"
+                                                                variant="primary"
+                                                            />
+                                                        </div>
                                                     </td>
                                                     
                                                     {/* Nivel de Confianza - OCULTA POR SOLICITUD DE BORIS */}
@@ -971,6 +1008,17 @@ const MissionDetail: React.FC<MissionDetailProps> = ({ missions, setMissions }) 
                 onTimeout={handleTimeout}
                 timeoutDuration={180000} // 3 minutos
             />
+            
+            {/* Modal de Tabla de Correlación */}
+            <TableCorrelationModal
+                isOpen={showTableCorrelation}
+                onClose={handleCloseTableCorrelation}
+                targetNumber={selectedTableTarget}
+                missionId={mission.id}
+                startDate={correlationStartDate.replace('T', ' ') + ':00'}
+                endDate={correlationEndDate.replace('T', ' ') + ':00'}
+            />
+            
         </div>
     );
 };

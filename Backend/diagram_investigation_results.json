@@ -1,0 +1,409 @@
+{
+  "config": {
+    "configFile": "C:\\Soluciones\\BGC\\claude\\KNSOft\\playwright-diagram-investigation.config.ts",
+    "rootDir": "C:/Soluciones/BGC/claude/KNSOft/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "testSuite": "Investigación Diagrama de Correlación KRONOS",
+      "problemNumber": "3113330727",
+      "reportedIssue": "Muestra 255 nodos en lugar de interacciones directas",
+      "investigationGoals": [
+        "Capturar logs detallados de consola",
+        "Interceptar llamadas de red al backend",
+        "Analizar flujo completo de datos",
+        "Identificar punto exacto donde se agregan nodos extra",
+        "Comparar datos backend vs frontend"
+      ],
+      "expectedBehavior": "Solo mostrar interacciones directas del número objetivo",
+      "investigationDate": "2025-08-19T02:50:00.173Z",
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "Backend/diagram_investigation_report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "Backend/diagram_investigation_results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "Backend/diagram_investigation_junit.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Soluciones/BGC/claude/KNSOft/Backend/diagram_investigation_evidence",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "testSuite": "Investigación Diagrama de Correlación KRONOS",
+          "problemNumber": "3113330727",
+          "reportedIssue": "Muestra 255 nodos en lugar de interacciones directas",
+          "investigationGoals": [
+            "Capturar logs detallados de consola",
+            "Interceptar llamadas de red al backend",
+            "Analizar flujo completo de datos",
+            "Identificar punto exacto donde se agregan nodos extra",
+            "Comparar datos backend vs frontend"
+          ],
+          "expectedBehavior": "Solo mostrar interacciones directas del número objetivo",
+          "investigationDate": "2025-08-19T02:50:00.173Z",
+          "actualWorkers": 1
+        },
+        "id": "diagram-investigation",
+        "name": "diagram-investigation",
+        "testDir": "C:/Soluciones/BGC/claude/KNSOft/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/diagram-investigation.spec.ts"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.54.2",
+    "workers": 1,
+    "webServer": {
+      "command": "cd Backend && python main.py",
+      "port": 8000,
+      "timeout": 120000,
+      "reuseExistingServer": true,
+      "env": {
+        "PYTHONPATH": ".",
+        "FLASK_ENV": "development",
+        "DEBUG": "true"
+      }
+    }
+  },
+  "suites": [
+    {
+      "title": "diagram-investigation.spec.ts",
+      "file": "diagram-investigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Investigación Diagrama Correlación - Número 3113330727",
+          "file": "diagram-investigation.spec.ts",
+          "line": 53,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Investigación completa del problema del diagrama",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 600000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "diagram-investigation",
+                  "projectName": "diagram-investigation",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 66780,
+                      "error": {
+                        "message": "TimeoutError: page.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=Misiones')\u001b[22m\n",
+                        "stack": "TimeoutError: page.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=Misiones')\u001b[22m\n\n    at C:\\Soluciones\\BGC\\claude\\KNSOft\\tests\\diagram-investigation.spec.ts:140:16",
+                        "location": {
+                          "file": "C:\\Soluciones\\BGC\\claude\\KNSOft\\tests\\diagram-investigation.spec.ts",
+                          "column": 16,
+                          "line": 140
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 138 |\u001b[39m     \u001b[90m// FASE 1: Navegar a Misiones\u001b[39m\n \u001b[90m 139 |\u001b[39m     console\u001b[33m.\u001b[39mlog(\u001b[32m'📋 FASE 1: Navegando a la sección de Misiones'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 140 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mclick(\u001b[32m'text=Misiones'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 141 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForLoadState(\u001b[32m'networkidle'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 142 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mscreenshot({ path\u001b[33m:\u001b[39m \u001b[32m'Backend/diagram_investigation_evidence/01-missions-page.png'\u001b[39m })\u001b[33m;\u001b[39m\n \u001b[90m 143 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\Soluciones\\BGC\\claude\\KNSOft\\tests\\diagram-investigation.spec.ts",
+                            "column": 16,
+                            "line": 140
+                          },
+                          "message": "TimeoutError: page.click: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('text=Misiones')\u001b[22m\n\n\n  138 |     // FASE 1: Navegar a Misiones\n  139 |     console.log('📋 FASE 1: Navegando a la sección de Misiones');\n> 140 |     await page.click('text=Misiones');\n      |                ^\n  141 |     await page.waitForLoadState('networkidle');\n  142 |     await page.screenshot({ path: 'Backend/diagram_investigation_evidence/01-missions-page.png' });\n  143 |\n    at C:\\Soluciones\\BGC\\claude\\KNSOft\\tests\\diagram-investigation.spec.ts:140:16"
+                        }
+                      ],
+                      "stdout": [
+                        {
+                          "text": "🔍 Iniciando investigación del diagrama para número 3113330727\n"
+                        },
+                        {
+                          "text": "🚀 Navegando a KRONOS...\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/eel.js\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET https://cdn.tailwindcss.com/\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/assets/index.DFjwuW6Z.js\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/assets/vendor.jUXUGz7r.js\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/assets/index.D_hJh1s1.css\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET https://cdn.tailwindcss.com/3.4.17\n"
+                        },
+                        {
+                          "text": "📝 Console [warning]: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation\n"
+                        },
+                        {
+                          "text": "📝 Console [log]: ✅ Eel detectado y disponible - Modo backend activo\n"
+                        },
+                        {
+                          "text": "📝 Console [log]: 🎯 Modo API seleccionado: EEL\n"
+                        },
+                        {
+                          "text": "📝 Console [error]: Failed to load resource: the server responded with a status of 404 (Not Found)\n"
+                        },
+                        {
+                          "text": "📝 Console [verbose]: [DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq)\n"
+                        },
+                        {
+                          "text": "🎯 Iniciando investigación completa para número 3113330727\n"
+                        },
+                        {
+                          "text": "📋 FASE 1: Navegando a la sección de Misiones\n"
+                        },
+                        {
+                          "text": "🔚 Finalizando investigación y guardando evidencia\n"
+                        },
+                        {
+                          "text": "💾 Reporte de investigación guardado en: Backend/diagram_investigation_evidence/investigation-report.json\n"
+                        },
+                        {
+                          "text": "📋 Resumen ejecutivo guardado\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-19T02:50:05.116Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\diagram_investigation_evidence\\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\diagram_investigation_evidence\\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\diagram_investigation_evidence\\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\\error-context.md"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\diagram_investigation_evidence\\diagram-investigation-Inve-14142-a-del-problema-del-diagrama-diagram-investigation\\trace.zip"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\Soluciones\\BGC\\claude\\KNSOft\\tests\\diagram-investigation.spec.ts",
+                        "column": 16,
+                        "line": 140
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "b45d3c14e823718b7f80-bff7065a932f6f2bb530",
+              "file": "diagram-investigation.spec.ts",
+              "line": 135,
+              "column": 7
+            },
+            {
+              "title": "Consulta directa al backend para verificar datos",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 600000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "diagram-investigation",
+                  "projectName": "diagram-investigation",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3775,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "🔍 Iniciando investigación del diagrama para número 3113330727\n"
+                        },
+                        {
+                          "text": "🚀 Navegando a KRONOS...\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/eel.js\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET https://cdn.tailwindcss.com/\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/assets/index.DFjwuW6Z.js\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/assets/vendor.jUXUGz7r.js\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/assets/index.D_hJh1s1.css\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET https://cdn.tailwindcss.com/3.4.17\n"
+                        },
+                        {
+                          "text": "📝 Console [warning]: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation\n"
+                        },
+                        {
+                          "text": "📝 Console [log]: ✅ Eel detectado y disponible - Modo backend activo\n"
+                        },
+                        {
+                          "text": "📝 Console [log]: 🎯 Modo API seleccionado: EEL\n"
+                        },
+                        {
+                          "text": "📝 Console [error]: Failed to load resource: the server responded with a status of 404 (Not Found)\n"
+                        },
+                        {
+                          "text": "📝 Console [verbose]: [DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq)\n"
+                        },
+                        {
+                          "text": "🔍 Consultando backend directamente para verificar datos de 3113330727\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/eel.js\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET https://cdn.tailwindcss.com/\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/assets/index.DFjwuW6Z.js\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/assets/vendor.jUXUGz7r.js\n"
+                        },
+                        {
+                          "text": "🌐 Request: GET http://localhost:8000/assets/index.D_hJh1s1.css\n"
+                        },
+                        {
+                          "text": "📝 Console [warning]: cdn.tailwindcss.com should not be used in production. To use Tailwind CSS in production, install it as a PostCSS plugin or use the Tailwind CLI: https://tailwindcss.com/docs/installation\n"
+                        },
+                        {
+                          "text": "📝 Console [log]: ✅ Eel detectado y disponible - Modo backend activo\n"
+                        },
+                        {
+                          "text": "📝 Console [log]: 🎯 Modo API seleccionado: EEL\n"
+                        },
+                        {
+                          "text": "📝 Console [verbose]: [DOM] Input elements should have autocomplete attributes (suggested: \"current-password\"): (More info: https://goo.gl/9p2vKq)\n"
+                        },
+                        {
+                          "text": "📊 Datos del backend para 3113330727: {\n  \"error\": \"Error en llamada backend: TypeError: window.eel.get_correlation_data is not a function\"\n}\n"
+                        },
+                        {
+                          "text": "🔚 Finalizando investigación y guardando evidencia\n"
+                        },
+                        {
+                          "text": "💾 Reporte de investigación guardado en: Backend/diagram_investigation_evidence/investigation-report.json\n"
+                        },
+                        {
+                          "text": "📋 Resumen ejecutivo guardado\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-08-19T02:51:16.665Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\diagram_investigation_evidence\\diagram-investigation-Inve-3b688-ackend-para-verificar-datos-diagram-investigation\\test-finished-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\diagram_investigation_evidence\\diagram-investigation-Inve-3b688-ackend-para-verificar-datos-diagram-investigation\\video.webm"
+                        },
+                        {
+                          "name": "trace",
+                          "contentType": "application/zip",
+                          "path": "C:\\Soluciones\\BGC\\claude\\KNSOft\\Backend\\diagram_investigation_evidence\\diagram-investigation-Inve-3b688-ackend-para-verificar-datos-diagram-investigation\\trace.zip"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "b45d3c14e823718b7f80-e754d615f0bc2798fb93",
+              "file": "diagram-investigation.spec.ts",
+              "line": 299,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-08-19T02:50:00.178Z",
+    "duration": 81180.777,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

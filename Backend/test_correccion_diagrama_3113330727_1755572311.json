@@ -1,0 +1,31 @@
+{
+  "numero_objetivo": "3113330727",
+  "test_timestamp": "2025-08-18 21:58:31",
+  "mision_id": "1",
+  "periodo": "2021-05-01 00:00:00 - 2021-05-31 23:59:59",
+  "resultado_correccion": {
+    "nodos_antes": 255,
+    "nodos_despues": 1,
+    "aristas_generadas": 0,
+    "tiempo_procesamiento": 0.3589024543762207,
+    "objetivo_cumplido": true,
+    "mejora_porcentual": 99.6078431372549,
+    "algoritmo_usado": "INDIVIDUAL_DIRECT_INTERACTIONS_v1.0"
+  },
+  "detalles_nodos": [
+    {
+      "id": "3113330727",
+      "label": "3113330727",
+      "tipo": "objetivo",
+      "color": "#ff6b6b",
+      "size": 20,
+      "importancia": 100
+    }
+  ],
+  "detalles_aristas": [],
+  "validacion": {
+    "numero_objetivo_presente": false,
+    "solo_interacciones_directas": true,
+    "celdas_hunter_filtradas": true
+  }
+}

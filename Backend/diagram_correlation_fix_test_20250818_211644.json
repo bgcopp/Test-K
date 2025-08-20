@@ -1,0 +1,109 @@
+{
+  "fecha_prueba": "2025-08-18T21:16:44.830071",
+  "numero_objetivo": "3113330727",
+  "mision": "mission_MPFRBNsb",
+  "periodo": "2021-05-01 00:00:00 - 2021-05-31 23:59:59",
+  "resultado_correccion": {
+    "status": "EXITOSA",
+    "nodos_encontrados": 4,
+    "aristas_encontradas": 3,
+    "tiempo_procesamiento": 1.294245,
+    "success": true
+  },
+  "analisis_detallado": {
+    "nodos": [
+      {
+        "id": "3113330727",
+        "tipo": "objetivo",
+        "numero": "3113330727",
+        "operador": "CLARO",
+        "nivel_actividad": "BAJO",
+        "total_comunicaciones": 3,
+        "metadata": {
+          "es_numero_objetivo": true,
+          "primera_comunicacion": "2021-05-20 12:30:31",
+          "ultima_comunicacion": "2021-05-20 13:08:43"
+        }
+      },
+      {
+        "id": "3227863649",
+        "tipo": "contacto",
+        "numero": "3227863649",
+        "operador": "CLARO",
+        "nivel_actividad": "BAJO",
+        "total_comunicaciones": 1,
+        "metadata": {
+          "es_numero_objetivo": false,
+          "primera_comunicacion": "2021-05-20 13:08:43",
+          "ultima_comunicacion": "2021-05-20 13:08:43",
+          "llamadas_voz": 1,
+          "mensajes_sms": 0,
+          "sesiones_datos": 0,
+          "duracion_total_segundos": 29
+        }
+      },
+      {
+        "id": "3214665744",
+        "tipo": "contacto",
+        "numero": "3214665744",
+        "operador": "CLARO",
+        "nivel_actividad": "BAJO",
+        "total_comunicaciones": 1,
+        "metadata": {
+          "es_numero_objetivo": false,
+          "primera_comunicacion": "2021-05-20 12:55:13",
+          "ultima_comunicacion": "2021-05-20 12:55:13",
+          "llamadas_voz": 1,
+          "mensajes_sms": 0,
+          "sesiones_datos": 0,
+          "duracion_total_segundos": 6
+        }
+      },
+      {
+        "id": "3226506678",
+        "tipo": "contacto",
+        "numero": "3226506678",
+        "operador": "CLARO",
+        "nivel_actividad": "BAJO",
+        "total_comunicaciones": 1,
+        "metadata": {
+          "es_numero_objetivo": false,
+          "primera_comunicacion": "2021-05-20 12:30:31",
+          "ultima_comunicacion": "2021-05-20 12:30:31",
+          "llamadas_voz": 1,
+          "mensajes_sms": 0,
+          "sesiones_datos": 0,
+          "duracion_total_segundos": 11
+        }
+      }
+    ],
+    "estadisticas": {
+      "total_comunicaciones": 3,
+      "contactos_unicos": 3,
+      "celdas_hunter_involucradas": 3,
+      "duracion_total_segundos": 46,
+      "duracion_total_minutos": 0.77,
+      "primera_comunicacion": "2021-05-20 12:30:31",
+      "ultima_comunicacion": "2021-05-20 13:08:43",
+      "tipos_trafico": {
+        "VOZ": 3
+      },
+      "operadores": {
+        "CLARO": 3
+      },
+      "estados_llamada": {
+        "COMPLETADA": 3
+      },
+      "tecnologias": {
+        "LTE": 3
+      },
+      "promedio_duracion_segundos": 15.33
+    },
+    "metadata": {
+      "total_comunicaciones_originales": 3,
+      "comunicaciones_mostradas": 3,
+      "truncated": false,
+      "hunter_cells_used": 3
+    }
+  }
+}

@@ -1,0 +1,3 @@
+{
+  "error": "Error en llamada backend: TypeError: window.eel.get_correlation_data is not a function"
+}

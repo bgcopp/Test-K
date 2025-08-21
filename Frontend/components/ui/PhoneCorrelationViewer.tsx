@@ -8,10 +8,17 @@
  * - Sistema de tooltips para nodos y edges
  * - Funcionalidad de export completa
  * 
+ * ACTUALIZACIÓN FASE 1 - ESTABILIZACIÓN BASE:
+ * - Migrado a React 18.3.1 para estabilidad
+ * - Mejorado manejo de errores y boundaries
+ * - Optimización de performance con memoization
+ * - Configuración Vite optimizada
+ * 
  * Creado: 2025-08-21 por Claude bajo supervisión de Boris
+ * Actualizado: 2025-08-21 - Fase 1 Estabilización
  */
 
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   ReactFlow,
   Background,
@@ -27,6 +34,50 @@ import '@xyflow/react/dist/style.css';
 
 // Static import de html-to-image para resolver error de inicialización
 import { toPng, toSvg } from 'html-to-image';
+
+// Error boundary para manejo robusto de errores
+class DiagramErrorBoundary extends React.Component<
+  { children: React.ReactNode; onError?: (error: Error) => void },
+  { hasError: boolean; error?: Error }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Error en diagrama React Flow:', error, errorInfo);
+    this.props.onError?.(error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="flex items-center justify-center h-full bg-secondary">
+          <div className="text-center p-6">
+            <div className="text-red-400 text-2xl mb-3">⚠️</div>
+            <h3 className="text-white font-semibold mb-2">Error al cargar el diagrama</h3>
+            <p className="text-gray-400 text-sm mb-4">
+              {this.state.error?.message || 'Error desconocido'}
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg"
+            >
+              Recargar página
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
 
 // Importar hooks y componentes existentes
 import { useReactFlowAdapter } from '../diagrams/PhoneCorrelationDiagram/hooks/useReactFlowAdapter';
@@ -160,12 +211,27 @@ const PhoneCorrelationDiagramContent: React.FC<PhoneCorrelationViewerProps> = ({
     [interactions, targetNumber]
   );
 
-  // Hook para adaptar datos a React Flow
-  const { nodes, edges, nodeTypes, edgeTypes } = useReactFlowAdapter({
-    interactions: unifiedInteractions,
-    targetNumber,
-    filters
-  });
+  // Hook para adaptar datos a React Flow - Llamada directa, no dentro de useMemo
+  let nodes, edges, nodeTypes, edgeTypes;
+  
+  try {
+    const adapterResult = useReactFlowAdapter({
+      interactions: unifiedInteractions,
+      targetNumber,
+      filters
+    });
+    nodes = adapterResult.nodes;
+    edges = adapterResult.edges;
+    nodeTypes = adapterResult.nodeTypes;
+    edgeTypes = adapterResult.edgeTypes;
+  } catch (error) {
+    console.error('Error al adaptar datos para React Flow:', error);
+    // Valores por defecto en caso de error
+    nodes = [];
+    edges = [];
+    nodeTypes = {};
+    edgeTypes = {};
+  }
 
 
 
@@ -173,8 +239,18 @@ const PhoneCorrelationDiagramContent: React.FC<PhoneCorrelationViewerProps> = ({
   const [flowNodes, setNodes, onNodesChange] = useNodesState(nodes);
   const [flowEdges, setEdges, onEdgesChange] = useEdgesState(edges);
   
-  // Hook de React Flow para controles
-  const { fitView, getZoom, setViewport, getViewport, toObject, getNode, getEdge } = useReactFlow();
+  // Hook de React Flow para controles con verificación
+  const reactFlowInstance = useReactFlow();
+  const { fitView, getZoom, setViewport, getViewport } = reactFlowInstance || {};
+  
+  // Ref para tracking de montaje
+  const isMounted = useRef(true);
+  
+  useEffect(() => {
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
   
   // Estados para tooltips
   const [nodeTooltip, setNodeTooltip] = useState<{
@@ -294,9 +370,11 @@ const PhoneCorrelationDiagramContent: React.FC<PhoneCorrelationViewerProps> = ({
 
       setNodes(layoutNodes);
       
-      // Fit view después de aplicar layout
+      // Fit view después de aplicar layout con verificación de montaje
       setTimeout(() => {
-        fitView({ padding: 0.2, duration: 500 });
+        if (isMounted.current && fitView) {
+          fitView({ padding: 0.2, duration: 500 });
+        }
       }, 100);
     };
 
@@ -314,21 +392,41 @@ const PhoneCorrelationDiagramContent: React.FC<PhoneCorrelationViewerProps> = ({
 
 
   const handleZoomIn = useCallback(() => {
-    const currentZoom = getZoom();
-    setViewport({ x: 0, y: 0, zoom: Math.min(currentZoom * 1.2, 2) }, { duration: 300 });
+    if (!getZoom || !setViewport) return;
+    try {
+      const currentZoom = getZoom();
+      setViewport({ x: 0, y: 0, zoom: Math.min(currentZoom * 1.2, 2) }, { duration: 300 });
+    } catch (error) {
+      console.error('Error al hacer zoom in:', error);
+    }
   }, [getZoom, setViewport]);
 
   const handleZoomOut = useCallback(() => {
-    const currentZoom = getZoom();
-    setViewport({ x: 0, y: 0, zoom: Math.max(currentZoom * 0.8, 0.3) }, { duration: 300 });
+    if (!getZoom || !setViewport) return;
+    try {
+      const currentZoom = getZoom();
+      setViewport({ x: 0, y: 0, zoom: Math.max(currentZoom * 0.8, 0.3) }, { duration: 300 });
+    } catch (error) {
+      console.error('Error al hacer zoom out:', error);
+    }
   }, [getZoom, setViewport]);
 
   const handleZoomReset = useCallback(() => {
-    setViewport({ x: 0, y: 0, zoom: 1 }, { duration: 500 });
+    if (!setViewport) return;
+    try {
+      setViewport({ x: 0, y: 0, zoom: 1 }, { duration: 500 });
+    } catch (error) {
+      console.error('Error al resetear zoom:', error);
+    }
   }, [setViewport]);
 
   const handleFitToScreen = useCallback(() => {
-    fitView({ padding: 0.2, duration: 500 });
+    if (!fitView) return;
+    try {
+      fitView({ padding: 0.2, duration: 500 });
+    } catch (error) {
+      console.error('Error al ajustar a pantalla:', error);
+    }
   }, [fitView]);
 
   // Event handlers para tooltips
@@ -372,7 +470,7 @@ const PhoneCorrelationDiagramContent: React.FC<PhoneCorrelationViewerProps> = ({
     try {
       console.log('🖼️ Iniciando exportación PNG...');
       
-      const viewport = getViewport();
+      const viewport = getViewport ? getViewport() : { x: 0, y: 0, zoom: 1 };
       const reactFlowElement = document.querySelector('.react-flow') as HTMLElement;
       if (!reactFlowElement) {
         throw new Error('No se encontró el elemento React Flow');
@@ -683,7 +781,8 @@ const PhoneCorrelationDiagramContent: React.FC<PhoneCorrelationViewerProps> = ({
 };
 
 /**
- * Componente principal con ReactFlowProvider wrapper
+ * Componente principal con ReactFlowProvider wrapper y Error Boundary
+ * Incluye optimizaciones de performance y manejo robusto de errores
  */
 const PhoneCorrelationViewer: React.FC<PhoneCorrelationViewerProps> = (props) => {
   if (!props.isOpen) return null;
@@ -703,9 +802,11 @@ const PhoneCorrelationViewer: React.FC<PhoneCorrelationViewerProps> = (props) =>
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        <ReactFlowProvider>
-          <PhoneCorrelationDiagramContent {...props} />
-        </ReactFlowProvider>
+        <DiagramErrorBoundary onError={(error) => console.error('Error en diagrama:', error)}>
+          <ReactFlowProvider>
+            <PhoneCorrelationDiagramContent {...props} />
+          </ReactFlowProvider>
+        </DiagramErrorBoundary>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ICONS } from '../../constants';
 import { getPointColor } from '../../utils/colorSystem';
+import PhoneCorrelationViewer from './PhoneCorrelationViewer';
 
 // Interfaces para TypeScript
 interface CallInteraction {
@@ -56,6 +57,9 @@ const TableCorrelationModal: React.FC<TableCorrelationModalProps> = ({
     // Estados para paginación
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 7; // OPTIMIZACIÓN BORIS: Modal más compacto, paginación a partir de 8 registros
+    
+    // Estado para el diagrama de correlación
+    const [showDiagram, setShowDiagram] = useState(false);
 
     // Calcular paginación
     const totalPages = Math.ceil(interactions.length / itemsPerPage);
@@ -501,6 +505,20 @@ const TableCorrelationModal: React.FC<TableCorrelationModalProps> = ({
                         </button>
                         
                         <button
+                            onClick={() => setShowDiagram(true)}
+                            disabled={interactions.length === 0 || loading}
+                            className="group relative flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <span className="text-sm">🕸️</span>
+                            <span className="text-sm font-medium">Diagrama</span>
+                            
+                            {/* Tooltip */}
+                            <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                                Visualizar Diagrama de Correlación
+                            </div>
+                        </button>
+                        
+                        <button
                             onClick={onClose}
                             className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-white hover:bg-secondary-light rounded-lg transition-colors"
                         >
@@ -736,6 +754,14 @@ const TableCorrelationModal: React.FC<TableCorrelationModalProps> = ({
                     )}
                 </div>
             </div>
+
+            {/* Modal del Diagrama de Correlación */}
+            <PhoneCorrelationViewer
+                isOpen={showDiagram}
+                onClose={() => setShowDiagram(false)}
+                interactions={interactions}
+                targetNumber={targetNumber}
+            />
         </div>
     );
 };

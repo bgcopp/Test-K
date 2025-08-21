@@ -5,7 +5,9 @@
 Frontend/dist/
 Frontend/build/
 
+test-results/*
 archivos/*
+nul
 
 # Node.js
 node_modules
@@ -61,6 +63,7 @@ Backend/.venv
 
 # Python IDE
 Backend/.vscode/
+Backend/NUL
 Backend/.idea/
 Backend/*.swp
 Backend/*.swo
